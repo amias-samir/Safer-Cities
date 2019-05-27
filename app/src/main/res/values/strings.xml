@@ -3,7 +3,7 @@
     <string name="app_name">Safer Cities</string>
     <string name="search_hint">Search Places</string>
 
-    <string name="file_provider_authority" translatable="false">np.com.naxa.iset.fileprovider</string>
+    <string name="file_provider_authority" translatable="false">np.com.naxa.safercities.fileprovider</string>
 
     <string name="speech_prompt">Say Something</string>
     <string name="speech_not_supported">speech to text doesn\'t seems supported</string>
