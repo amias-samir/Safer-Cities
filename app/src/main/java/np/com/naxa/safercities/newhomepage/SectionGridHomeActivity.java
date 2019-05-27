@@ -50,6 +50,7 @@ import io.reactivex.schedulers.Schedulers;
 import np.com.naxa.safercities.R;
 import np.com.naxa.safercities.activity.MyCircleProfileActivity;
 import np.com.naxa.safercities.activity.NotifyOthersActivity;
+import np.com.naxa.safercities.emergencyContacts.EmergencyContactsActivity;
 import np.com.naxa.safercities.report.ReportActivity;
 import np.com.naxa.safercities.bloodrequest.BloodRequestActivity;
 import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
@@ -264,12 +265,12 @@ public class SectionGridHomeActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_disaster_info:
-                recyclerView.smoothScrollToPosition(1);
-                recyclerView.smoothScrollToPosition(1);
+                recyclerView.smoothScrollToPosition(0);
+                recyclerView.smoothScrollToPosition(0);
                 appbar.setExpanded(false);
                 break;
             case R.id.btn_react_quickly:
-                recyclerView.smoothScrollToPosition(0);
+                recyclerView.smoothScrollToPosition(1);
                 appbar.setExpanded(true);
 
                 break;
@@ -278,7 +279,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.btnAskForBlood:
-                startActivity(new Intent(SectionGridHomeActivity.this, BloodRequestActivity.class));
+                startActivity(new Intent(SectionGridHomeActivity.this, EmergencyContactsActivity.class));
                 break;
 
             case R.id.btnNotifyOthers:
