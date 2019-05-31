@@ -266,12 +266,11 @@ public class SectionGridHomeActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btn_disaster_info:
                 recyclerView.smoothScrollToPosition(0);
-                recyclerView.smoothScrollToPosition(0);
-                appbar.setExpanded(false);
+                appbar.setExpanded(true);
                 break;
             case R.id.btn_react_quickly:
                 recyclerView.smoothScrollToPosition(1);
-                appbar.setExpanded(true);
+                appbar.setExpanded(false);
 
                 break;
             case R.id.btn_info:
@@ -287,12 +286,12 @@ public class SectionGridHomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.btn_disaster_info_top:
-                recyclerView.smoothScrollToPosition(1);
-                appbar.setExpanded(false);
+                recyclerView.smoothScrollToPosition(0);
+                appbar.setExpanded(true);
                 break;
 
             case R.id.btn_react_quickly_top:
-                recyclerView.smoothScrollToPosition(0);
+                recyclerView.smoothScrollToPosition(1);
                 appbar.setExpanded(true);
                 break;
 

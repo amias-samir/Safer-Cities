@@ -7,7 +7,8 @@
             android:shape="oval"
             android:useLevel="false">
 
-            <solid android:color="#c24d4d" />
+            <!--<solid android:color="#c24d4d" />-->
+            <solid android:color="#148310" />
 
             <padding
                 android:bottom="4dp"
