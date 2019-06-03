@@ -1,16 +1,21 @@
 package np.com.naxa.safercities.disasterinfo;
 
 import android.app.Dialog;
+import android.app.SearchManager;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.arlib.floatingsearchview.FloatingSearchView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,13 +26,13 @@ import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.database.viewmodel.DisasterInfoDetailsViewModel;
 import np.com.naxa.safercities.disasterinfo.model.DisasterInfoDetailsEntity;
 import np.com.naxa.safercities.disasterinfo.model.DisasterInfoListResponse;
 import np.com.naxa.safercities.network.UrlClass;
 import np.com.naxa.safercities.network.retrofit.NetworkApiClient;
 import np.com.naxa.safercities.network.retrofit.NetworkApiInterface;
 import np.com.naxa.safercities.utils.DialogFactory;
-import np.com.naxa.safercities.database.viewmodel.DisasterInfoDetailsViewModel;
 
 public class HazardInfoActivity extends AppCompatActivity {
 
@@ -41,6 +46,10 @@ public class HazardInfoActivity extends AppCompatActivity {
 
     NetworkApiInterface apiInterface;
     DisasterInfoDetailsViewModel disasterInfoDetailsViewModel;
+    @BindView(R.id.search_hazard)
+    SearchView searchHazard;
+
+    HazardListAdapter hazardListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +75,7 @@ public class HazardInfoActivity extends AppCompatActivity {
 
 
     private void setupListRecycler() {
-        HazardListAdapter hazardListAdapter = new HazardListAdapter(R.layout.hazard_list_item_row_layout, null);
+        hazardListAdapter = new HazardListAdapter(R.layout.hazard_list_item_row_layout, null);
         hazardListrecycler.setLayoutManager(new LinearLayoutManager(this));
         hazardListrecycler.setAdapter(hazardListAdapter);
 
@@ -124,48 +133,6 @@ public class HazardInfoActivity extends AppCompatActivity {
 
     private void loadDataToList() {
 
-        ArrayList<HazardListModel> hazardListModelArrayList = new ArrayList<HazardListModel>();
-//
-//        hazardListModelArrayList.add(new HazardListModel("Earthquake"));
-//        hazardListModelArrayList.add(new HazardListModel("Landslide"));
-//        hazardListModelArrayList.add(new HazardListModel("Flood"));
-//        hazardListModelArrayList.add(new HazardListModel("Wild Fire"));
-//        hazardListModelArrayList.add(new HazardListModel("Glacial Lake Outburst Flood (GLOFs)"));
-//        hazardListModelArrayList.add(new HazardListModel("Drought"));
-//        hazardListModelArrayList.add(new HazardListModel("Animal Attack"));
-//        hazardListModelArrayList.add(new HazardListModel("Avalanche"));
-//        hazardListModelArrayList.add(new HazardListModel("Epidemics"));
-//        hazardListModelArrayList.add(new HazardListModel("Road Accident"));
-//        hazardListModelArrayList.add(new HazardListModel("Electricity Outrage"));
-//        hazardListModelArrayList.add(new HazardListModel("Heavy Rainfall"));
-//        hazardListModelArrayList.add(new HazardListModel("Lightening"));
-//        hazardListModelArrayList.add(new HazardListModel("Cold Wave"));
-//        hazardListModelArrayList.add(new HazardListModel("Heat Waves"));
-//        hazardListModelArrayList.add(new HazardListModel("Flash Flood"));
-//        hazardListModelArrayList.add(new HazardListModel("Thunder Storm"));
-//        hazardListModelArrayList.add(new HazardListModel("Wind Storm"));
-//        hazardListModelArrayList.add(new HazardListModel("Hail Stone"));
-//        hazardListModelArrayList.add(new HazardListModel("Extreme Temperature"));
-//        hazardListModelArrayList.add(new HazardListModel("Snake Bite"));
-//        hazardListModelArrayList.add(new HazardListModel("Leak"));
-//        hazardListModelArrayList.add(new HazardListModel("Sedimentation"));
-//        hazardListModelArrayList.add(new HazardListModel("Biological"));
-//        hazardListModelArrayList.add(new HazardListModel("Pollution"));
-//        hazardListModelArrayList.add(new HazardListModel("Famine"));
-//        hazardListModelArrayList.add(new HazardListModel("Frost"));
-//        hazardListModelArrayList.add(new HazardListModel("Panic"));
-//        hazardListModelArrayList.add(new HazardListModel("Thunderstorms"));
-//        hazardListModelArrayList.add(new HazardListModel("Strong Wind"));
-//        hazardListModelArrayList.add(new HazardListModel("Snow Storm"));
-//        hazardListModelArrayList.add(new HazardListModel("Plague"));
-//        hazardListModelArrayList.add(new HazardListModel("Structure Collapse"));
-//        hazardListModelArrayList.add(new HazardListModel("Bridge Collapse"));
-//        hazardListModelArrayList.add(new HazardListModel("Air Crash"));
-//        hazardListModelArrayList.add(new HazardListModel("Boat Capsize"));
-//        hazardListModelArrayList.add(new HazardListModel("High Altitude"));
-
-//        ((HazardListAdapter) hazardListrecycler.getAdapter()).replaceData(hazardListModelArrayList);
-
         disasterInfoDetailsViewModel.getAllDistinctCategories()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -174,6 +141,8 @@ public class HazardInfoActivity extends AppCompatActivity {
                     public void onNext(List<String> strings) {
 //                        Log.d(TAG, "onNext: "+strings.size());
                         ((HazardListAdapter) hazardListrecycler.getAdapter()).replaceData(strings);
+
+                        setupSearchView(strings);
 
                     }
 
@@ -187,7 +156,72 @@ public class HazardInfoActivity extends AppCompatActivity {
 
                     }
                 });
+    }
+
+    private void setupSearchView(List<String> stringList) {
+        // Associate searchable configuration with the SearchView
+        hazardListAdapter = new HazardListAdapter(R.layout.hazard_list_item_row_layout, stringList);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchHazard.setSearchableInfo(searchManager
+                .getSearchableInfo(getComponentName()));
+        searchHazard.setMaxWidth(Integer.MAX_VALUE);
+
+        searchHazard.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(final String query) {
+
+                if (TextUtils.isEmpty(query)) {
+                    setupFilterListView(hazardListAdapter);
+                } else {
+                    // filter recycler view when query submitted
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after 0.55s = 500ms
+                            hazardListAdapter.getFilter().filter(query);
+
+                            if (hazardListAdapter != null) {
+                                setupFilterListView(hazardListAdapter);
+                            }
+                        }
+                    }, 500);
 
 
+                }
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(final String query) {
+                // filter recycler view when text is changed
+//                mAdapterFiltered.getFilter().filter(query);
+                if (TextUtils.isEmpty(query)) {
+                    setupFilterListView(hazardListAdapter);
+                } else {
+                    final Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Do something after 0.55s = 500ms
+                            hazardListAdapter.getFilter().filter(query);
+                            if (hazardListAdapter != null) {
+                                setupFilterListView(hazardListAdapter);
+                            }
+                        }
+                    }, 500);
+                }
+                return false;
+            }
+        });
+
+    }
+
+    private void setupFilterListView ( HazardListAdapter hazardListAdapter){
+        hazardListrecycler.setLayoutManager(new LinearLayoutManager(this));
+        hazardListrecycler.setAdapter(hazardListAdapter);
+        hazardListAdapter.notifyDataSetChanged();
     }
 }
