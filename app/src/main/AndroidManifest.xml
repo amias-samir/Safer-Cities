@@ -237,14 +237,10 @@
         <activity
             android:name=".disasterinfo.HazardInfoDetailsActivity"
             android:exported="true">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="np.com.naxa.safercities.disasterinfo.HazardInfoActivity" />
+
         </activity>
         <activity android:name=".disasterinfo.HazardThingsToDoActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="np.com.naxa.safercities.disasterinfo.HazardInfoDetailsActivity" />
+
         </activity>
         <activity
             android:name=".profile.municipalityprofile.MunicipalityProfileActivity"
