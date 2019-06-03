@@ -232,7 +232,15 @@ public class PublicationsSubCatListActivity extends AppCompatActivity {
                     @Override
                     public void onNext(List<String> strings) {
 
-                        ((PublicationSubcatListAdapter) publicationSubcatListrecycler.getAdapter()).replaceData(strings);
+                        List<String> stringList = new ArrayList<>();
+                        for (String string : strings){
+                            if(string != null){
+                                stringList.add(string);
+                            }
+                        }
+                        if(stringList != null) {
+                            ((PublicationSubcatListAdapter) publicationSubcatListrecycler.getAdapter()).replaceData(stringList);
+                        }
 
                         Log.d(TAG, "getDistinctCategoryCategoryList: " + strings.size());
 
