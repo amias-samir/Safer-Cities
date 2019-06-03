@@ -42,6 +42,7 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
     public Flowable<List<String>> getDistinctTypeist() {
         return mAllDistinctType;
     }
+
     public Flowable<List<String>> getDistinctNameList() {
         return mAllDistinctName;
     }
@@ -76,6 +77,10 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
 
         if(!name.equals("All") && !type.equals("All")){
             mAllNameTypeWiseList = mRepository.getNameTypeWiseList(name, type);
+        }
+
+        if(name.equals("All") && !type.equals("All")){
+            mAllNameTypeWiseList = mRepository.getTypeWiseList( type );
         }
 
         return mAllNameTypeWiseList;

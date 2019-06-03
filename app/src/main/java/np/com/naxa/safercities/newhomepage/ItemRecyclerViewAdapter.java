@@ -143,12 +143,14 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
             case "Audio":
                 Intent intent2 = new Intent(context, PublicationsListActivity.class);
                 intent2.putExtra("title", "Audio");
-                context.startActivity(intent2);                break;
+                context.startActivity(intent2);
+                break;
 
             case "Video":
                 Intent intent3 = new Intent(context, PublicationsListActivity.class);
                 intent3.putExtra("title", "Video");
-                context.startActivity(intent3);                break;
+                context.startActivity(intent3);
+                break;
 
             case "Documents":
                 Intent intent4 = new Intent(context, PublicationsListActivity.class);

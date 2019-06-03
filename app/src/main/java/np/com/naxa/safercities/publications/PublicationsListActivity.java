@@ -22,6 +22,7 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +66,9 @@ public class PublicationsListActivity extends AppCompatActivity {
     List<String> categoryName;
     List<String> subCategoryName;
 
+
+    String fileType = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +87,7 @@ public class PublicationsListActivity extends AppCompatActivity {
             fetchPublicationsDetails();
         } else {
 //            getDataFromDatabase();
-            getAllCatSubCatFIlteredDataFromDatabase("All", "All");
+            getAllCatSubCatFIlteredDataFromDatabase("All", fileType);
             getDistinctNameList();
         }
 
@@ -93,6 +97,7 @@ public class PublicationsListActivity extends AppCompatActivity {
         if(intent != null){
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(intent.getStringExtra("title"));
+            fileType = getFileType(intent.getStringExtra("title"));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }else {
@@ -199,7 +204,7 @@ public class PublicationsListActivity extends AppCompatActivity {
                     public void onComplete() {
 
 //                        getDataFromDatabase();
-                        getAllCatSubCatFIlteredDataFromDatabase("All", "All");
+                        getAllCatSubCatFIlteredDataFromDatabase("All", fileType);
                         getDistinctNameList();
                     }
                 });
@@ -260,7 +265,7 @@ public class PublicationsListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog.dismiss();
 
-                getAllCatSubCatFIlteredDataFromDatabase(spnCategory.getSelectedItem().toString(), spnSubCategory.getSelectedItem().toString());
+                getAllCatSubCatFIlteredDataFromDatabase(spnCategory.getSelectedItem().toString(), fileType);
             }
         });
 
@@ -333,8 +338,6 @@ public class PublicationsListActivity extends AppCompatActivity {
 
         Log.d(TAG, "getAllCatSubCatFIlteredDataFromDatabase: "+category +" , "+subCategory);
 
-
-
         publicationsListDetailsViewModel.getNameTypeWiseList(category, subCategory)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -391,6 +394,31 @@ public class PublicationsListActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+
+
+    private String getFileType (@NotNull String fileTitleType){
+        String fileType = "";
+        switch (fileTitleType){
+            case "Audio":
+                fileType = "audio";
+                break;
+
+            case "Video":
+                fileType = "video";
+                break;
+
+            case "Brochure":
+                fileType = "files";
+                break;
+
+            case "Documents":
+                fileType = "files";
+                break;
+        }
+
+        return fileType;
     }
 
 
