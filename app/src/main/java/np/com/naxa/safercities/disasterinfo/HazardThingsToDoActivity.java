@@ -10,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ScrollView;
@@ -107,13 +109,15 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
 
     private void setupImageSliderViewPager() {
 
-         String[] imageUrls = new String[]{
-                "https://cdn.pixabay.com/photo/2016/11/11/23/34/cat-1817970_960_720.jpg",
-                "https://cdn.pixabay.com/photo/2017/12/21/12/26/glowworm-3031704_960_720.jpg",
-                "https://cdn.pixabay.com/photo/2017/12/24/09/09/road-3036620_960_720.jpg",
-                "https://cdn.pixabay.com/photo/2017/11/07/00/07/fantasy-2925250_960_720.jpg",
-                "https://cdn.pixabay.com/photo/2017/10/10/15/28/butterfly-2837589_960_720.jpg"
-        };
+        String[] imageUrls = imageList.toArray(new String[0]);
+
+//         String[] imageUrls = new String[]{
+//                "https://cdn.pixabay.com/photo/2016/11/11/23/34/cat-1817970_960_720.jpg",
+//                "https://cdn.pixabay.com/photo/2017/12/21/12/26/glowworm-3031704_960_720.jpg",
+//                "https://cdn.pixabay.com/photo/2017/12/24/09/09/road-3036620_960_720.jpg",
+//                "https://cdn.pixabay.com/photo/2017/11/07/00/07/fantasy-2925250_960_720.jpg",
+//                "https://cdn.pixabay.com/photo/2017/10/10/15/28/butterfly-2837589_960_720.jpg"
+//        };
 
 //        String[] imageUrls = imageList.toArray(new String[imageList.size()]);
 
@@ -166,6 +170,9 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
 
     private void setThingsToDo(String when) {
 
+        tvThingsToDoDetails.setText("No Data Found.");
+
+
         if ( when != null) {
             switch (when) {
                 case "before":
@@ -189,33 +196,46 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
                 .subscribe(new DisposableSubscriber<DisasterInfoDetailsEntity>() {
                     @Override
                     public void onNext(DisasterInfoDetailsEntity disasterInfoDetailsEntity) {
+                        imageList = new ArrayList<String>();
+                        Log.d(TAG, "onNext: Desc" + disasterInfoDetailsEntity.getDesc());
+                        if(TextUtils.isEmpty(disasterInfoDetailsEntity.getDesc())){
+                            tvThingsToDoDetails.setText("No Data Found.");
+                        }else {
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc(), 0, new ImageGetter(), null));
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc(), 0, new ImageGetter(), null));
-                        } else {
-                            tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc()));
+
+                                if (imageList != null && imageList.size() > 0) {
+                                    Log.d(TAG, "onComplete: Image list " + imageList.size());
+                                    setupImageSliderViewPager();
+                                } else {
+                                    viewPager.setVisibility(View.GONE);
+                                }
+
+                                imageList = null;
+
+
+                            } else {
+                                tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc()));
+                            }
                         }
-
-                        setupImageSliderViewPager();
 
                     }
 
                     @Override
                     public void onError(Throwable t) {
-
+                        Log.d(TAG, "onError: Desc "+ t.getMessage());
                     }
 
                     @Override
                     public void onComplete() {
 
-//                        if (imageList != null) {
-//                        }
                     }
                 });
     }
 
 
-    List<String> imageList = new ArrayList<String>();
+    List<String> imageList ;
 
     private class ImageGetter implements Html.ImageGetter {
 
@@ -232,41 +252,11 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
         }
     }
 
-//    private void setupRecyclerView() {
-//
-//        if (hazardListModel.getTitle().equals("Earthquake") || hazardListModel.getTitle().equals("Landslide")) {
-//            recyclerView.setVisibility(View.GONE);
-//            tvThingsToDoDetails.setVisibility(View.VISIBLE);
-//            scrollView.setVisibility(View.VISIBLE);
-//
-//
-//        } else {
-//            recyclerView.setVisibility(View.VISIBLE);
-//            tvThingsToDoDetails.setVisibility(View.GONE);
-//            scrollView.setVisibility(View.GONE);
-//        }
-//
-//        // create adapter which extend BaseSectionMultiItemQuickAdapter provide your headerResId
-//        Log.d(TAG, "setupRecyclerView: " + mData.size());
-//        SectionMultipleItemAdapter sectionAdapter = new SectionMultipleItemAdapter(R.layout.def_section_head, mData);
-//        sectionAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-//            @Override
-//            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-//                SectionMultipleItem item = (SectionMultipleItem) adapter.getData().get(position);
-//                switch (view.getId()) {
-//                    case R.id.card_view:
-//                        if (item.getMultiItemSectionModel() != null) {
-//                            Toast.makeText(HazardThingsToDoActivity.this, item.getMultiItemSectionModel().getData_key(), Toast.LENGTH_LONG).show();
-//                        }
-//                        break;
-//                    default:
-//                        Toast.makeText(HazardThingsToDoActivity.this, "OnItemChildClickListener " + position, Toast.LENGTH_LONG).show();
-//                        break;
-//
-//                }
-//            }
-//        });
-//        recyclerView.setAdapter(sectionAdapter);
-//        Log.d(TAG, "setupRecyclerView: setAdapter ");
-//    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(menuItem);
+    }
 }
