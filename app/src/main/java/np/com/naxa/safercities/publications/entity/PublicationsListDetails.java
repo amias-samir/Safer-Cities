@@ -54,12 +54,36 @@ public class PublicationsListDetails implements Parcelable {
     @Expose
     private String videolink;
 
-    @ColumnInfo(name = "name")
-    @SerializedName("name")
+    @ColumnInfo(name = "hazard_name")
+    @SerializedName("hazard_name")
     @Expose
-    private String name;
+    private String hazard_name;
 
-    public PublicationsListDetails(String type, String id, String title, String summary, String photo, String file, String videolink, String name) {
+
+    @ColumnInfo(name = "filecat")
+    @SerializedName("filecat")
+    @Expose
+    private String filecat;
+
+
+    @ColumnInfo(name = "subcat")
+    @SerializedName("subcat")
+    @Expose
+    private String subcat;
+
+
+    @ColumnInfo(name = "filecateroryname")
+    @SerializedName("filecateroryname")
+    @Expose
+    private String filecateroryname;
+
+
+    @ColumnInfo(name = "subfilecategory")
+    @SerializedName("subfilecategory")
+    @Expose
+    private String subfilecategory;
+
+    public PublicationsListDetails(String type, String id, String title, String summary, String photo, String file, String videolink, String hazard_name, String filecat, String subcat, String filecateroryname, String subfilecategory) {
         this.type = type;
         this.id = id;
         this.title = title;
@@ -67,8 +91,23 @@ public class PublicationsListDetails implements Parcelable {
         this.photo = photo;
         this.file = file;
         this.videolink = videolink;
-        this.name = name;
+        this.hazard_name = hazard_name;
+        this.filecat = filecat;
+        this.subcat = subcat;
+        this.filecateroryname = filecateroryname;
+        this.subfilecategory = subfilecategory;
     }
+
+//    public PublicationsListDetails(String type, String id, String title, String summary, String photo, String file, String videolink, String hazard_name) {
+//        this.type = type;
+//        this.id = id;
+//        this.title = title;
+//        this.summary = summary;
+//        this.photo = photo;
+//        this.file = file;
+//        this.videolink = videolink;
+//        this.name = name;
+//    }
 
     public String getType() {
         return type;
@@ -126,14 +165,6 @@ public class PublicationsListDetails implements Parcelable {
         this.videolink = videolink;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getPid() {
         return pid;
     }
@@ -157,7 +188,11 @@ public class PublicationsListDetails implements Parcelable {
         dest.writeString(this.photo);
         dest.writeString(this.file);
         dest.writeString(this.videolink);
-        dest.writeString(this.name);
+        dest.writeString(this.hazard_name);
+        dest.writeString(this.filecat);
+        dest.writeString(this.subcat);
+        dest.writeString(this.filecateroryname);
+        dest.writeString(this.subfilecategory);
     }
 
     protected PublicationsListDetails(Parcel in) {
@@ -169,7 +204,11 @@ public class PublicationsListDetails implements Parcelable {
         this.photo = in.readString();
         this.file = in.readString();
         this.videolink = in.readString();
-        this.name = in.readString();
+        this.hazard_name = in.readString();
+        this.filecat = in.readString();
+        this.subcat = in.readString();
+        this.filecateroryname = in.readString();
+        this.subfilecategory = in.readString();
     }
 
     public static final Parcelable.Creator<PublicationsListDetails> CREATOR = new Parcelable.Creator<PublicationsListDetails>() {
@@ -183,4 +222,44 @@ public class PublicationsListDetails implements Parcelable {
             return new PublicationsListDetails[size];
         }
     };
+
+    public String getHazard_name() {
+        return hazard_name;
+    }
+
+    public void setHazard_name(String hazard_name) {
+        this.hazard_name = hazard_name;
+    }
+
+    public String getFilecat() {
+        return filecat;
+    }
+
+    public void setFilecat(String filecat) {
+        this.filecat = filecat;
+    }
+
+    public String getSubcat() {
+        return subcat;
+    }
+
+    public void setSubcat(String subcat) {
+        this.subcat = subcat;
+    }
+
+    public String getFilecateroryname() {
+        return filecateroryname;
+    }
+
+    public void setFilecateroryname(String filecateroryname) {
+        this.filecateroryname = filecateroryname;
+    }
+
+    public String getSubfilecategory() {
+        return subfilecategory;
+    }
+
+    public void setSubfilecategory(String subfilecategory) {
+        this.subfilecategory = subfilecategory;
+    }
 }

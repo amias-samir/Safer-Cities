@@ -90,7 +90,7 @@ public class PublicationsListDetailsRepository {
                         @Override
                         public void onNext(PublicationsListDetails PublicationsListDetails1) {
                             id[0] =   mDao.insert(PublicationsListDetails1);
-                            Log.d("MessageHelperRepository", "insert: "+ PublicationsListDetails1.getName());
+                            Log.d("MessageHelperRepository", "insert: "+ PublicationsListDetails1.getHazard_name());
                         }
 
                         @Override

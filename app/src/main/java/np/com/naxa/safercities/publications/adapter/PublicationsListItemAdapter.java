@@ -30,7 +30,7 @@ public class PublicationsListItemAdapter extends BaseQuickAdapter<PublicationsLi
         ImageView imageView = helper.getView(R.id.img_publication_thumbnail);
 
         helper.setText(R.id.publication_title,item.getTitle());
-        helper.setText(R.id.publication_name,item.getName());
+        helper.setText(R.id.publication_name,item.getHazard_name());
         helper.setText(R.id.publication_type,item.getType());
 
         LoadImageUtils.loadImageToViewFromSrc(imageView, item.getPhoto());

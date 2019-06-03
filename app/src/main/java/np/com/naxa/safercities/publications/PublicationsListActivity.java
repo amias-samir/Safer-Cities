@@ -186,7 +186,7 @@ public class PublicationsListActivity extends AppCompatActivity {
                     @Override
                     public void onNext(PublicationsListDetails publicationsListDetails) {
 
-                        Log.d(TAG, "onNext: " + publicationsListDetails.getName());
+                        Log.d(TAG, "onNext: " + publicationsListDetails.getHazard_name());
                         publicationsListDetailsViewModel.insert(publicationsListDetails);
                     }
 
