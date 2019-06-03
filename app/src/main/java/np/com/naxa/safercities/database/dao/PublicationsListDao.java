@@ -24,11 +24,17 @@ public interface PublicationsListDao {
     @Query("SELECT * from PublicationsListDetails WHERE type LIKE :type")
     Flowable<List<PublicationsListDetails>> getTypeWiseList(String type);
 
+    @Query("SELECT * from PublicationsListDetails WHERE subfilecategory LIKE :type AND filecateroryname LIKE :subCatName")
+    Flowable<List<PublicationsListDetails>> getTypeSubCatWiseList(String type, String subCatName);
+
     @Query("SELECT * from PublicationsListDetails WHERE hazard_name LIKE :name")
     Flowable<List<PublicationsListDetails>> getNameWiseList(String name);
 
     @Query("SELECT * from PublicationsListDetails WHERE hazard_name LIKE :name AND type LIKE :type")
     Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type);
+
+    @Query("SELECT * from PublicationsListDetails WHERE hazard_name LIKE :name AND subfilecategory LIKE :type AND filecateroryname LIKE :categoryName")
+    Flowable<List<PublicationsListDetails>> getNameTypeCatWiseList(String name, String type, String categoryName);
 
     @Query("SELECT DISTINCT hazard_name from PublicationsListDetails")
     Flowable<List<String>> getDistinctNameList();

@@ -16,10 +16,11 @@ import np.com.naxa.safercities.publications.PublicationsListActivity;
 
 public class PublicationSubcatListAdapter  extends BaseQuickAdapter<String, BaseViewHolder>{
 
+String fileType ;
 
-
-    public PublicationSubcatListAdapter(int layoutResId, @Nullable List<String> data) {
+    public PublicationSubcatListAdapter(int layoutResId, @Nullable List<String> data, String fileType) {
         super(layoutResId, data);
+        this.fileType = fileType;
     }
 
 
@@ -40,6 +41,7 @@ public class PublicationSubcatListAdapter  extends BaseQuickAdapter<String, Base
             public void onClick(View v) {
                 Intent intent = new Intent(linearLayout.getContext(), PublicationsListActivity.class);
                 intent.putExtra("title", item);
+                intent.putExtra("type", fileType);
                 linearLayout.getContext().startActivity(intent);
             }
         });

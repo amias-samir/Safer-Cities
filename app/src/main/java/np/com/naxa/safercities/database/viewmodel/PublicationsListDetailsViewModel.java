@@ -71,9 +71,9 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
         return mAllTypeWiseList;
     }
 
-    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type) {
+    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type, String categoryName) {
 
-        if(name.equals("All") && type.equals("All")){
+        if(name.equals("All") && type.equals("All") && categoryName.equals("All")){
             mAllNameTypeWiseList = mRepository.getAllPublicationslsList();
         }
 
@@ -81,12 +81,12 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
             mAllNameTypeWiseList = mRepository.getNameWiseList(name);
         }
 
-        if(!name.equals("All") && !type.equals("All")){
-            mAllNameTypeWiseList = mRepository.getNameTypeWiseList(name, type);
+        if(!name.equals("All") && !type.equals("All") && !categoryName.equals("All")){
+            mAllNameTypeWiseList = mRepository.getNameTypeCatWiseList(name, type , categoryName);
         }
 
-        if(name.equals("All") && !type.equals("All")){
-            mAllNameTypeWiseList = mRepository.getTypeWiseList( type );
+        if(name.equals("All") && !type.equals("All") && !categoryName.equals("All")){
+            mAllNameTypeWiseList = mRepository.getTypeSubCatWiseList( type, categoryName );
         }
 
         return mAllNameTypeWiseList;

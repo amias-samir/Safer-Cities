@@ -72,9 +72,19 @@ public class PublicationsListDetailsRepository {
 
         return mAllTypeWiseList;
     }
+    public Flowable<List<PublicationsListDetails>> getTypeSubCatWiseList(String type, String categoryName) {
+        mAllTypeWiseList = mDao.getTypeSubCatWiseList(type, categoryName);
+        return mAllTypeWiseList;
+    }
 
-    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type) {
+    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type, String categoryName) {
         mAllNameTypeWiseList = mDao.getNameTypeWiseList(name, type);
+
+        return mAllNameTypeWiseList;
+    }
+
+    public Flowable<List<PublicationsListDetails>> getNameTypeCatWiseList(String name, String type, String categoryName) {
+        mAllNameTypeWiseList = mDao.getNameTypeCatWiseList(name, type, categoryName);
 
         return mAllNameTypeWiseList;
     }

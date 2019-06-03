@@ -91,7 +91,7 @@ public class PublicationsSubCatListActivity extends AppCompatActivity {
     }
 
     private void setupListRecycler() {
-        publicationSubcatListAdapter = new PublicationSubcatListAdapter(R.layout.hazard_list_item_row_layout, null);
+        publicationSubcatListAdapter = new PublicationSubcatListAdapter(R.layout.hazard_list_item_row_layout, null, fileType);
         publicationSubcatListrecycler.setLayoutManager(new LinearLayoutManager(this));
         publicationSubcatListrecycler.setAdapter(publicationSubcatListAdapter);
 
