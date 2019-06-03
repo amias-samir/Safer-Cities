@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import np.com.naxa.safercities.R;
 import np.com.naxa.safercities.activity.NotifyOthersActivity;
 import np.com.naxa.safercities.activity.MyCircleProfileActivity;
+import np.com.naxa.safercities.calendar.CalendarActivity;
 import np.com.naxa.safercities.inventory.InventoryActivity;
 import np.com.naxa.safercities.publications.PublicationsSubCatListActivity;
 import np.com.naxa.safercities.report.ReportActivity;
@@ -130,6 +131,10 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
             case "Terminologies":
                 context.startActivity(new Intent(context, GlossaryListActivity.class));
+                break;
+
+            case "Calendar":
+                context.startActivity(new Intent(context, CalendarActivity.class));
                 break;
 
             case "Emergency materials":
