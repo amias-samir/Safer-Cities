@@ -101,19 +101,24 @@ public class PublicationsSubCatListActivity extends AppCompatActivity {
         String fileType = "";
         switch (fileTitleType){
             case "Audio":
-                fileType = "audio";
+//                fileType = "audio";
+                fileType = "Audio";
                 break;
 
             case "Video":
-                fileType = "video";
+//                fileType = "video";
+                fileType = "Video";
                 break;
 
             case "Brochure":
-                fileType = "files";
+//                fileType = "files";
+//                fileType = "Brochure";
+                fileType = "Brouchure";
                 break;
 
             case "Documents":
-                fileType = "files";
+//                fileType = "files";
+                fileType = "Documents";
                 break;
         }
 

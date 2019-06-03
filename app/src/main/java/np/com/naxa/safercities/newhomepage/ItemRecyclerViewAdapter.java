@@ -155,7 +155,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
 
             case "Documents":
                 Intent intent4 = new Intent(context, PublicationsSubCatListActivity.class);
-                intent4.putExtra("title", "Document");
+                intent4.putExtra("title", "Documents");
                 context.startActivity(intent4);
                 break;
 
