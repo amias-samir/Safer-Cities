@@ -58,6 +58,12 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
         return mAllDistinctTypeFromName;
     }
 
+    public Flowable<List<String>> getDistinctFilecategoryNameFromType(String type) {
+        mAllDistinctType = mRepository.getDistinctFilecategoryNameFromType(type);
+
+        return mAllDistinctType;
+    }
+
 
     public Flowable<List<PublicationsListDetails>> getTypeWiseList(String type) {
         mAllTypeWiseList = mRepository.getTypeWiseList(type);

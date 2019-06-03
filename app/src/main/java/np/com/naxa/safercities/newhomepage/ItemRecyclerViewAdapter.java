@@ -18,6 +18,7 @@ import np.com.naxa.safercities.R;
 import np.com.naxa.safercities.activity.NotifyOthersActivity;
 import np.com.naxa.safercities.activity.MyCircleProfileActivity;
 import np.com.naxa.safercities.inventory.InventoryActivity;
+import np.com.naxa.safercities.publications.PublicationsSubCatListActivity;
 import np.com.naxa.safercities.report.ReportActivity;
 import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
 import np.com.naxa.safercities.drr_dictionary.data_glossary.GlossaryListActivity;
@@ -141,25 +142,25 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 break;
 
             case "Audio":
-                Intent intent2 = new Intent(context, PublicationsListActivity.class);
+                Intent intent2 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent2.putExtra("title", "Audio");
                 context.startActivity(intent2);
                 break;
 
             case "Video":
-                Intent intent3 = new Intent(context, PublicationsListActivity.class);
+                Intent intent3 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent3.putExtra("title", "Video");
                 context.startActivity(intent3);
                 break;
 
             case "Documents":
-                Intent intent4 = new Intent(context, PublicationsListActivity.class);
+                Intent intent4 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent4.putExtra("title", "Document");
                 context.startActivity(intent4);
                 break;
 
             case "Brochure":
-                Intent intent5 = new Intent(context, PublicationsListActivity.class);
+                Intent intent5 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent5.putExtra("title", "Brochure");
                 context.startActivity(intent5);
                 break;

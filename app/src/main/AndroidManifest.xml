@@ -26,7 +26,7 @@
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
-        android:name="np.com.naxa.safercities.home.ISET"
+        android:name=".home.ISET"
         android:allowBackup="true"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -37,14 +37,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name="np.com.naxa.safercities.quiz.quiznew.McqQuizTestActivity"></activity>
-        <activity android:name="np.com.naxa.safercities.inventory.InventoryActivity">
+        <activity android:name=".publications.PublicationsSubCatListActivity"></activity>
+        <activity android:name=".quiz.quiznew.McqQuizTestActivity" />
+        <activity android:name=".inventory.InventoryActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.report.DisasterReportActivity"
+            android:name=".report.DisasterReportActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden">
             <meta-data
@@ -52,7 +53,7 @@
                 android:value="np.com.naxa.safercities.report.ReportCtegoryActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.report.CivicReportActivity"
+            android:name=".report.CivicReportActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden">
             <meta-data
@@ -60,7 +61,7 @@
                 android:value="np.com.naxa.safercities.report.ReportCtegoryActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.report.ReportCtegoryActivity"
+            android:name=".report.ReportCtegoryActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden">
             <meta-data
@@ -69,7 +70,7 @@
         </activity>
 
         <provider
-            android:name="np.com.naxa.safercities.home.GenericFileProvider"
+            android:name=".home.GenericFileProvider"
             android:authorities="@string/file_provider_authority"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -78,19 +79,19 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name="np.com.naxa.safercities.publications.PublicationDetailsActivity">
+        <activity android:name=".publications.PublicationDetailsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".newhomepage.SectionGridHomeActivity" />
         </activity>
-        <activity android:name="np.com.naxa.safercities.publications.PublicationsListActivity" />
-        <activity android:name="np.com.naxa.safercities.report.wardstaff.UnverifiedReportFormListActivity">
+        <activity android:name=".publications.PublicationsListActivity" />
+        <activity android:name=".report.wardstaff.UnverifiedReportFormListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.activity.SplashActivity"
+            android:name=".activity.SplashActivity"
             android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -99,13 +100,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name="np.com.naxa.safercities.firebase.VSOFirebaseMessagingService">
+        <service android:name=".firebase.VSOFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="np.com.naxa.safercities.utils.maputils.MyLocationService"
+            android:name=".utils.maputils.MyLocationService"
             android:process=":my_service" />
 
         <meta-data
@@ -113,10 +114,10 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="np.com.naxa.safercities.TestFlowChart"
+            android:name=".TestFlowChart"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.activity.ReportActivityOld"
+            android:name=".activity.ReportActivityOld"
             android:exported="true"
             android:windowSoftInputMode="stateHidden">
             <meta-data
@@ -124,83 +125,83 @@
                 android:value="np.com.naxa.safercities.home.HomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.home.HomeActivity"
+            android:name=".home.HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_home_new_new"
             android:theme="@style/AppTheme" />
         <activity
-            android:name="np.com.naxa.safercities.emergencyContacts.EmergencyContactsActivity"
+            android:name=".emergencyContacts.EmergencyContactsActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.activity.ContactActivity"
+            android:name=".activity.ContactActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.activity.OpenSpaceActivity"
+            android:name=".activity.OpenSpaceActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.gps.GeoPointActivity"
+            android:name=".gps.GeoPointActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.hospitalfilter.HospitalFilterActivity"
+            android:name=".hospitalfilter.HospitalFilterActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.detailspage.MarkerDetailsDisplayActivity"
+            android:name=".detailspage.MarkerDetailsDisplayActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.activity.MapActivity"
+            android:name=".activity.MapActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.activity.MapBoxActivity"
+            android:name=".activity.MapBoxActivity"
             android:exported="true" />
-        <activity android:name="np.com.naxa.safercities.firebase.MessageActivity">
+        <activity android:name=".firebase.MessageActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.home.HomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.publications.youtubeplayer.YoutubePlayerActivity"
+            android:name=".publications.youtubeplayer.YoutubePlayerActivity"
             android:exported="true"
             android:screenOrientation="landscape" />
         <activity
-            android:name="np.com.naxa.safercities.publications.youtubeplayer.YoutubeVideoListActivity"
+            android:name=".publications.youtubeplayer.YoutubeVideoListActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity"
+            android:name=".newhomepage.SectionGridHomeActivity"
             android:exported="true" />
         <activity
-            android:name="np.com.naxa.safercities.activity.NotifyOthersActivity"
+            android:name=".activity.NotifyOthersActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.disasterinfo.HazardInfoActivity"
+            android:name=".disasterinfo.HazardInfoActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.emergencynumbers.EmergencyNumbersActivity"
+            android:name=".emergencynumbers.EmergencyNumbersActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.activity.MyCircleProfileActivity"
+            android:name=".activity.MyCircleProfileActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.report.ReportActivity"
+            android:name=".report.ReportActivity"
             android:exported="true"
             android:windowSoftInputMode="stateHidden">
             <meta-data
@@ -208,66 +209,66 @@
                 android:value="np.com.naxa.safercities.report.ReportCtegoryActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.quiz.QuizTestActivity"
+            android:name=".quiz.QuizTestActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.quiz.QuizHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.drr_dictionary.data_glossary.GlossaryListActivity"
+            android:name=".drr_dictionary.data_glossary.GlossaryListActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.drr_dictionary.data_glossary.DataGlossaryWordDetailsActivity"
+            android:name=".drr_dictionary.data_glossary.DataGlossaryWordDetailsActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.drr_dictionary.data_glossary.GlossaryListActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.disasterinfo.HazardInfoDetailsActivity"
+            android:name=".disasterinfo.HazardInfoDetailsActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.disasterinfo.HazardInfoActivity" />
         </activity>
-        <activity android:name="np.com.naxa.safercities.disasterinfo.HazardThingsToDoActivity">
+        <activity android:name=".disasterinfo.HazardThingsToDoActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.disasterinfo.HazardInfoDetailsActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.profile.municipalityprofile.MunicipalityProfileActivity"
+            android:name=".profile.municipalityprofile.MunicipalityProfileActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
-        <activity android:name="np.com.naxa.safercities.profile.wardprofile.WardProfileActivity">
+        <activity android:name=".profile.wardprofile.WardProfileActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.profile.municipalityprofile.MunicipalityProfileActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.quiz.QuizHomeActivity"
+            android:name=".quiz.QuizHomeActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.settings.SettingsActivity"
+            android:name=".settings.SettingsActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.bloodrequest.BloodRequestActivity"
+            android:name=".bloodrequest.BloodRequestActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <meta-data
@@ -275,25 +276,25 @@
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity
-            android:name="np.com.naxa.safercities.mapboxmap.OpenSpaceMapActivity"
+            android:name=".mapboxmap.OpenSpaceMapActivity"
             android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
-        <activity android:name="np.com.naxa.safercities.TerminologiesActivity">
+        <activity android:name=".TerminologiesActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
-        <activity android:name="np.com.naxa.safercities.report.SavedFormListActivity">
+        <activity android:name=".report.SavedFormListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.newhomepage.SectionGridHomeActivity" />
         </activity>
-        <activity android:name="np.com.naxa.safercities.instroslider.WelcomeActivity" />
-        <activity android:name="np.com.naxa.safercities.mycircle.LoginActivity" />
-        <activity android:name="np.com.naxa.safercities.UserRegistrationActivity" />
+        <activity android:name=".instroslider.WelcomeActivity" />
+        <activity android:name=".mycircle.LoginActivity" />
+        <activity android:name=".UserRegistrationActivity" />
     </application>
 
 </manifest>

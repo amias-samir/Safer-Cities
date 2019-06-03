@@ -60,6 +60,12 @@ public class PublicationsListDetailsRepository {
         return mAllDistinctTypeFromName;
     }
 
+    public Flowable<List<String>> getDistinctFilecategoryNameFromType(String type) {
+        mAllDistinctType = mDao.getDistinctFilecategoryNameFromType(type);
+
+        return mAllDistinctType;
+    }
+
 
     public Flowable<List<PublicationsListDetails>> getTypeWiseList(String type) {
         mAllTypeWiseList = mDao.getTypeWiseList(type);

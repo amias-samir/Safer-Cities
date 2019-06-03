@@ -39,6 +39,11 @@ public interface PublicationsListDao {
     @Query("SELECT DISTINCT type from PublicationsListDetails WHERE hazard_name LIKE :name")
     Flowable<List<String>> getDistinctTypeLIstFromName(String name);
 
+    @Query("SELECT DISTINCT filecateroryname from PublicationsListDetails WHERE type LIKE :type")
+    Flowable<List<String>> getDistinctFilecategoryNameFromType(String type);
+
+
+
 
 
     // We do not need a conflict strategy, because the word is our primary key, and you cannot

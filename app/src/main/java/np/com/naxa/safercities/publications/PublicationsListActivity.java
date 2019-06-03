@@ -210,6 +210,7 @@ public class PublicationsListActivity extends AppCompatActivity {
                 });
 
     }
+
     
     @Override
     public void onStart() {
