@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -67,13 +68,15 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hazard_info_details);
         ButterKnife.bind(this);
-
-        Intent intent = getIntent();
-        category = intent.getStringExtra("OBJ");
         disasterInfoDetailsViewModel = ViewModelProviders.of(this).get(DisasterInfoDetailsViewModel.class);
 
+        Intent intent = getIntent();
+        if(intent != null) {
+            category = intent.getStringExtra("OBJ");
+
+            initUI(category);
+        }
         setupToolBar();
-        initUI(category);
     }
 
     private void setupToolBar() {
@@ -103,17 +106,22 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onNext(DisasterInfoDetailsEntity disasterInfoDetailsEntity) {
 
-                        WindowManager mWinMgr = (WindowManager)HazardInfoDetailsActivity.this.getSystemService(Context.WINDOW_SERVICE);
+                        WindowManager mWinMgr = (WindowManager) HazardInfoDetailsActivity.this.getSystemService(Context.WINDOW_SERVICE);
                         int displayWidth = mWinMgr.getDefaultDisplay().getWidth();
                         Glide.with(HazardInfoDetailsActivity.this)
                                 .load(disasterInfoDetailsEntity.getPhoto())
                                 .override(displayWidth, 200)
                                 .into(imageView);
 
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                            tvBody.setText(fromHtml(disasterInfoDetailsEntity.getDesc(),0 ,new ImageGetter(), null));
+                        if (TextUtils.isEmpty(disasterInfoDetailsEntity.getDesc())) {
+                            tvBody.setText("No Data Found");
+
                         } else {
-                            tvBody.setText(fromHtml(disasterInfoDetailsEntity.getDesc()));
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                tvBody.setText(fromHtml(disasterInfoDetailsEntity.getDesc(), 0, new ImageGetter(), null));
+                            } else {
+                                tvBody.setText(fromHtml(disasterInfoDetailsEntity.getDesc()));
+                            }
                         }
                     }
 
@@ -128,35 +136,6 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
                     }
                 });
 
-
-
-//        if(hazardListModel.getTitle().equals("Earthquake") || hazardListModel.getTitle().equals("Landslide")){
-//            if(hazardListModel.getTitle().equals("Earthquake")) {
-//                hazardListModel1 = dataServer.getEarthquakeDetails();
-//            }else {
-//                hazardListModel1 = dataServer.getLandslideDetails();
-//
-//            }
-
-//            WindowManager mWinMgr = (WindowManager)HazardInfoDetailsActivity.this.getSystemService(Context.WINDOW_SERVICE);
-//            int displayWidth = mWinMgr.getDefaultDisplay().getWidth();
-//            Glide.with(HazardInfoDetailsActivity.this)
-//                    .load(hazardListModel1.getImage())
-//                    .override(displayWidth, 200)
-//                    .into(imageView);
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-////                tvBody.setText(Html.fromHtml(hazardListModel1.getDesc(), Html.FROM_HTML_MODE_COMPACT));
-//                tvBody.setText(fromHtml(getStringContstant(),0 ,new ImageGetter(), null));
-//            } else {
-////                tvBody.setText(Html.fromHtml(hazardListModel1.getDesc()));
-//                tvBody.setText(fromHtml(getStringContstant()));
-//            }
-////        }
-
-//        if(hazardListModel.getTitle().equals("Landslide")){
-//            this.hazardListModel = dataServer.getEarthquakeDetails();
-//        }
 
     }
 
