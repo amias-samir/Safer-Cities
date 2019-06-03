@@ -60,15 +60,31 @@ public class PublicationsListDetailsRepository {
         return mAllDistinctTypeFromName;
     }
 
+    public Flowable<List<String>> getDistinctFilecategoryNameFromType(String type) {
+        mAllDistinctType = mDao.getDistinctFilecategoryNameFromType(type);
+
+        return mAllDistinctType;
+    }
+
 
     public Flowable<List<PublicationsListDetails>> getTypeWiseList(String type) {
         mAllTypeWiseList = mDao.getTypeWiseList(type);
 
         return mAllTypeWiseList;
     }
+    public Flowable<List<PublicationsListDetails>> getTypeSubCatWiseList(String type, String categoryName) {
+        mAllTypeWiseList = mDao.getTypeSubCatWiseList(type, categoryName);
+        return mAllTypeWiseList;
+    }
 
-    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type) {
+    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type, String categoryName) {
         mAllNameTypeWiseList = mDao.getNameTypeWiseList(name, type);
+
+        return mAllNameTypeWiseList;
+    }
+
+    public Flowable<List<PublicationsListDetails>> getNameTypeCatWiseList(String name, String type, String categoryName) {
+        mAllNameTypeWiseList = mDao.getNameTypeCatWiseList(name, type, categoryName);
 
         return mAllNameTypeWiseList;
     }

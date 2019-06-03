@@ -22,6 +22,7 @@ import android.widget.TextView;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,27 +66,28 @@ public class PublicationsListActivity extends AppCompatActivity {
     List<String> categoryName;
     List<String> subCategoryName;
 
+
+    String fileType = "";
+    String fileCategory = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publications_list);
         ButterKnife.bind(this);
 
+        apiInterface = NetworkApiClient.getAPIClient().create(NetworkApiInterface.class);
+        publicationsListDetailsViewModel = ViewModelProviders.of(this).get(PublicationsListDetailsViewModel.class);
 
         setupToolBar(getIntent());
         setupListRecycler();
 
-
-        apiInterface = NetworkApiClient.getAPIClient().create(NetworkApiInterface.class);
-        publicationsListDetailsViewModel = ViewModelProviders.of(this).get(PublicationsListDetailsViewModel.class);
-
-        if (NetworkUtils.isNetworkAvailable()) {
-            fetchPublicationsDetails();
-        } else {
+//        if (NetworkUtils.isNetworkAvailable()) {
+//            fetchPublicationsDetails();
+//        } else {
 //            getDataFromDatabase();
-            getAllCatSubCatFIlteredDataFromDatabase("All", "All");
-            getDistinctNameList();
-        }
+//            getDistinctNameList();
+//        }
 
     }
 
@@ -93,8 +95,15 @@ public class PublicationsListActivity extends AppCompatActivity {
         if(intent != null){
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle(intent.getStringExtra("title"));
+//            fileType = getFileType(intent.getStringExtra("title"));
+            fileType = intent.getStringExtra("type");
+            fileCategory = intent.getStringExtra("title");
+
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+            Log.e(TAG, "setupToolBar: "+ fileType + " , "+fileCategory);
+            getAllCatSubCatFIlteredDataFromDatabase("All", fileType, fileCategory);
+
         }else {
             setSupportActionBar(toolbar);
             getSupportActionBar().setTitle("Multimedia Files");
@@ -199,12 +208,13 @@ public class PublicationsListActivity extends AppCompatActivity {
                     public void onComplete() {
 
 //                        getDataFromDatabase();
-                        getAllCatSubCatFIlteredDataFromDatabase("All", "All");
+                        getAllCatSubCatFIlteredDataFromDatabase("All", fileType, fileCategory);
                         getDistinctNameList();
                     }
                 });
 
     }
+
     
     @Override
     public void onStart() {
@@ -260,7 +270,7 @@ public class PublicationsListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 dialog.dismiss();
 
-                getAllCatSubCatFIlteredDataFromDatabase(spnCategory.getSelectedItem().toString(), spnSubCategory.getSelectedItem().toString());
+                getAllCatSubCatFIlteredDataFromDatabase(spnCategory.getSelectedItem().toString(), fileType, fileCategory);
             }
         });
 
@@ -329,13 +339,12 @@ public class PublicationsListActivity extends AppCompatActivity {
 
     }
 
-    private void getAllCatSubCatFIlteredDataFromDatabase(String category, String subCategory) {
+    private void getAllCatSubCatFIlteredDataFromDatabase(String category, String fileType, String subCategory) {
 
         Log.d(TAG, "getAllCatSubCatFIlteredDataFromDatabase: "+category +" , "+subCategory);
 
-
-
-        publicationsListDetailsViewModel.getNameTypeWiseList(category, subCategory)
+//        publicationsListDetailsViewModel.getNameTypeWiseList(category,fileType, subCategory)
+        publicationsListDetailsViewModel.getNameTypeWiseList(category,fileType, subCategory)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSubscriber<List<PublicationsListDetails>>() {
@@ -344,6 +353,7 @@ public class PublicationsListActivity extends AppCompatActivity {
                         ((PublicationsListItemAdapter) recyclerViewPublicationList.getAdapter()).replaceData(publicationsListDetails);
                         Log.d(TAG, "getAllCatSubCatFIlteredDataFromDatabase size: " + publicationsListDetails.size());
 
+                        getDistinctNameList();
 
                     }
 
@@ -391,6 +401,32 @@ public class PublicationsListActivity extends AppCompatActivity {
                     }
                 });
 
+    }
+
+
+
+    private String getFileType (@NotNull String fileTitleType){
+
+        String fileType = "";
+        switch (fileTitleType){
+            case "Audio":
+                fileType = "audio";
+                break;
+
+            case "Video":
+                fileType = "video";
+                break;
+
+            case "Brochure":
+                fileType = "files";
+                break;
+
+            case "Documents":
+                fileType = "files";
+                break;
+        }
+
+        return fileType;
     }
 
 

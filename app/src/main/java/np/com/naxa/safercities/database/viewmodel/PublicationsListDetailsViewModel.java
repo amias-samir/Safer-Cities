@@ -42,6 +42,7 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
     public Flowable<List<String>> getDistinctTypeist() {
         return mAllDistinctType;
     }
+
     public Flowable<List<String>> getDistinctNameList() {
         return mAllDistinctName;
     }
@@ -57,6 +58,12 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
         return mAllDistinctTypeFromName;
     }
 
+    public Flowable<List<String>> getDistinctFilecategoryNameFromType(String type) {
+        mAllDistinctType = mRepository.getDistinctFilecategoryNameFromType(type);
+
+        return mAllDistinctType;
+    }
+
 
     public Flowable<List<PublicationsListDetails>> getTypeWiseList(String type) {
         mAllTypeWiseList = mRepository.getTypeWiseList(type);
@@ -64,9 +71,9 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
         return mAllTypeWiseList;
     }
 
-    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type) {
+    public Flowable<List<PublicationsListDetails>> getNameTypeWiseList(String name, String type, String categoryName) {
 
-        if(name.equals("All") && type.equals("All")){
+        if(name.equals("All") && type.equals("All") && categoryName.equals("All")){
             mAllNameTypeWiseList = mRepository.getAllPublicationslsList();
         }
 
@@ -74,8 +81,12 @@ public class PublicationsListDetailsViewModel extends AndroidViewModel {
             mAllNameTypeWiseList = mRepository.getNameWiseList(name);
         }
 
-        if(!name.equals("All") && !type.equals("All")){
-            mAllNameTypeWiseList = mRepository.getNameTypeWiseList(name, type);
+        if(!name.equals("All") && !type.equals("All") && !categoryName.equals("All")){
+            mAllNameTypeWiseList = mRepository.getNameTypeCatWiseList(name, type , categoryName);
+        }
+
+        if(name.equals("All") && !type.equals("All") && !categoryName.equals("All")){
+            mAllNameTypeWiseList = mRepository.getTypeSubCatWiseList( type, categoryName );
         }
 
         return mAllNameTypeWiseList;
