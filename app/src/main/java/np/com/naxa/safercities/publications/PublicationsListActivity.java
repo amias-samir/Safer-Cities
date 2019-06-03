@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -79,15 +80,8 @@ public class PublicationsListActivity extends AppCompatActivity {
         apiInterface = NetworkApiClient.getAPIClient().create(NetworkApiInterface.class);
         publicationsListDetailsViewModel = ViewModelProviders.of(this).get(PublicationsListDetailsViewModel.class);
 
-        setupToolBar(getIntent());
         setupListRecycler();
-
-//        if (NetworkUtils.isNetworkAvailable()) {
-//            fetchPublicationsDetails();
-//        } else {
-//            getDataFromDatabase();
-//            getDistinctNameList();
-//        }
+        setupToolBar(getIntent());
 
     }
 
@@ -116,102 +110,6 @@ public class PublicationsListActivity extends AppCompatActivity {
         PublicationsListItemAdapter publicationsListItemAdapter = new PublicationsListItemAdapter(R.layout.publications_list_item_row_layout, null);
         recyclerViewPublicationList.setLayoutManager(new LinearLayoutManager(this));
         recyclerViewPublicationList.setAdapter(publicationsListItemAdapter);
-
-    }
-
-    private void fetchPublicationsDetails() {
-        Dialog dialog = DialogFactory.createProgressDialog(PublicationsListActivity.this, "Loading...");
-        dialog.show();
-        apiInterface.getPublicationsListDetailsResponse(UrlClass.API_ACCESS_TOKEN)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableObserver<PublicationsListResponse>() {
-                    @Override
-                    public void onNext(PublicationsListResponse publicationsListResponse) {
-                        dialog.dismiss();
-                        if (publicationsListResponse.getError() == 1) {
-                            DialogFactory.createCustomErrorDialog(PublicationsListActivity.this, publicationsListResponse.getMessage(), new DialogFactory.CustomDialogListener() {
-                                @Override
-                                public void onClick() {
-
-                                }
-                            }).show();
-                        }
-                        if (publicationsListResponse.getError() == 0) {
-                            if (publicationsListResponse.getData() == null) {
-                                DialogFactory.createCustomErrorDialog(PublicationsListActivity.this, "No new data found", new DialogFactory.CustomDialogListener() {
-                                    @Override
-                                    public void onClick() {
-
-                                    }
-                                }).show();
-                            } else {
-                                savePublicationSetails(publicationsListResponse.getData());
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        dialog.dismiss();
-                        DialogFactory.createCustomErrorDialog(PublicationsListActivity.this, e.getMessage(), new DialogFactory.CustomDialogListener() {
-                            @Override
-                            public void onClick() {
-
-                            }
-                        }).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-                        dialog.dismiss();
-                    }
-                });
-
-
-    }
-
-
-    private void savePublicationSetails(@NonNull List<PublicationsListDetails> publicationsListDetailsList) {
-
-        Log.d(TAG, "savePublicationSetails: " + publicationsListDetailsList.size());
-
-        Observable.just(publicationsListDetailsList)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMapIterable(new Function<List<PublicationsListDetails>, List<PublicationsListDetails>>() {
-                    @Override
-                    public List<PublicationsListDetails> apply(List<PublicationsListDetails> publicationsListDetails) throws Exception {
-                        return publicationsListDetails;
-                    }
-                })
-                .map(new Function<PublicationsListDetails, PublicationsListDetails>() {
-                    @Override
-                    public PublicationsListDetails apply(PublicationsListDetails publicationsListDetails) throws Exception {
-                        return publicationsListDetails;
-                    }
-                })
-                .subscribe(new DisposableObserver<PublicationsListDetails>() {
-                    @Override
-                    public void onNext(PublicationsListDetails publicationsListDetails) {
-
-                        Log.d(TAG, "onNext: " + publicationsListDetails.getHazard_name());
-                        publicationsListDetailsViewModel.insert(publicationsListDetails);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-//                        getDataFromDatabase();
-                        getAllCatSubCatFIlteredDataFromDatabase("All", fileType, fileCategory);
-                        getDistinctNameList();
-                    }
-                });
 
     }
 
@@ -343,7 +241,6 @@ public class PublicationsListActivity extends AppCompatActivity {
 
         Log.d(TAG, "getAllCatSubCatFIlteredDataFromDatabase: "+category +" , "+subCategory);
 
-//        publicationsListDetailsViewModel.getNameTypeWiseList(category,fileType, subCategory)
         publicationsListDetailsViewModel.getNameTypeWiseList(category,fileType, subCategory)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -404,30 +301,11 @@ public class PublicationsListActivity extends AppCompatActivity {
     }
 
 
-
-    private String getFileType (@NotNull String fileTitleType){
-
-        String fileType = "";
-        switch (fileTitleType){
-            case "Audio":
-                fileType = "audio";
-                break;
-
-            case "Video":
-                fileType = "video";
-                break;
-
-            case "Brochure":
-                fileType = "files";
-                break;
-
-            case "Documents":
-                fileType = "files";
-                break;
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            super.onBackPressed();
         }
-
-        return fileType;
+        return super.onOptionsItemSelected(menuItem);
     }
-
-
 }

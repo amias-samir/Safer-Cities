@@ -37,7 +37,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".publications.PublicationsSubCatListActivity"></activity>
+        <activity android:name=".publications.PublicationsSubCatListActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".newhomepage.SectionGridHomeActivity" />
+        </activity>
         <activity android:name=".quiz.quiznew.McqQuizTestActivity" />
         <activity android:name=".inventory.InventoryActivity">
             <meta-data
@@ -80,9 +84,6 @@
         </provider>
 
         <activity android:name=".publications.PublicationDetailsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".newhomepage.SectionGridHomeActivity" />
         </activity>
         <activity android:name=".publications.PublicationsListActivity" />
         <activity android:name=".report.wardstaff.UnverifiedReportFormListActivity">
