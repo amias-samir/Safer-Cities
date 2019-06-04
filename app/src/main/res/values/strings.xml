@@ -384,6 +384,7 @@
     <string name="view_saved_forms">View saved forms</string>
     <string name="view_unverified_forms">View Unverified Forms</string>
     <string name="weather_preparedness_calendar">Weather Preparedness Calendar</string>
+    <string name="no_data_found">No Data Found</string>
 
 
     <!--intro slider end-->

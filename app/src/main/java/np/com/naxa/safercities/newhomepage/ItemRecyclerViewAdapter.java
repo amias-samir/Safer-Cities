@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import np.com.naxa.safercities.R;
 import np.com.naxa.safercities.activity.NotifyOthersActivity;
 import np.com.naxa.safercities.activity.MyCircleProfileActivity;
+import np.com.naxa.safercities.beready.BeReadyInfoDetailsActivity;
 import np.com.naxa.safercities.calendar.CalendarActivity;
 import np.com.naxa.safercities.inventory.InventoryActivity;
 import np.com.naxa.safercities.publications.PublicationsSubCatListActivity;
@@ -198,6 +199,30 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                     }
                 }).show();
 //                context.startActivity(new Intent(context, HomeActivity.class));
+                break;
+
+            case "घर गृहस्थीमा तयारी":
+                Intent intent8 = new Intent(context, BeReadyInfoDetailsActivity.class);
+                intent8.putExtra("title", "home-ready");
+                context.startActivity(intent8);
+                break;
+
+            case "विद्यालयमा तयारी":
+                Intent intent6 = new Intent(context, BeReadyInfoDetailsActivity.class);
+                intent6.putExtra("title", "school-ready");
+                context.startActivity(intent6);
+                break;
+
+            case "स्वास्थ्यमा तयारी":
+                Intent intent7 = new Intent(context, BeReadyInfoDetailsActivity.class);
+                intent7.putExtra("title", "health-ready");
+                context.startActivity(intent7);
+                break;
+
+            case "स्थानीय तहमा तयारी":
+                Intent intent9 = new Intent(context, BeReadyInfoDetailsActivity.class);
+                intent9.putExtra("title", "community-ready");
+                context.startActivity(intent9);
                 break;
         }
 
