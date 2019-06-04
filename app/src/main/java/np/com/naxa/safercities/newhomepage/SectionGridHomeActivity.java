@@ -13,7 +13,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
@@ -111,6 +113,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
     private RecyclerViewType recyclerViewType;
     private RecyclerView recyclerView;
+    SectionRecyclerViewAdapter adapter;
 
     boolean isLoginBtnClick = false;
 
@@ -180,7 +183,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
                 {
                     //  Collapsed
                     Log.d(TAG, "onOffsetChanged: Collapsed");
-                    quickActionButtonLayout.setVisibility(View.VISIBLE);
+                    quickActionButtonLayout.setVisibility(View.GONE);
                 }
                 else
                 {
@@ -259,7 +262,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
         }
 
-        SectionRecyclerViewAdapter adapter = new SectionRecyclerViewAdapter(this, recyclerViewType, sectionModelArrayList);
+        adapter = new SectionRecyclerViewAdapter(this, recyclerViewType, sectionModelArrayList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -278,16 +281,21 @@ public class SectionGridHomeActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_disaster_info:
+                appbar.setExpanded(false);
                 recyclerView.smoothScrollToPosition(0);
-                appbar.setExpanded(true);
+                smoothScrollRecyclerToPosition(0);
                 break;
             case R.id.btn_react_quickly:
-                recyclerView.smoothScrollToPosition(1);
                 appbar.setExpanded(false);
+                recyclerView.smoothScrollToPosition(2);
+                smoothScrollRecyclerToPosition(2);
 
                 break;
             case R.id.btn_info:
-                startActivity(new Intent(SectionGridHomeActivity.this, MunicipalityProfileActivity.class));
+                appbar.setExpanded(false);
+                recyclerView.smoothScrollToPosition(1);
+                smoothScrollRecyclerToPosition(1);
+
                 break;
 
             case R.id.btnAskForBlood:
@@ -299,17 +307,24 @@ public class SectionGridHomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.btn_disaster_info_top:
-                recyclerView.smoothScrollToPosition(0);
                 appbar.setExpanded(true);
+                recyclerView.smoothScrollToPosition(0);
+                smoothScrollRecyclerToPosition(0);
+
                 break;
 
             case R.id.btn_react_quickly_top:
-                recyclerView.smoothScrollToPosition(1);
-                appbar.setExpanded(true);
+                appbar.setExpanded(false);
+                recyclerView.smoothScrollToPosition(2);
+                smoothScrollRecyclerToPosition(2);
+
                 break;
 
             case R.id.btn_info_top:
-                startActivity(new Intent(SectionGridHomeActivity.this, MunicipalityProfileActivity.class));
+                appbar.setExpanded(false);
+                recyclerView.smoothScrollToPosition(1);
+                smoothScrollRecyclerToPosition(1);
+
                 break;
         }
     }
@@ -599,5 +614,31 @@ public class SectionGridHomeActivity extends AppCompatActivity {
     }
 
 
+
+
+    private void smoothScrollRecyclerToPosition(int position){
+        recyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+
+//                        displayedposition = llm.findFirstVisibleItemPosition();
+
+
+            }
+        });
+
+        LinearLayoutManager llm = (LinearLayoutManager) recyclerView.getLayoutManager();
+//        llm.scrollToPositionWithOffset(position , -200);
+        llm.scrollToPositionWithOffset(position , 0);
+    }
 
 }
