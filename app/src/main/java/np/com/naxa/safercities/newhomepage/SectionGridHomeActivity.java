@@ -202,9 +202,10 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
     //populate recycler view
     private void populateRecyclerView() {
-        String[] sectionHeader = {"DISASTER INFORMATION", "KNOWLEDGE BASE"};
+        String[] sectionHeader = {"DISASTER INFORMATION", "KNOWLEDGE BASE", "तयार हुनुहोस्"};
 //        String[] sectionChildTitle = {"FIND OPEN SPACE", "ASK FOR HELP", "Report", "NOTIFY OTHERS", "HAZARD INFO", "DRR QUIZ", "DRR Dictionary", "MAP"};
-        String[] sectionChildTitle = {"Hazard Info", "Terminologies", "Play Quiz", "Calendar", "Audio", "Video", "Documents", "Brochure"};
+        String[] sectionChildTitle = {"Hazard Info", "Terminologies", "Play Quiz", "Calendar", "Audio", "Video", "Documents", "Brochure",
+                "घर गृहस्थीमा तयारी", "विद्यालयमा तयारी", "स्वास्थ्यमा तयारी", "स्थानीय तहमा तयारी"};
 
         ArrayList<Drawable> gridIcon = new ArrayList<Drawable>();
         gridIcon.add(getResources().getDrawable(R.drawable.ic_hazard_info_grid));
@@ -216,12 +217,17 @@ public class SectionGridHomeActivity extends AppCompatActivity {
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_picture_as_pdf_24dp));
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_library_brochure_24dp));
 
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_home_new));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_school));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_health));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_community));
+
 
 
         ArrayList<SectionModel> sectionModelArrayList = new ArrayList<>();
         //for loop for sections
         int sectionChildTitlePos = 0;
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 3; i++) {
             ArrayList<String> itemArrayList = new ArrayList<>();
             ArrayList<Drawable> itemIconArrayList = new ArrayList<>();
             //for loop for items
@@ -233,6 +239,13 @@ public class SectionGridHomeActivity extends AppCompatActivity {
                 }
             }
             if (i == 2) {
+                for (int j = 1; j <= 4; j++) {
+                    itemArrayList.add(sectionChildTitle[sectionChildTitlePos]);
+                    itemIconArrayList.add(gridIcon.get(sectionChildTitlePos));
+                    sectionChildTitlePos++;
+                }
+            }
+            if (i == 3) {
                 for (int j = 1; j <= 4; j++) {
                     itemArrayList.add(sectionChildTitle[sectionChildTitlePos]);
                     itemIconArrayList.add(gridIcon.get(sectionChildTitlePos));

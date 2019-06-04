@@ -8,11 +8,19 @@
     tools:context=".beready.BeReadyInfoDetailsActivity">
 
     <include layout="@layout/toolbar_purple"
-        android:id="@+id/toolbar_general"/>
+        android:id="@+id/toolbar"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/no_data_found"
+        android:textSize="@dimen/material_text_display1"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
     <WebView
         android:id="@+id/webViewBeReady"
-        android:layout_below="@id/toolbar_general"
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </WebView>

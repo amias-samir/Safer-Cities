@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.webkit.WebView;
 
+import com.google.gson.Gson;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -30,6 +32,7 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
 
     NetworkApiInterface apiInterface;
     SharedPreferenceUtils sharedPreferenceUtils;
+    Gson gson;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,9 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_be_ready_info_details);
         ButterKnife.bind(this);
         apiInterface = NetworkApiClient.getAPIClient().create(NetworkApiInterface.class);
+        gson = new Gson();
         sharedPreferenceUtils = new SharedPreferenceUtils(this);
+
 
         setupToolBar(getIntent());
 
@@ -47,9 +52,9 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
 
     private void setupToolBar(Intent intent) {
         setSupportActionBar(toolbar);
-        if(intent == null) {
-            getSupportActionBar().setTitle("Hazard Info");
-        }else {
+        if (intent == null) {
+            getSupportActionBar().setTitle("Be Ready");
+        } else {
             getSupportActionBar().setTitle(intent.getStringExtra("title"));
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -59,13 +64,13 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
 
     private void fetchReadyData() {
 
-        if(NetworkUtils.isNetworkAvailable()){
-            if(sharedPreferenceUtils.getBoolanValue(SharedPreferenceUtils.IS_BE_READY_DATA_EXISTS, false)){
+        if (NetworkUtils.isNetworkAvailable()) {
+            if (sharedPreferenceUtils.getBoolanValue(SharedPreferenceUtils.IS_BE_READY_DATA_EXISTS, false)) {
                 fetchFromSharedPrefs();
-            }else {
+            } else {
                 fetchFromServer();
             }
-        }else {
+        } else {
             fetchFromSharedPrefs();
         }
     }
@@ -84,16 +89,33 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
                     @Override
                     public void onNext(BeReadyResponse beReadyResponse) {
 
+                        if(beReadyResponse.getError() != 0) {
+                            DialogFactory.createCustomErrorDialog(BeReadyInfoDetailsActivity.this, beReadyResponse.getMessage(), new DialogFactory.CustomDialogListener() {
+                                @Override
+                                public void onClick() {
+                                    dialog.dismiss();
+                                }
+                            }).show();
+                        }else {
+                            sharedPreferenceUtils.setValue(SharedPreferenceUtils.IS_BE_READY_DATA_EXISTS, true);
+                            sharedPreferenceUtils.setValue(SharedPreferenceUtils.KEY_BE_READY_DATA, gson.toJson(beReadyResponse));
+                            fetchFromSharedPrefs();
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        DialogFactory.createCustomErrorDialog(BeReadyInfoDetailsActivity.this, e.getMessage(), new DialogFactory.CustomDialogListener() {
+                            @Override
+                            public void onClick() {
+                                dialog.dismiss();
+                            }
+                        }).show();
                     }
 
                     @Override
                     public void onComplete() {
-
+                        dialog.dismiss();
                     }
                 });
     }

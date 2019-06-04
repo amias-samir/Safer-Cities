@@ -37,7 +37,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
-        <activity android:name=".beready.BeReadyInfoDetailsActivity">
+        <activity android:name=".beready.BeReadyInfoDetailsActivity"
+            android:exported="true">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".newhomepage.SectionGridHomeActivity"
