@@ -65,6 +65,10 @@ public class SectionRecyclerViewAdapter extends RecyclerView.Adapter<SectionRecy
 
 
         if(position==1){
+                holder.dottedViewLine.setBackground(holder.dottedViewLine.getContext().getResources().getDrawable(R.drawable.dotted_line_orange));
+            holder.dottedViewHead.setBackground(holder.dottedViewHead.getContext().getResources().getDrawable(R.drawable.dotted_line_orange_head));
+        }
+        if(position==2){
                 holder.dottedViewLine.setBackground(holder.dottedViewLine.getContext().getResources().getDrawable(R.drawable.dotted_line_green));
             holder.dottedViewHead.setBackground(holder.dottedViewHead.getContext().getResources().getDrawable(R.drawable.dotted_line_green_head));
         }

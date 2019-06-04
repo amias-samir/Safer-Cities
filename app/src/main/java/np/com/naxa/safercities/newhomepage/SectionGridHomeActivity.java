@@ -111,6 +111,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
     private RecyclerViewType recyclerViewType;
     private RecyclerView recyclerView;
+    SectionRecyclerViewAdapter adapter;
 
     boolean isLoginBtnClick = false;
 
@@ -259,7 +260,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
         }
 
-        SectionRecyclerViewAdapter adapter = new SectionRecyclerViewAdapter(this, recyclerViewType, sectionModelArrayList);
+        adapter = new SectionRecyclerViewAdapter(this, recyclerViewType, sectionModelArrayList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -279,15 +280,17 @@ public class SectionGridHomeActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.btn_disaster_info:
                 recyclerView.smoothScrollToPosition(0);
+
                 appbar.setExpanded(true);
                 break;
             case R.id.btn_react_quickly:
-                recyclerView.smoothScrollToPosition(1);
+                recyclerView.smoothScrollToPosition(2);
                 appbar.setExpanded(false);
 
                 break;
             case R.id.btn_info:
-                startActivity(new Intent(SectionGridHomeActivity.this, MunicipalityProfileActivity.class));
+                recyclerView.smoothScrollToPosition(1);
+                appbar.setExpanded(false);
                 break;
 
             case R.id.btnAskForBlood:
@@ -304,12 +307,13 @@ public class SectionGridHomeActivity extends AppCompatActivity {
                 break;
 
             case R.id.btn_react_quickly_top:
-                recyclerView.smoothScrollToPosition(1);
-                appbar.setExpanded(true);
+                recyclerView.smoothScrollToPosition(2);
+                appbar.setExpanded(false);
                 break;
 
             case R.id.btn_info_top:
-                startActivity(new Intent(SectionGridHomeActivity.this, MunicipalityProfileActivity.class));
+                recyclerView.smoothScrollToPosition(1);
+                appbar.setExpanded(false);
                 break;
         }
     }
