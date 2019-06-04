@@ -67,7 +67,7 @@ public class HazardInfoActivity extends AppCompatActivity {
 
     private void setupToolBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Hazard Info");
+        getSupportActionBar().setTitle("विपद् जोखिम जानकारी");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

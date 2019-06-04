@@ -122,19 +122,19 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 context.startActivity(new Intent(context, EmergencyContactsActivity.class));
                 break;
 
-            case "Hazard Info":
+            case "विपद् जोखिम जानकारी":
                 context.startActivity(new Intent(context, HazardInfoActivity.class));
                 break;
 
-            case "Play Quiz":
+            case "हाजिरीजवाफ खेल्नुहोस्":
                 context.startActivity(new Intent(context, QuizHomeActivity.class));
                 break;
 
-            case "Terminologies":
+            case "विपद् शब्दावली":
                 context.startActivity(new Intent(context, GlossaryListActivity.class));
                 break;
 
-            case "Calendar":
+            case "मौसमी तयारी पात्रो":
                 context.startActivity(new Intent(context, CalendarActivity.class));
                 break;
 
@@ -147,27 +147,31 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 context.startActivity(intent);
                 break;
 
-            case "Audio":
+            case "अडियो":
                 Intent intent2 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent2.putExtra("title", "Audio");
+                intent2.putExtra("toolbar_title", "अडियो");
                 context.startActivity(intent2);
                 break;
 
-            case "Video":
+            case "भिडियो":
                 Intent intent3 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent3.putExtra("title", "Video");
+                intent3.putExtra("toolbar_title", "भिडियो");
                 context.startActivity(intent3);
                 break;
 
-            case "Documents":
+            case "कागजातहरू":
                 Intent intent4 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent4.putExtra("title", "Documents");
+                intent4.putExtra("toolbar_title", "कागजातहरू");
                 context.startActivity(intent4);
                 break;
 
-            case "Brochure":
+            case "ब्रोशर":
                 Intent intent5 = new Intent(context, PublicationsSubCatListActivity.class);
                 intent5.putExtra("title", "Brochure");
+                intent5.putExtra("toolbar_title", "ब्रोशर");
                 context.startActivity(intent5);
                 break;
 

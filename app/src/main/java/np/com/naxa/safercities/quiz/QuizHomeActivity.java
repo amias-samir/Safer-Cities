@@ -40,7 +40,7 @@ public class QuizHomeActivity extends AppCompatActivity {
 
     private void setupToolBar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("DRR Quiz");
+        getSupportActionBar().setTitle("हाजिरीजवाफ खेल्नुहोस्");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }

@@ -202,9 +202,8 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
     //populate recycler view
     private void populateRecyclerView() {
-        String[] sectionHeader = {"DISASTER INFORMATION", "KNOWLEDGE BASE", "तयार हुनुहोस्"};
-//        String[] sectionChildTitle = {"FIND OPEN SPACE", "ASK FOR HELP", "Report", "NOTIFY OTHERS", "HAZARD INFO", "DRR QUIZ", "DRR Dictionary", "MAP"};
-        String[] sectionChildTitle = {"Hazard Info", "Terminologies", "Play Quiz", "Calendar", "Audio", "Video", "Documents", "Brochure",
+        String[] sectionHeader = {"प्रकोपमाथि प्रकाश", "जानकारी पोर्टल", "तयार हुनुहोस्"};
+        String[] sectionChildTitle = {"विपद् जोखिम जानकारी", "विपद् शब्दावली", "हाजिरीजवाफ खेल्नुहोस्", "मौसमी तयारी पात्रो", "अडियो", "भिडियो", "कागजातहरू", "ब्रोशर",
                 "घर गृहस्थीमा तयारी", "विद्यालयमा तयारी", "स्वास्थ्यमा तयारी", "स्थानीय तहमा तयारी"};
 
         ArrayList<Drawable> gridIcon = new ArrayList<Drawable>();

@@ -37,7 +37,7 @@ public class CalendarActivity extends AppCompatActivity {
 
     private void setupToolBar() {
         setSupportActionBar(toolbarGeneral);
-        getSupportActionBar().setTitle(getResources().getString(R.string.weather_preparedness_calendar));
+        getSupportActionBar().setTitle("मौसमी तयारी पात्रो");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
