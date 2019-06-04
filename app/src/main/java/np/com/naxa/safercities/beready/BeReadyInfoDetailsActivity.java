@@ -75,11 +75,11 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
     private void fetchReadyData() {
 
         if (NetworkUtils.isNetworkAvailable()) {
-            if (sharedPreferenceUtils.getBoolanValue(SharedPreferenceUtils.IS_BE_READY_DATA_EXISTS, false)) {
-                fetchFromSharedPrefs();
-            } else {
+//            if (sharedPreferenceUtils.getBoolanValue(SharedPreferenceUtils.IS_BE_READY_DATA_EXISTS, false)) {
+//                fetchFromSharedPrefs();
+//            } else {
                 fetchFromServer();
-            }
+//            }
         } else {
             fetchFromSharedPrefs();
         }
