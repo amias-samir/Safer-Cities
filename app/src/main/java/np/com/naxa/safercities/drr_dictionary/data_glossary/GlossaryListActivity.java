@@ -79,7 +79,7 @@ public class GlossaryListActivity extends AppCompatActivity {
 
     private void initToolbar() {
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("DRR Dictionary");
+        getSupportActionBar().setTitle("विपद् शब्दावली");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }

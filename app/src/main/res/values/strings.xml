@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Safer Cities</string>
+    <string name="app_name">सुरक्षित शहर</string>
     <string name="search_hint">Search Places</string>
 
     <string name="file_provider_authority" translatable="false">np.com.naxa.safercities.fileprovider</string>
@@ -290,13 +290,13 @@
     <string name="openDrawer">open_drawer</string>
     <string name="closeDrawer">close_drawer</string>
 
-    <string name="nav_home">Home</string>
+    <string name="nav_home">गृह पृष्ठ</string>
     <string name="nav_profile">Profile</string>
     <string name="nav_ask_for_help">Ask for Help</string>
     <string name="nav_report">Report</string>
     <string name="nav_Notify_others">Notify Others</string>
-    <string name="nav_hazard_info">Hazard Info</string>
-    <string name="nav_play_quiz">Play Quiz</string>
+    <string name="nav_hazard_info">प्रकोपको बारेमा जानकारी</string>
+    <string name="nav_play_quiz">हाजिरीजवाफ खेल्नुहोस्</string>
     <string name="nav_settings">settings</string>
     <string name="nav_map">Map</string>
     <string name="select_base_layer">Select Base Layer</string>

@@ -80,7 +80,7 @@ public class PublicationsSubCatListActivity extends AppCompatActivity {
     private void setupToolBar(Intent intent) {
         if(intent != null){
             setSupportActionBar(toolbarGeneral);
-            getSupportActionBar().setTitle(intent.getStringExtra("title"));
+            getSupportActionBar().setTitle(intent.getStringExtra("toolbar_title"));
             fileType = getFileType(intent.getStringExtra("title"));
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
