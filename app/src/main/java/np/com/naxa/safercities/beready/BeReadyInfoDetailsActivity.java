@@ -2,19 +2,27 @@ package np.com.naxa.safercities.beready;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
+import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 
 import com.google.gson.Gson;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.calendar.CalendarActivity;
 import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
 import np.com.naxa.safercities.network.UrlClass;
 import np.com.naxa.safercities.network.retrofit.NetworkApiClient;
@@ -28,11 +36,13 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
     @BindView(R.id.toolbar_general)
     Toolbar toolbar;
     @BindView(R.id.webViewBeReady)
-    WebView webViewBeReady;
+    WebView web;
 
     NetworkApiInterface apiInterface;
     SharedPreferenceUtils sharedPreferenceUtils;
     Gson gson;
+
+    private String typeSlug = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +65,7 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
         if (intent == null) {
             getSupportActionBar().setTitle("Be Ready");
         } else {
-            getSupportActionBar().setTitle(intent.getStringExtra("title"));
+            typeSlug = intent.getStringExtra("title");
         }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -76,6 +86,33 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchFromSharedPrefs() {
+
+        BeReadyResponse beReadyResponse = gson.fromJson(sharedPreferenceUtils.getStringValue(SharedPreferenceUtils.KEY_BE_READY_DATA, null), BeReadyResponse.class);
+        Observable.just(beReadyResponse.getData())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<List<BeReadyDetails>>() {
+                    @Override
+                    public void onNext(List<BeReadyDetails> beReadyDetailsList) {
+
+                        for (BeReadyDetails beReadyDetails : beReadyDetailsList){
+                            if(beReadyDetails.getSlug().equals(typeSlug)){
+                                getSupportActionBar().setTitle(beReadyDetails.getName());
+                                setupWebView(beReadyDetails);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     private void fetchFromServer() {
@@ -119,6 +156,51 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+    private void setupWebView(BeReadyDetails beReadyDetails) {
+        web.setWebViewClient(new myWebClient());
+        web.getSettings().setJavaScriptEnabled(true);
+        web.loadDataWithBaseURL(null,beReadyDetails.getDescription(),"text/html", "utf-8", null);
+    }
+
+    public class myWebClient extends WebViewClient
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // TODO Auto-generated method stub
+
+            view.loadUrl(url);
+            return true;
+
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url);
+
+        }
+    }
+
+    // To handle "Back" key press event for WebView to go back to previous screen.
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && web.canGoBack()) {
+            web.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 
 }

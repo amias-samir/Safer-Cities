@@ -264,7 +264,7 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="95dp">
+            android:layout_height="100dp">
 
             <Button
                 android:id="@+id/btn_disaster_info_top"
@@ -281,7 +281,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:gravity="center"
-                android:text="Disaster\nInformation"
+                android:text="प्रकोपमाथि\nप्रकाश"
                 android:textColor="@color/black" />
         </RelativeLayout>
 
@@ -292,10 +292,10 @@
             android:layout_height="115dp">
 
             <Button
-                android:id="@+id/btn_react_quickly_top"
+                android:id="@+id/btn_info_top"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:background="@drawable/react_quickly_button_bg"
+                android:background="@drawable/info_button_bg"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
                 android:text=""
@@ -306,7 +306,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="80dp"
                 android:gravity="center"
-                android:text="Knowledge\nBase"
+                android:text="जानकारी\nपोर्टल"
                 android:textColor="@color/black" />
         </RelativeLayout>
 
@@ -314,13 +314,13 @@
         <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="95dp">
+            android:layout_height="100dp">
 
             <Button
-                android:id="@+id/btn_info_top"
+                android:id="@+id/btn_react_quickly_top"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/info_button_bg"
+                android:background="@drawable/react_quickly_button_bg"
                 android:gravity="center"
                 android:layout_centerHorizontal="true"
                 android:text=""
@@ -331,7 +331,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
                 android:gravity="center"
-                android:text="INFO"
+                android:text="तयार\nहुनुहोस्"
                 android:textColor="@color/black" />
         </RelativeLayout>
     </LinearLayout>
