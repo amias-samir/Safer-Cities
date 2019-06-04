@@ -183,7 +183,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
                 {
                     //  Collapsed
                     Log.d(TAG, "onOffsetChanged: Collapsed");
-                    quickActionButtonLayout.setVisibility(View.VISIBLE);
+                    quickActionButtonLayout.setVisibility(View.GONE);
                 }
                 else
                 {
