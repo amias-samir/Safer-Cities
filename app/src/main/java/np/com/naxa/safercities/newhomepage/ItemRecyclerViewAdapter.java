@@ -122,7 +122,7 @@ public class ItemRecyclerViewAdapter extends RecyclerView.Adapter<ItemRecyclerVi
                 context.startActivity(new Intent(context, EmergencyContactsActivity.class));
                 break;
 
-            case "विपद् जोखिम जानकारी":
+            case "प्रकोपको बारेमा जानकारी":
                 context.startActivity(new Intent(context, HazardInfoActivity.class));
                 break;
 

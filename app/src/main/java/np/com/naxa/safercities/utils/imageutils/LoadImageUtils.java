@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.Target;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -144,6 +145,19 @@ public class LoadImageUtils {
                     .fitCenter()
                     .into(imageView);
         }
+    }
+
+
+    public static void loadImageToViewFromDrawable(@NonNull ImageView imageView, int resourceID){
+//        if(resourceID  null) {
+            Glide
+                    .with(imageView.getContext())
+                    .load(resourceID)
+                    .bitmapTransform(new CircleTransform(ISET.getInstance()))
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .fitCenter()
+                    .into(imageView);
+//        }
     }
 
 

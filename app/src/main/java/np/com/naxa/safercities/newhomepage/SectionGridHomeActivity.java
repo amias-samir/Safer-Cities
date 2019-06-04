@@ -69,6 +69,7 @@ import np.com.naxa.safercities.utils.DialogFactory;
 import np.com.naxa.safercities.utils.JsonGsonConverterUtils;
 import np.com.naxa.safercities.utils.SharedPreferenceUtils;
 import np.com.naxa.safercities.utils.imageutils.CircleTransform;
+import np.com.naxa.safercities.utils.imageutils.LoadImageUtils;
 import np.com.naxa.safercities.utils.recycleviewutils.LinearLayoutManagerWithSmoothScroller;
 import np.com.naxa.safercities.utils.recycleviewutils.RecyclerViewType;
 
@@ -150,7 +151,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
         setupCollapsingToolbar();
         // load nav menu header data
-        loadNavHeader();
+//        loadNavHeader();
 
         // initializing navigation menu
         setUpNavigationView();
@@ -203,7 +204,7 @@ public class SectionGridHomeActivity extends AppCompatActivity {
     //populate recycler view
     private void populateRecyclerView() {
         String[] sectionHeader = {"प्रकोपमाथि प्रकाश", "जानकारी पोर्टल", "तयार हुनुहोस्"};
-        String[] sectionChildTitle = {"विपद् जोखिम जानकारी", "विपद् शब्दावली", "हाजिरीजवाफ खेल्नुहोस्", "मौसमी तयारी पात्रो", "अडियो", "भिडियो", "कागजातहरू", "ब्रोशर",
+        String[] sectionChildTitle = {"प्रकोपको बारेमा जानकारी", "विपद् शब्दावली", "हाजिरीजवाफ खेल्नुहोस्", "मौसमी तयारी पात्रो", "अडियो", "भिडियो", "कागजातहरू", "ब्रोशर",
                 "घर गृहस्थीमा तयारी", "विद्यालयमा तयारी", "स्वास्थ्यमा तयारी", "स्थानीय तहमा तयारी"};
 
         ArrayList<Drawable> gridIcon = new ArrayList<Drawable>();
@@ -320,8 +321,8 @@ public class SectionGridHomeActivity extends AppCompatActivity {
      */
     private void loadNavHeader() {
         // name, website
-        txtName.setText("Samir Dangal");
-        txtWebsite.setText("samirdangal@gmail.com");
+        txtName.setText("");
+        txtWebsite.setText("");
 
         // loading header background image
 //        Glide.with(this).load(urlNavHeaderBg)

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Safer Cities</string>
+    <!--<string name="app_name">Safer Cities</string>-->
+    <string name="app_name">सुरक्षित शहर</string>
     <string name="search_hint"> ठाउँहरु खोज्नुहोस्\</string>
     <string name="speech_prompt"> केहि भन्नुहोस्</string>
     <string name="speech_not_supported"> श्रुतिबाट लेख्न सकिएन</string>
