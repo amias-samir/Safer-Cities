@@ -29,6 +29,8 @@ public class SharedPreferenceUtils {
 
     public static final String KEY_TERMINOLOGIES = "terminologies";
 
+    public static final String IS_BE_READY_DATA_EXISTS = "is_be_ready_data_exists";
+
 
 
     public SharedPreferenceUtils(Context context) {

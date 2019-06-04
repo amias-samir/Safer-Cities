@@ -2,6 +2,7 @@ package np.com.naxa.safercities.network.retrofit;
 
 
 import io.reactivex.Observable;
+import np.com.naxa.safercities.beready.BeReadyResponse;
 import np.com.naxa.safercities.disasterinfo.model.DisasterInfoListResponse;
 import np.com.naxa.safercities.drr_dictionary.data_glossary.TerminologiesListResponse;
 import np.com.naxa.safercities.emergencyContacts.model.ContactCategoryListResponse;
@@ -100,6 +101,10 @@ public interface NetworkApiInterface {
     @POST("inventory_data")
     @FormUrlEncoded
     Observable<InventoryListResponse> getInventoryListResponse(@Field("api_key") String api_key);
+
+    @POST("readyapi")
+    @FormUrlEncoded
+    Observable<BeReadyResponse> getBeReadyResponse(@Field("api_key") String api_key);
 
 }
 

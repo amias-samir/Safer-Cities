@@ -37,6 +37,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
+        <activity android:name=".beready.BeReadyInfoDetailsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".newhomepage.SectionGridHomeActivity"
+                />
+        </activity>
+
         <activity android:name=".calendar.CalendarActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -88,7 +95,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".publications.PublicationDetailsActivity"></activity>
+        <activity android:name=".publications.PublicationDetailsActivity" />
         <activity android:name=".publications.PublicationsListActivity" />
         <activity android:name=".report.wardstaff.UnverifiedReportFormListActivity">
             <meta-data
@@ -236,12 +243,8 @@
         </activity>
         <activity
             android:name=".disasterinfo.HazardInfoDetailsActivity"
-            android:exported="true">
-
-        </activity>
-        <activity android:name=".disasterinfo.HazardThingsToDoActivity">
-
-        </activity>
+            android:exported="true"></activity>
+        <activity android:name=".disasterinfo.HazardThingsToDoActivity"></activity>
         <activity
             android:name=".profile.municipalityprofile.MunicipalityProfileActivity"
             android:exported="true">
