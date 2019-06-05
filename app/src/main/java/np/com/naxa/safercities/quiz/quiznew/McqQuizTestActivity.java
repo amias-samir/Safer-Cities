@@ -103,10 +103,10 @@ public class McqQuizTestActivity extends AppCompatActivity {
                         int questionNo = questionPos+1;
                         tvQuestionLbl.setText(QuizConstants.LifeCoachingTestQuestion[questionPos]);
 
-                        btnAnswer1.setText("Question no "+questionNo +" Option 1");
-                        btnAnswer2.setText("Question no "+questionNo +" Option 2");
-                        btnAnswer3.setText("Question no "+questionNo +" Option 3");
-                        btnAnswer4.setText("Question no "+questionNo +" Option 4");
+                        btnAnswer1.setText("Question no "+questionNo +" QuizAnswerOptions 1");
+                        btnAnswer2.setText("Question no "+questionNo +" QuizAnswerOptions 2");
+                        btnAnswer3.setText("Question no "+questionNo +" QuizAnswerOptions 3");
+                        btnAnswer4.setText("Question no "+questionNo +" QuizAnswerOptions 4");
                     }
                 }).show();
 

@@ -221,13 +221,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="np.com.naxa.safercities.report.ReportCtegoryActivity" />
         </activity>
-        <activity
-            android:name=".quiz.QuizTestActivity"
-            android:exported="true">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="np.com.naxa.safercities.quiz.QuizHomeActivity" />
-        </activity>
+
         <activity
             android:name=".drr_dictionary.data_glossary.GlossaryListActivity"
             android:exported="true">

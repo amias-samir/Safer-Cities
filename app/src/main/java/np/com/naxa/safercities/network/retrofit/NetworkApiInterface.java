@@ -13,6 +13,7 @@ import np.com.naxa.safercities.mycircle.registeruser.NormalResponse;
 import np.com.naxa.safercities.network.model.AskForHelpResponse;
 import np.com.naxa.safercities.network.model.GeoJsonCategoryDetails;
 import np.com.naxa.safercities.publications.entity.PublicationsListResponse;
+import np.com.naxa.safercities.quiz.model.QuizCategoryResponse;
 import np.com.naxa.safercities.report.wardstaff.model.UnverifiedFormListResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -105,6 +106,10 @@ public interface NetworkApiInterface {
     @POST("readyapi")
     @FormUrlEncoded
     Observable<BeReadyResponse> getBeReadyResponse(@Field("api_key") String api_key);
+
+    @POST("quizapi_category")
+    @FormUrlEncoded
+    Observable<QuizCategoryResponse> getQuizcategoryResponse(@Field("api_key") String api_key);
 
 }
 
