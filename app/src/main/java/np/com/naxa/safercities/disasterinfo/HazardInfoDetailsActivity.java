@@ -34,7 +34,7 @@ import io.reactivex.subscribers.DisposableSubscriber;
 import np.com.naxa.safercities.R;
 import np.com.naxa.safercities.database.viewmodel.DisasterInfoDetailsViewModel;
 import np.com.naxa.safercities.disasterinfo.model.DisasterInfoDetailsEntity;
-import np.com.naxa.safercities.quiz.QuizTestActivity;
+import np.com.naxa.safercities.quiz.quiznew.McqQuizTestActivity;
 import np.com.naxa.safercities.utils.sectionmultiitemUtils.DataServer;
 
 import static android.text.Html.fromHtml;
@@ -177,7 +177,7 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnPlayQuiz:
-                startActivity(new Intent(HazardInfoDetailsActivity.this, QuizTestActivity.class));
+                startActivity(new Intent(HazardInfoDetailsActivity.this, McqQuizTestActivity.class));
                 break;
             case R.id.btnBeforeHappens:
                 startNewActivity("before");

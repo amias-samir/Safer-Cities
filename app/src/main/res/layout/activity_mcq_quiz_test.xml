@@ -72,7 +72,7 @@
 
 
 
-    <!-- mcq options group layout-->
+    <!-- mcq quizAnswerOptions group layout-->
     <LinearLayout
         android:id="@+id/mcq_group_quiz_test"
         android:layout_alignParentBottom="true"

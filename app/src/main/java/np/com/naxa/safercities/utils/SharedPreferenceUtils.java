@@ -32,6 +32,10 @@ public class SharedPreferenceUtils {
     public static final String IS_BE_READY_DATA_EXISTS = "is_be_ready_data_exists";
     public static final String KEY_BE_READY_DATA = "be_ready_data";
 
+    public static final String KEY_QUIZ_CATEGORY_LIST = "quiz_category_list";
+
+
+
 
 
     public SharedPreferenceUtils(Context context) {
