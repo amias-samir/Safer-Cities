@@ -71,7 +71,6 @@ public class BeReadyInfoDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
-
     private void fetchReadyData() {
 
         if (NetworkUtils.isNetworkAvailable()) {

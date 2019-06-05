@@ -199,7 +199,7 @@
     <string name="feel_free_to_call_us">Feel free to call us\nWe are always there to help you</string>
     <string name="emergency_no">Emergency No</string>
     <string name="title">Title</string>
-    <string name="play_quiz">play Quiz</string>
+    <string name="play_quiz">हाजिरीजवाफ खेल्नुहोस्</string>
     <string name="body">body</string>
     <string name="select_specific_ward_for_more_specific_information">Select specific ward for more specific information</string>
     <!-- end of sudur resource -->
@@ -385,6 +385,10 @@
     <string name="view_unverified_forms">View Unverified Forms</string>
     <string name="weather_preparedness_calendar">Weather Preparedness Calendar</string>
     <string name="no_data_found">No Data Found</string>
+    <string name="points_to_consider">Points To Consider</string>
+    <string name="after_it_passes">after it passes</string>
+    <string name="when_it_happens">WHEN it happens</string>
+    <string name="before_earthquake">Before earthquake</string>
 
 
     <!--intro slider end-->
