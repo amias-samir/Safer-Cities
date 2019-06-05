@@ -206,9 +206,9 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
     //populate recycler view
     private void populateRecyclerView() {
-        String[] sectionHeader = {"प्रकोपमाथि प्रकाश", "जानकारी पोर्टल", "तयार हुनुहोस्"};
+        String[] sectionHeader = {"प्रकोपमाथि प्रकाश", "जानकारी पोर्टल", "तयार हुनुहोस्", ""};
         String[] sectionChildTitle = {"प्रकोपको बारेमा जानकारी", "विपद् शब्दावली", "हाजिरीजवाफ खेल्नुहोस्", "मौसमी तयारी पात्रो", "अडियो", "भिडियो", "कागजातहरू", "ब्रोशर",
-                "घर गृहस्थीमा तयारी", "विद्यालयमा तयारी", "स्वास्थ्यमा तयारी", "स्थानीय तहमा तयारी"};
+                "घर गृहस्थीमा तयारी", "विद्यालयमा तयारी", "स्वास्थ्यमा तयारी", "स्थानीय तहमा तयारी", "", "", "", ""};
 
         ArrayList<Drawable> gridIcon = new ArrayList<Drawable>();
         gridIcon.add(getResources().getDrawable(R.drawable.ic_hazard_info_grid));
@@ -219,6 +219,11 @@ public class SectionGridHomeActivity extends AppCompatActivity {
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_video_library24dp));
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_picture_as_pdf_24dp));
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_library_brochure_24dp));
+
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_home_new));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_school));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_health));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_community));
 
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_home_new));
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_school));
@@ -257,10 +262,12 @@ public class SectionGridHomeActivity extends AppCompatActivity {
             }
 
 
+
             //add the section and items to array list
             sectionModelArrayList.add(new SectionModel(sectionHeader[i - 1], itemArrayList, itemIconArrayList));
 
         }
+        sectionModelArrayList.add(null);
 
         adapter = new SectionRecyclerViewAdapter(this, recyclerViewType, sectionModelArrayList);
         recyclerView.setAdapter(adapter);
@@ -276,24 +283,20 @@ public class SectionGridHomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.btn_disaster_info, R.id.btn_react_quickly, R.id.btn_info, R.id.btnAskForBlood, R.id.btnNotifyOthers,
-            R.id.btn_disaster_info_top, R.id.btn_react_quickly_top, R.id.btn_info_top})
+    @OnClick({R.id.btn_disaster_info, R.id.btn_react_quickly, R.id.btn_info, R.id.btnAskForBlood, R.id.btnNotifyOthers,})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_disaster_info:
                 appbar.setExpanded(false);
-                recyclerView.smoothScrollToPosition(0);
                 smoothScrollRecyclerToPosition(0);
                 break;
             case R.id.btn_react_quickly:
                 appbar.setExpanded(false);
-                recyclerView.smoothScrollToPosition(2);
                 smoothScrollRecyclerToPosition(2);
 
                 break;
             case R.id.btn_info:
                 appbar.setExpanded(false);
-                recyclerView.smoothScrollToPosition(1);
                 smoothScrollRecyclerToPosition(1);
 
                 break;
@@ -304,27 +307,6 @@ public class SectionGridHomeActivity extends AppCompatActivity {
 
             case R.id.btnNotifyOthers:
                 startActivity(new Intent(SectionGridHomeActivity.this, NotifyOthersActivity.class));
-                break;
-
-            case R.id.btn_disaster_info_top:
-                appbar.setExpanded(true);
-                recyclerView.smoothScrollToPosition(0);
-                smoothScrollRecyclerToPosition(0);
-
-                break;
-
-            case R.id.btn_react_quickly_top:
-                appbar.setExpanded(false);
-                recyclerView.smoothScrollToPosition(2);
-                smoothScrollRecyclerToPosition(2);
-
-                break;
-
-            case R.id.btn_info_top:
-                appbar.setExpanded(false);
-                recyclerView.smoothScrollToPosition(1);
-                smoothScrollRecyclerToPosition(1);
-
                 break;
         }
     }
