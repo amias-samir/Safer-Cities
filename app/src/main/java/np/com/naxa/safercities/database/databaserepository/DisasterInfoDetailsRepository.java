@@ -40,6 +40,11 @@ public class DisasterInfoDetailsRepository {private DisasterInfoDetailsDao mDao;
         return mSpecificDisasterInfoDetails;
     }
 
+    public Flowable<List<DisasterInfoDetailsEntity>> getDisasterInfoDetailsByCategory(String categoryname) {
+        Flowable<List<DisasterInfoDetailsEntity>> mSpecificDisasterInfoDetails = mDao.getDisasterInfoDetailsByCategory(categoryname);
+        return mSpecificDisasterInfoDetails;
+    }
+
     public void deleteSpecific(String id_from_server){
         mDao.deleteSpecific(id_from_server);
     }
