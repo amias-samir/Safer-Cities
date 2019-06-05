@@ -29,9 +29,16 @@ public class DisasterInfoDetailsViewModel extends AndroidViewModel {
 
     public Flowable<List<DisasterInfoDetailsEntity>> getAllReportDetailsList() { return mAllDisasterInfoDetailsList; }
     public Flowable<List<String>> getAllDistinctCategories() { return mAllDistinctCategories; }
+
     public Flowable<DisasterInfoDetailsEntity> getSpecificDisasterInfo(String categoryname, String subcatname) {
         mSpecificDisasterInfo = mRepository.getSpecificDisasterInfo(categoryname, subcatname);
-        return mSpecificDisasterInfo; }
+        return mSpecificDisasterInfo;
+    }
+
+    public Flowable<List<DisasterInfoDetailsEntity>> getDisasterInfoDetailsByCategory(String categoryname) {
+        Flowable<List<DisasterInfoDetailsEntity>>  mSpecificDisasterInfo = mRepository.getDisasterInfoDetailsByCategory(categoryname);
+        return mSpecificDisasterInfo;
+    }
 
     public void deleteSpecificRow(String unique_id){
         mRepository.deleteSpecific(unique_id);

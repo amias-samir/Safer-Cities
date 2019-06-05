@@ -27,6 +27,10 @@ public interface DisasterInfoDetailsDao {
     Flowable<DisasterInfoDetailsEntity> getSpecificDisasterInfoDetailsEntity(String categoryname, String subcatname);
 
 
+    @Query("SELECT * from DisasterInfoDetailsEntity WHERE categoryname LIKE :categoryname ")
+    Flowable<List<DisasterInfoDetailsEntity>> getDisasterInfoDetailsByCategory(String categoryname);
+
+
 
 
     // We do not need a conflict strategy, because the word is our primary key, and you cannot

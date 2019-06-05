@@ -108,6 +108,7 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
     }
 
     private void setupToolBar(String category) {
+        initButtonVisibilityStatus(category);
         setSupportActionBar(toolbar);
         if (category == null) {
             getSupportActionBar().setTitle("Things To Do");
@@ -120,6 +121,53 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
     }
+    private void initButtonVisibilityStatus(String category) {
+        btnBeforeHappens.setVisibility(View.GONE);
+        btnAfterHappens.setVisibility(View.GONE);
+        btnWhenHappens.setVisibility(View.GONE);
+        btnPointsToConsider.setVisibility(View.GONE);
+
+        disasterInfoDetailsViewModel.getDisasterInfoDetailsByCategory(category)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableSubscriber<List<DisasterInfoDetailsEntity>>() {
+                    @Override
+                    public void onNext(List<DisasterInfoDetailsEntity> disasterInfoDetailsEntities) {
+
+                        if(disasterInfoDetailsEntities != null) {
+                            for (DisasterInfoDetailsEntity disasterInfoDetailsEntity : disasterInfoDetailsEntities) {
+                                switch (disasterInfoDetailsEntity.getSubcatname()){
+
+                                    case "before":
+                                        btnBeforeHappens.setVisibility(View.VISIBLE);
+                                        break;
+                                    case "during":
+                                        btnWhenHappens.setVisibility(View.VISIBLE);
+                                        break;
+                                    case "after":
+                                        btnAfterHappens.setVisibility(View.VISIBLE);
+                                        break;
+                                    case "points to consider":
+                                        btnPointsToConsider.setVisibility(View.VISIBLE);
+                                        break;
+                                }
+                            }
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
 
     private void setupImageSliderViewPager() {
 
