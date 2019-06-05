@@ -225,7 +225,6 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                                 tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc(), 0, new ImageGetter(), null), TextView.BufferType.SPANNABLE);
 
-
                                 if (imageList != null && imageList.size() > 0) {
                                     Log.d(TAG, "onComplete: Image list " + imageList.size());
                                     setupImageSliderViewPager();
@@ -234,7 +233,6 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
                                 }
 
                                 imageList = null;
-
 
                             } else {
                                 tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc()), TextView.BufferType.SPANNABLE);
