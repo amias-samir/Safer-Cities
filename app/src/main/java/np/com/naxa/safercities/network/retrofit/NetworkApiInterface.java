@@ -1,6 +1,8 @@
 package np.com.naxa.safercities.network.retrofit;
 
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import np.com.naxa.safercities.beready.BeReadyResponse;
 import np.com.naxa.safercities.disasterinfo.model.DisasterInfoListResponse;
@@ -14,6 +16,7 @@ import np.com.naxa.safercities.network.model.AskForHelpResponse;
 import np.com.naxa.safercities.network.model.GeoJsonCategoryDetails;
 import np.com.naxa.safercities.publications.entity.PublicationsListResponse;
 import np.com.naxa.safercities.quiz.model.QuizCategoryResponse;
+import np.com.naxa.safercities.quiz.model.QuizQuestionAnswerDetail;
 import np.com.naxa.safercities.report.wardstaff.model.UnverifiedFormListResponse;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -110,6 +113,10 @@ public interface NetworkApiInterface {
     @POST("quizapi_category")
     @FormUrlEncoded
     Observable<QuizCategoryResponse> getQuizcategoryResponse(@Field("api_key") String api_key);
+
+    @POST("quizapi")
+    @FormUrlEncoded
+    Observable<List<QuizQuestionAnswerDetail>> getQuestionAnswerDetailsResponse(@Field("api_key") String api_key, @Field("id") String id);
 
 }
 

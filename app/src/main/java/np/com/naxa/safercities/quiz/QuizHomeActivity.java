@@ -28,6 +28,7 @@ import np.com.naxa.safercities.network.retrofit.NetworkApiClient;
 import np.com.naxa.safercities.network.retrofit.NetworkApiInterface;
 import np.com.naxa.safercities.quiz.entity.QuizCategory;
 import np.com.naxa.safercities.quiz.model.QuizCategoryResponse;
+import np.com.naxa.safercities.quiz.model.QuizQuestionAnswerDetail;
 import np.com.naxa.safercities.utils.NetworkUtils;
 import np.com.naxa.safercities.utils.SharedPreferenceUtils;
 import np.com.naxa.safercities.utils.recycleviewutils.LinearLayoutManagerWithSmoothScroller;
@@ -110,9 +111,11 @@ public class QuizHomeActivity extends AppCompatActivity {
     }
 
     private void fetchQuizCategoryFromServer() {
+        final String[] quizId = {""};
+        final String[] quizSlug = {""};
         apiInterface.getQuizcategoryResponse(UrlClass.API_ACCESS_TOKEN)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
                 .flatMap(new Function<QuizCategoryResponse, ObservableSource<List<QuizCategory>>>() {
                     @Override
                     public ObservableSource<List<QuizCategory>> apply(QuizCategoryResponse quizCategoryResponse) throws Exception {
@@ -122,20 +125,51 @@ public class QuizHomeActivity extends AppCompatActivity {
                 .flatMapIterable(new Function<List<QuizCategory>, Iterable<QuizCategory>>() {
                     @Override
                     public Iterable<QuizCategory> apply(List<QuizCategory> quizCategories) throws Exception {
+                        Log.d(TAG, "apply:  categories size "+quizCategories.size()  );
+                        sharedPreferenceUtils.setValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, gson.toJson(quizCategories));
                         return quizCategories;
                     }
                 })
                 .map(new Function<QuizCategory, QuizCategory>() {
                     @Override
                     public QuizCategory apply(QuizCategory quizCategory) throws Exception {
+                        Log.d(TAG, "apply: category "+ quizCategory.getDescription());
                         return quizCategory;
                     }
                 })
                 .subscribe(new DisposableObserver<QuizCategory>() {
                     @Override
                     public void onNext(QuizCategory quizCategory) {
-                        Log.d(TAG, "onNext: "+quizCategory.getName());
-                        Log.d(TAG, "onNext: "+quizCategory.getDescription());
+                        quizId[0] = quizCategory.getId();
+                        quizSlug[0] = quizCategory.getSlug();
+
+                        fetchQuizQuestionAnswerDetails(quizCategory, quizId[0], quizSlug[0]);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(TAG, "onComplete: ");
+                    }
+                });
+    }
+
+    private void fetchQuizQuestionAnswerDetails(QuizCategory quizCategory, String quizID, String quizSlug) {
+        apiInterface.getQuestionAnswerDetailsResponse(UrlClass.API_ACCESS_TOKEN, quizCategory.getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DisposableObserver<List<QuizQuestionAnswerDetail>>() {
+                    @Override
+                    public void onNext(List<QuizQuestionAnswerDetail> quizQuestionAnswerDetails) {
+
+                        if(quizQuestionAnswerDetails != null){
+                            sharedPreferenceUtils.setValue(quizID, gson.toJson(quizQuestionAnswerDetails));
+                        }
+
                     }
 
                     @Override
@@ -148,7 +182,9 @@ public class QuizHomeActivity extends AppCompatActivity {
 
                     }
                 });
+
     }
+
 
     private void fetchQuizCategoryFromLocal() {
     }
