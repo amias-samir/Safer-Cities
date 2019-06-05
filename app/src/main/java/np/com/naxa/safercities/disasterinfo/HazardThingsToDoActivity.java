@@ -2,6 +2,7 @@ package np.com.naxa.safercities.disasterinfo;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,14 +13,19 @@ import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-
 import com.viewpagerindicator.CirclePageIndicator;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,11 +37,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.beready.BeReadyDetails;
+import np.com.naxa.safercities.beready.BeReadyInfoDetailsActivity;
+import np.com.naxa.safercities.database.viewmodel.DisasterInfoDetailsViewModel;
 import np.com.naxa.safercities.disasterinfo.imagesliderviewpager.ImageSliderViewPagerAdapter;
 import np.com.naxa.safercities.disasterinfo.model.DisasterInfoDetailsEntity;
 import np.com.naxa.safercities.utils.sectionmultiitemUtils.DataServer;
 import np.com.naxa.safercities.utils.sectionmultiitemUtils.SectionMultipleItem;
-import np.com.naxa.safercities.database.viewmodel.DisasterInfoDetailsViewModel;
 
 import static android.text.Html.fromHtml;
 
@@ -59,6 +67,12 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
     ScrollView scrollView;
     @BindView(R.id.view_pager)
     ViewPager viewPager;
+    @BindView(R.id.sliderLayout)
+    LinearLayout sliderLayout;
+    @BindView(R.id.btnPointsToConsider)
+    Button btnPointsToConsider;
+    @BindView(R.id.webViewThingsToDo)
+    WebView web;
 
 
     private List<SectionMultipleItem> mData;
@@ -80,7 +94,7 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
         category = intent.getStringExtra("OBJ");
         subcatname = intent.getStringExtra("OBJ1");
 
-        viewPager.setVisibility(View.GONE);
+        sliderLayout.setVisibility(View.GONE);
 
         setupToolBar(category);
         setThingsToDo(subcatname);
@@ -125,7 +139,7 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
 
 
-        CirclePageIndicator indicator = (CirclePageIndicator)findViewById(R.id.indicator);
+        CirclePageIndicator indicator = (CirclePageIndicator) findViewById(R.id.indicator);
 
         indicator.setViewPager(viewPager);
 
@@ -135,33 +149,28 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
         indicator.setRadius(imageUrls.length * density);
 
 
-        viewPager.setVisibility(View.VISIBLE);
+        sliderLayout.setVisibility(View.VISIBLE);
     }
 
 
     HazardListModel hazardListModel1 = new HazardListModel();
 
-    @OnClick({R.id.btnBeforeHappens, R.id.btnWhenHappens, R.id.btnAfterHappens})
+    @OnClick({R.id.btnBeforeHappens, R.id.btnWhenHappens, R.id.btnAfterHappens, R.id.btnPointsToConsider})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnBeforeHappens:
-                // 1. create entityList which item data extend SectionMultiEntity
-//                mData = DataServer.getThingsToDoBefore();
-//                setupRecyclerView();
                 setThingsToDo("before");
 
                 break;
             case R.id.btnWhenHappens:
-                // 1. create entityList which item data extend SectionMultiEntity
-//                mData = DataServer.getThingsToDoWhenHappens();
-//                setupRecyclerView();
                 setThingsToDo("during");
                 break;
             case R.id.btnAfterHappens:
-                // 1. create entityList which item data extend SectionMultiEntity
-//                mData = DataServer.getThingsToDoAfter();
-//                setupRecyclerView();
                 setThingsToDo("after");
+                break;
+
+            case R.id.btnPointsToConsider:
+                setThingsToDo("points to consider");
                 break;
         }
     }
@@ -169,22 +178,27 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
     DataServer dataServer = new DataServer();
 
     private void setThingsToDo(String when) {
-
+        tvThingsToDoDetails.setVisibility(View.VISIBLE);
+        web.setVisibility(View.GONE);
         tvThingsToDoDetails.setText("No Data Found.");
 
 
-        if ( when != null) {
+        if (when != null) {
             switch (when) {
                 case "before":
-                    getSupportActionBar().setTitle("Before "+category);
+                    getSupportActionBar().setTitle("Before " + category);
                     break;
 
                 case "during":
-                    getSupportActionBar().setTitle("When "+category+ " happens");
+                    getSupportActionBar().setTitle("When " + category + " happens");
                     break;
 
                 case "after":
-                    getSupportActionBar().setTitle("After "+category+" passes");
+                    getSupportActionBar().setTitle("After " + category + " passes");
+                    break;
+
+                case "points to consider":
+                    getSupportActionBar().setTitle(category + " Points to consider");
                     break;
             }
         }
@@ -197,26 +211,32 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
                     @Override
                     public void onNext(DisasterInfoDetailsEntity disasterInfoDetailsEntity) {
                         imageList = new ArrayList<String>();
-                        Log.d(TAG, "onNext: Desc" + disasterInfoDetailsEntity.getDesc());
-                        if(TextUtils.isEmpty(disasterInfoDetailsEntity.getDesc())){
+                        if (TextUtils.isEmpty(disasterInfoDetailsEntity.getDesc())) {
                             tvThingsToDoDetails.setText("No Data Found.");
-                        }else {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                                tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc(), 0, new ImageGetter(), null));
+                            web.setVisibility(View.GONE);
+                            tvThingsToDoDetails.setVisibility(View.VISIBLE);
+                            Log.d(TAG, "onNext: Empty" + disasterInfoDetailsEntity.getDesc());
 
+                        } else {
+                            setupWebView(disasterInfoDetailsEntity);
+                            web.setVisibility(View.VISIBLE);
+                            tvThingsToDoDetails.setVisibility(View.GONE);
+                            Log.d(TAG, "onNext: "+disasterInfoDetailsEntity.getDesc());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                                tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc(), 0, new ImageGetter(), null), TextView.BufferType.SPANNABLE);
 
                                 if (imageList != null && imageList.size() > 0) {
                                     Log.d(TAG, "onComplete: Image list " + imageList.size());
                                     setupImageSliderViewPager();
                                 } else {
-                                    viewPager.setVisibility(View.GONE);
+                                    sliderLayout.setVisibility(View.GONE);
                                 }
 
                                 imageList = null;
 
-
                             } else {
-                                tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc()));
+                                tvThingsToDoDetails.setText(fromHtml(disasterInfoDetailsEntity.getDesc()), TextView.BufferType.SPANNABLE);
+
                             }
                         }
 
@@ -224,7 +244,7 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable t) {
-                        Log.d(TAG, "onError: Desc "+ t.getMessage());
+                        Log.d(TAG, "onError: Desc " + t.getMessage());
                     }
 
                     @Override
@@ -235,7 +255,7 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
     }
 
 
-    List<String> imageList ;
+    List<String> imageList;
 
     private class ImageGetter implements Html.ImageGetter {
 
@@ -258,5 +278,48 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
             super.onBackPressed();
         }
         return super.onOptionsItemSelected(menuItem);
+    }
+
+
+    private void setupWebView(@NotNull DisasterInfoDetailsEntity disasterInfoDetailsEntity) {
+        web.setWebViewClient(new myWebClient());
+        web.getSettings().setJavaScriptEnabled(true);
+        web.loadDataWithBaseURL(null, disasterInfoDetailsEntity.getDesc(),"text/html", "utf-8", null);
+    }
+
+    public class myWebClient extends WebViewClient
+    {
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            // TODO Auto-generated method stub
+            super.onPageStarted(view, url, favicon);
+        }
+
+        @Override
+        public boolean shouldOverrideUrlLoading(WebView view, String url) {
+            // TODO Auto-generated method stub
+
+            view.loadUrl(url);
+            return true;
+
+        }
+
+        @Override
+        public void onPageFinished(WebView view, String url) {
+            // TODO Auto-generated method stub
+            super.onPageFinished(view, url);
+
+        }
+    }
+
+    // To handle "Back" key press event for WebView to go back to previous screen.
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && web.canGoBack()) {
+            web.goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

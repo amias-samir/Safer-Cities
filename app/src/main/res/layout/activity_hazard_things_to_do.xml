@@ -38,7 +38,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/sliderLayout">
             <android.support.v4.view.ViewPager
                 xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/view_pager"
@@ -58,6 +62,7 @@
                 app:fillColor="#df0623"
                 app:pageColor="#fff"
                 app:snap="false" />
+</LinearLayout>
 
         <TextView
             android:id="@+id/tvThingsToDoDetails"
@@ -66,7 +71,20 @@
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:textColor="@color/slate_black"
             android:textSize="@dimen/material_text_title2"
-            android:text="details"/>
+            android:text="details"
+            android:visibility="gone"/>
+
+
+
+            <WebView
+                android:id="@+id/webViewThingsToDo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                >
+            </WebView>
+
         </LinearLayout>
 
     </ScrollView>
@@ -91,7 +109,7 @@
             android:layout_weight="1"
             android:background="@color/isetPurple"
             android:drawableBottom="@drawable/circle_with_arrow_right"
-            android:text="Before earthquake"
+            android:text="@string/before_earthquake"
             android:textColor="@color/white"
             android:gravity="center"
             android:padding="@dimen/spacing_small"/>
@@ -100,13 +118,13 @@
             android:id="@+id/btnWhenHappens"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/spacing_small"
             android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_weight="1"
             android:background="@color/isetPurple"
             android:drawableBottom="@drawable/circle_with_arrow_right"
-            android:text="WHEN it happens"
+            android:text="@string/when_it_happens"
             android:gravity="center"
             android:textColor="@color/white"
             android:padding="@dimen/spacing_xsmall"/>
@@ -115,11 +133,30 @@
             android:id="@+id/btnAfterHappens"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/activity_horizontal_margin"
+
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/spacing_small"
             android:layout_weight="1"
             android:background="@color/isetPurple"
             android:drawableBottom="@drawable/circle_with_arrow_right"
-            android:text="after it passes"
+            android:text="@string/after_it_passes"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:padding="@dimen/spacing_xxsmall"/>
+
+        <Button
+            android:id="@+id/btnPointsToConsider"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/spacing_small"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:background="@color/isetPurple"
+            android:drawableBottom="@drawable/circle_with_arrow_right"
+            android:text="@string/points_to_consider"
             android:gravity="center"
             android:textColor="@color/white"
             android:padding="@dimen/spacing_xxsmall"/>
