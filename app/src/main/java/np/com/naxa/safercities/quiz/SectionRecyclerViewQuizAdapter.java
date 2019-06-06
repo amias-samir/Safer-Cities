@@ -112,7 +112,7 @@ public class SectionRecyclerViewQuizAdapter extends RecyclerView.Adapter<Section
 
     @Override
     public int getItemCount() {
-        return quizCategoryArrayList.size();
+        return 1;
     }
 
 
