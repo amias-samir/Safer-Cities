@@ -98,24 +98,11 @@ public class DataGlossaryWordDetailsActivity extends AppCompatActivity {
 
                     }
                 });
-
-
-        if (wordsWithDetailsModel.getWord().trim().equalsIgnoreCase("Consent")) {
-
-//            videoURL = wordsWithDetailsModel.getVideo_URL();
-//            btnWatchVideo.setVisibility(View.VISIBLE);
-        }
-        if (wordsWithDetailsModel.getWord().trim().equalsIgnoreCase("No Consent")) {
-//            videoURL = wordsWithDetailsModel.getVideo_URL();
-//            btnWatchVideo.setVisibility(View.VISIBLE);
-        }
     }
 
 
     private void initToolbar() {
-//        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle(wordsWithDetailsModel != null ? wordsWithDetailsModel.getTitle() : "Failed to load");
-        toolbar.setTitle("DRR Dictionary");
+        toolbar.setTitle(wordsWithDetailsModel.getWord());
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
