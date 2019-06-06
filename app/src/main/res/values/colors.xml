@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--<color name="colorPrimary">#99b1d7</color>-->
-    <color name="colorPrimary">#2979ff</color>
-    <color name="colorPrimaryDark">#0a3981</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1976D2</color>
+    <!--<color name="colorAccent">#FF4081</color>-->
+    <color name="colorAccent">#DE3535</color>
 
 
     <color name="mapboxWhite">#ffffff</color>
@@ -61,31 +62,51 @@
 
     <color name="light_balck">#616161</color>
     <color name="black_alpha_40">#bf000000</color>
-    <color name="textColorPurple">#5C3E97</color>
+    <color name="textColorPurple">#2196F3</color>
     <!-- end of sudur color resource-->
 
     <!--ISET-->
-    <color name="isetPurple">#673BB7</color>
-    <color name="lightPurple">#7C57C1</color>
-    <color name="lightPink">#EFEBF9</color>
+    <!--<color name="isetPurple">#673BB7</color>-->
+    <!--<color name="lightPurple">#7C57C1</color>-->
+    <!--<color name="lightPink">#EFEBF9</color>-->
+    <!--<color name="isetGreen">#388E3C</color>-->
+    <!--<color name="btnBorder">#7267C2</color>-->
+    <!--<color name="btnActive">#8C99E8</color>-->
+    <!--<color name="btnPassive">#5D4C98</color>-->
+    <!--<color name="backgroundCenter">#5F5E9A</color>-->
+    <!--<color name="backgroundTopEnd">#292973</color>-->
+    <!--<color name="textColorSearchHint">#aaafcf</color>-->
+    <!--<color name="searchViewBackground">#825ec4</color>-->
+    <!--<color name="listItemFirstBG">#F0E6FF</color>-->
+    <!--<color name="listItemSecondBG">#F6F2FD</color>-->
+    <!--<color name="isetToolbarColor">#673AB7</color>-->
+    <!--<color name="isetArrowRightRectColor">#E2D5F8</color>-->
+    <!--<color name="isetArrowRightCircleColor">#774EBE</color>-->
+    <!--<color name="thingsToDoListnumberBG">#D7CCEC</color>-->
+    <!--<color name="helpBloodRedColor">#ED1C24</color>-->
+    <color name="isetPurple">#1976D2</color>
+    <color name="lightPurple">#40C4FF</color>
+    <color name="lightPink">#BBDEFB</color>
     <color name="isetGreen">#388E3C</color>
-    <color name="btnBorder">#7267C2</color>
-    <color name="btnActive">#8C99E8</color>
-    <color name="btnPassive">#5D4C98</color>
-    <color name="backgroundCenter">#5F5E9A</color>
+    <color name="btnBorder">#80D8FF</color>
+    <color name="btnActive">#4FC3F7</color>
+    <color name="btnPassive">#42A5F5</color>
+    <color name="backgroundCenter">#00B0FF</color>
     <color name="backgroundTopEnd">#292973</color>
-    <color name="textColorSearchHint">#aaafcf</color>
-    <color name="searchViewBackground">#825ec4</color>
-    <color name="listItemFirstBG">#F0E6FF</color>
-    <color name="listItemSecondBG">#F6F2FD</color>
-    <color name="isetToolbarColor">#673AB7</color>
-    <color name="isetArrowRightRectColor">#E2D5F8</color>
-    <color name="isetArrowRightCircleColor">#774EBE</color>
-    <color name="thingsToDoListnumberBG">#D7CCEC</color>
+    <color name="textColorSearchHint">#BBDEFB</color>
+    <color name="searchViewBackground">#4FC3F7</color>
+    <color name="listItemFirstBG">#E3F2FD</color>
+    <color name="listItemSecondBG">#E1F5FE</color>
+    <color name="isetToolbarColor">#2196F3</color>
+    <color name="isetArrowRightRectColor">#F0BBDEFB</color>
+    <color name="isetArrowRightCircleColor">#90CAF9</color>
+    <color name="thingsToDoListnumberBG">#F3BBDEFB</color>
     <color name="helpBloodRedColor">#ED1C24</color>
 
 
     <!--intro slider color start-->
+
+
 
     <!-- Screens background color-->
     <color name="bg_screen1">#f64c73</color>
@@ -107,6 +128,7 @@
     <color name="dot_light_screen3">#93c6fd</color>
     <color name="dot_light_screen4">#e4b5fc</color>
     <color name="dot_light_screen5">#FACA83</color>
+    <color name="home_grid_card_bg_volor">#E3F2FD</color>
 
     <array name="array_dot_active">
         <item>@color/dot_light_screen1</item>
