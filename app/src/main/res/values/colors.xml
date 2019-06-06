@@ -19,7 +19,7 @@
     <color name="bonuspack_bubble_background_color">#FAFAFA</color>
 
 
-    <color name="colorWindowBackground">#f3f3f3</color>
+    <color name="colorWindowBackground">#F9FDFF</color>
 
     <color name="colorWhiteHalfTransparent">#acffffff</color>
     <color name="colorGeryWhite">#c6d2e1</color>
@@ -97,6 +97,7 @@
     <color name="searchViewBackground">#4FC3F7</color>
     <color name="listItemFirstBG">#E3F2FD</color>
     <color name="listItemSecondBG">#E1F5FE</color>
+    <color name="listItemDefault">#DCE1F5FE</color>
     <color name="isetToolbarColor">#2196F3</color>
     <color name="isetArrowRightRectColor">#F0BBDEFB</color>
     <color name="isetArrowRightCircleColor">#90CAF9</color>
