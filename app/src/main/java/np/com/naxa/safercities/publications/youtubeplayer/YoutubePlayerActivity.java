@@ -26,8 +26,11 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity {
         Intent intent = getIntent();
         PublicationsListDetails publicationsListDetails = intent.getParcelableExtra(YoutubeConstants.VIDEO_KEY);
 
-        String videoId = publicationsListDetails.getVideolink().replaceAll("https://www.youtube.com/embed/", "");
+//        String videoId = publicationsListDetails.getVideolink().replaceAll("https://www.youtube.com/watch?v=", "");
 
+        String videoUrl = publicationsListDetails.getVideolink();
+        int stringLength = videoUrl.length();
+        String videoId = videoUrl.substring(stringLength-11,stringLength);
 
         YouTubePlayerView youTubePlayerView =
                 (YouTubePlayerView) findViewById(R.id.player);
@@ -52,5 +55,6 @@ public class YoutubePlayerActivity extends YouTubeBaseActivity {
 
 
     }
+
 
 }

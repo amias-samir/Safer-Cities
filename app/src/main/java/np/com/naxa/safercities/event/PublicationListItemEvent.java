@@ -7,6 +7,8 @@ public class PublicationListItemEvent {
     public static final String KEY_FILES = "files";
     public static final String KEY_IMAGE = "images";
     public static final String KEY_VIDEO = "video";
+    public static final String KEY_AUDIO = "audio";
+    public static final String KEY_SUB_CAT = "Brouchure";
 
     public static class PublicationListitemClick{
 

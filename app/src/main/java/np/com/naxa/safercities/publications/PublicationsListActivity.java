@@ -47,6 +47,7 @@ import np.com.naxa.safercities.publications.adapter.PublicationsListItemAdapter;
 import np.com.naxa.safercities.publications.entity.PublicationsListDetails;
 import np.com.naxa.safercities.publications.entity.PublicationsListResponse;
 import np.com.naxa.safercities.publications.youtubeplayer.helper.YoutubeConstants;
+import np.com.naxa.safercities.utils.Constants;
 import np.com.naxa.safercities.utils.DialogFactory;
 import np.com.naxa.safercities.utils.NetworkUtils;
 import np.com.naxa.safercities.utils.ToastUtils;
@@ -132,7 +133,7 @@ public class PublicationsListActivity extends AppCompatActivity {
         String name = itemClick.getPublicationsListDetails().getTitle();
 
         Intent intent = new Intent(PublicationsListActivity.this, PublicationDetailsActivity.class);
-        intent.putExtra(YoutubeConstants.VIDEO_KEY, itemClick.getPublicationsListDetails());
+        intent.putExtra(Constants.KEY_OBJECT, itemClick.getPublicationsListDetails());
         startActivity(intent);
 
         ToastUtils.showShortToast(name);

@@ -33,7 +33,21 @@ public class PublicationsListItemAdapter extends BaseQuickAdapter<PublicationsLi
         helper.setText(R.id.publication_name,item.getHazard_name());
         helper.setText(R.id.publication_type,item.getType());
 
+
+
         LoadImageUtils.loadImageToViewFromSrc(imageView, item.getPhoto());
+
+        if(item.getType() .equals(PublicationListItemEvent.KEY_VIDEO)){
+            String videoUrl = item.getVideolink();
+            int stringLength = videoUrl.length();
+            String videoId = videoUrl.substring(stringLength-11,stringLength);
+
+            String videoImageUrl = "https://img.youtube.com/vi/"+videoId+"/default.jpg";
+            LoadImageUtils.loadImageToViewFromSrc(imageView, videoImageUrl);
+
+        }else {
+            LoadImageUtils.loadImageToViewFromSrc(imageView, item.getPhoto());
+        }
 
 
 //        if(((helper.getLayoutPosition()+1) %2) == 0){
