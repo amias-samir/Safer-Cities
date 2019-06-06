@@ -19,7 +19,7 @@ public class QuizQuestionAnswerDetail {
     @SerializedName("right_answer")
     @Expose
     private String rightAnswer;
-    @SerializedName("quizAnswerOptions")
+    @SerializedName("options")
     @Expose
     private List<QuizAnswerOptions> quizAnswerOptions = null;
 
