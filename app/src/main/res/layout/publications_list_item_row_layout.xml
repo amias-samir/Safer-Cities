@@ -4,12 +4,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="1dp"
-    android:background="@color/listItemSecondBG"
+    android:layout_marginBottom="@dimen/spacing_medium"
+    android:background="@color/listItemDefault"
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingTop="@dimen/spacing_medium"
-    android:paddingBottom="@dimen/spacing_medium"
    >
 
     <!--android:background="?android:selectableItemBackground"-->
