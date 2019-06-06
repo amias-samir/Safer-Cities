@@ -1,5 +1,6 @@
 package np.com.naxa.safercities.quiz;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +27,14 @@ import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
 import np.com.naxa.safercities.network.UrlClass;
 import np.com.naxa.safercities.network.retrofit.NetworkApiClient;
 import np.com.naxa.safercities.network.retrofit.NetworkApiInterface;
 import np.com.naxa.safercities.quiz.entity.QuizCategory;
 import np.com.naxa.safercities.quiz.model.QuizCategoryResponse;
 import np.com.naxa.safercities.quiz.model.QuizQuestionAnswerDetail;
+import np.com.naxa.safercities.utils.DialogFactory;
 import np.com.naxa.safercities.utils.NetworkUtils;
 import np.com.naxa.safercities.utils.SharedPreferenceUtils;
 import np.com.naxa.safercities.utils.recycleviewutils.LinearLayoutManagerWithSmoothScroller;
@@ -50,6 +56,7 @@ public class QuizHomeActivity extends AppCompatActivity {
     NetworkApiInterface apiInterface;
     SharedPreferenceUtils sharedPreferenceUtils;
     Gson gson;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,21 +93,23 @@ public class QuizHomeActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManagerWithSmoothScroller(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        populateRecyclerView();
     }
     //populate recycler view
 
-    private void populateRecyclerView() {
+    private void populateRecyclerView( List<QuizCategory> quizCategoryList) {
         ArrayList<SectionQuizModel> sectionModelArrayList = new ArrayList<SectionQuizModel>();
 
-        sectionModelArrayList.addAll(SectionQuizModel.getQuizList());
-        SectionRecyclerViewQuizAdapter adapter = new SectionRecyclerViewQuizAdapter(this, recyclerViewType, sectionModelArrayList);
+//        sectionModelArrayList.addAll(quizCategoryList);
+        SectionRecyclerViewQuizAdapter adapter = new SectionRecyclerViewQuizAdapter(this, recyclerViewType, quizCategoryList);
         recyclerView.setAdapter(adapter);
     }
 
 
 
     private void fetchQuizCategory() {
+
+        dialog = DialogFactory.createProgressDialog(QuizHomeActivity.this, "Loading...");
+        dialog.show();
 
         if(NetworkUtils.isNetworkAvailable()){
             fetchQuizCategoryFromServer();
@@ -115,19 +124,31 @@ public class QuizHomeActivity extends AppCompatActivity {
         final String[] quizSlug = {""};
         apiInterface.getQuizcategoryResponse(UrlClass.API_ACCESS_TOKEN)
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Function<QuizCategoryResponse, ObservableSource<List<QuizCategory>>>() {
                     @Override
                     public ObservableSource<List<QuizCategory>> apply(QuizCategoryResponse quizCategoryResponse) throws Exception {
-                        return Observable.just(quizCategoryResponse.getData());
+                        if(quizCategoryResponse.getError() == 1){
+                            showDialog(quizCategoryResponse.getMessage());
+//                            return  null;
+                            throw new Exception(quizCategoryResponse.getMessage());
+                        }else {
+                            return Observable.just(quizCategoryResponse.getData());
+                        }
                     }
                 })
                 .flatMapIterable(new Function<List<QuizCategory>, Iterable<QuizCategory>>() {
                     @Override
                     public Iterable<QuizCategory> apply(List<QuizCategory> quizCategories) throws Exception {
                         Log.d(TAG, "apply:  categories size "+quizCategories.size()  );
-                        sharedPreferenceUtils.setValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, gson.toJson(quizCategories));
-                        return quizCategories;
+                        if(quizCategories == null){
+//                            showDialog("कुनै डाटा भेटिएन");
+//                            return  null;
+                            throw new Exception("कुनै डाटा भेटिएन");
+                        }else {
+                            sharedPreferenceUtils.setValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, gson.toJson(quizCategories));
+                            return quizCategories;
+                        }
                     }
                 })
                 .map(new Function<QuizCategory, QuizCategory>() {
@@ -148,17 +169,20 @@ public class QuizHomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        showDialog(e.getMessage());
 
                     }
 
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete: ");
+                        dialog.dismiss();
+                        fetchQuizCategoryFromLocal();
                     }
                 });
     }
 
-    private void fetchQuizQuestionAnswerDetails(QuizCategory quizCategory, String quizID, String quizSlug) {
+    private void fetchQuizQuestionAnswerDetails(@NotNull QuizCategory quizCategory, String quizID, String quizSlug) {
         apiInterface.getQuestionAnswerDetailsResponse(UrlClass.API_ACCESS_TOKEN, quizCategory.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -187,5 +211,21 @@ public class QuizHomeActivity extends AppCompatActivity {
 
 
     private void fetchQuizCategoryFromLocal() {
+        List<QuizCategory> quizCategoryList = gson.fromJson(sharedPreferenceUtils.getStringValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, null),
+                new TypeToken<List<QuizCategory>>(){}.getType());
+        if(quizCategoryList != null) {
+            populateRecyclerView(quizCategoryList);
+            Log.d(TAG, "fetchQuizCategoryFromLocal: "+ quizCategoryList.size());
+        }
+
+    }
+
+    private void showDialog (String message){
+        DialogFactory.createCustomErrorDialog(QuizHomeActivity.this, message, new DialogFactory.CustomDialogListener() {
+            @Override
+            public void onClick() {
+                dialog.dismiss();
+            }
+        }).show();
     }
 }

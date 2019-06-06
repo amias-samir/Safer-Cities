@@ -8,6 +8,8 @@ import android.os.Parcelable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.jetbrains.annotations.NotNull;
+
 //@Entity (tableName = "QuizCategory")
 public class QuizCategory implements Parcelable {
 
@@ -84,7 +86,7 @@ public class QuizCategory implements Parcelable {
     public QuizCategory() {
     }
 
-    protected QuizCategory(Parcel in) {
+    protected QuizCategory(@NotNull Parcel in) {
         this.id = in.readString();
         this.name = in.readString();
         this.slug = in.readString();
