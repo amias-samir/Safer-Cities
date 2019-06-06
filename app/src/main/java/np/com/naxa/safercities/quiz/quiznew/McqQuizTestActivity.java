@@ -97,7 +97,7 @@ public class McqQuizTestActivity extends AppCompatActivity {
     private void initMCQUI(int questionPosition) {
 
         if(questionPos > quizQuestionAnswerDetails.size()-1){
-            tvQuestionLbl.setText("Total right answer "+totalRightAnswer + " out of "+quizQuestionAnswerDetails.size() +" questions.");
+            tvQuestionLbl.setText("Total right answer is "+totalRightAnswer + " out of "+quizQuestionAnswerDetails.size() +" questions.");
             mcqGroupQuizTestLayout.setVisibility(View.GONE);
             return;
         }
@@ -180,24 +180,21 @@ public class McqQuizTestActivity extends AppCompatActivity {
                     @Override
                     public void onClick() {
                         questionPos++;
-                        int questionNo = questionPos+1;
 
                         initMCQUI(questionPos);
-//                        tvQuestionLbl.setText(quizQuestionAnswerDetails.get(questionPos).getQuestion());
-//
-//                        btnAnswer1.setText("Question no "+questionNo +" QuizAnswerOptions 1");
-//                        btnAnswer2.setText("Question no "+questionNo +" QuizAnswerOptions 2");
-//                        btnAnswer3.setText("Question no "+questionNo +" QuizAnswerOptions 3");
-//                        btnAnswer4.setText("Question no "+questionNo +" QuizAnswerOptions 4");
+
                     }
                 }).show();
 
 
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
 
-        return super.onOptionsItemSelected(item);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        if (menuItem.getItemId() == android.R.id.home) {
+            super.onBackPressed();
+        }
+        return super.onOptionsItemSelected(menuItem);
     }
 }

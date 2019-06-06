@@ -11,11 +11,11 @@
 
     <ImageView
         android:layout_above="@id/name"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:fitsSystemWindows="true"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/safer_cities_icon"
         android:layout_centerHorizontal="true"
         />
 
