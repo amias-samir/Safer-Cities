@@ -1,5 +1,6 @@
 package np.com.naxa.safercities.quiz;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,12 +27,14 @@ import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
 import np.com.naxa.safercities.network.UrlClass;
 import np.com.naxa.safercities.network.retrofit.NetworkApiClient;
 import np.com.naxa.safercities.network.retrofit.NetworkApiInterface;
 import np.com.naxa.safercities.quiz.entity.QuizCategory;
 import np.com.naxa.safercities.quiz.model.QuizCategoryResponse;
 import np.com.naxa.safercities.quiz.model.QuizQuestionAnswerDetail;
+import np.com.naxa.safercities.utils.DialogFactory;
 import np.com.naxa.safercities.utils.NetworkUtils;
 import np.com.naxa.safercities.utils.SharedPreferenceUtils;
 import np.com.naxa.safercities.utils.recycleviewutils.LinearLayoutManagerWithSmoothScroller;
@@ -53,6 +56,7 @@ public class QuizHomeActivity extends AppCompatActivity {
     NetworkApiInterface apiInterface;
     SharedPreferenceUtils sharedPreferenceUtils;
     Gson gson;
+    Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,6 +108,9 @@ public class QuizHomeActivity extends AppCompatActivity {
 
     private void fetchQuizCategory() {
 
+        dialog = DialogFactory.createProgressDialog(QuizHomeActivity.this, "Loading...");
+        dialog.show();
+
         if(NetworkUtils.isNetworkAvailable()){
             fetchQuizCategoryFromServer();
         }else {
@@ -121,15 +128,27 @@ public class QuizHomeActivity extends AppCompatActivity {
                 .flatMap(new Function<QuizCategoryResponse, ObservableSource<List<QuizCategory>>>() {
                     @Override
                     public ObservableSource<List<QuizCategory>> apply(QuizCategoryResponse quizCategoryResponse) throws Exception {
-                        return Observable.just(quizCategoryResponse.getData());
+                        if(quizCategoryResponse.getError() == 1){
+                            showDialog(quizCategoryResponse.getMessage());
+//                            return  null;
+                            throw new Exception(quizCategoryResponse.getMessage());
+                        }else {
+                            return Observable.just(quizCategoryResponse.getData());
+                        }
                     }
                 })
                 .flatMapIterable(new Function<List<QuizCategory>, Iterable<QuizCategory>>() {
                     @Override
                     public Iterable<QuizCategory> apply(List<QuizCategory> quizCategories) throws Exception {
                         Log.d(TAG, "apply:  categories size "+quizCategories.size()  );
-                        sharedPreferenceUtils.setValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, gson.toJson(quizCategories));
-                        return quizCategories;
+                        if(quizCategories == null){
+//                            showDialog("कुनै डाटा भेटिएन");
+//                            return  null;
+                            throw new Exception("कुनै डाटा भेटिएन");
+                        }else {
+                            sharedPreferenceUtils.setValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, gson.toJson(quizCategories));
+                            return quizCategories;
+                        }
                     }
                 })
                 .map(new Function<QuizCategory, QuizCategory>() {
@@ -150,12 +169,14 @@ public class QuizHomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        showDialog(e.getMessage());
 
                     }
 
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete: ");
+                        dialog.dismiss();
                         fetchQuizCategoryFromLocal();
                     }
                 });
@@ -197,5 +218,14 @@ public class QuizHomeActivity extends AppCompatActivity {
             Log.d(TAG, "fetchQuizCategoryFromLocal: "+ quizCategoryList.size());
         }
 
+    }
+
+    private void showDialog (String message){
+        DialogFactory.createCustomErrorDialog(QuizHomeActivity.this, message, new DialogFactory.CustomDialogListener() {
+            @Override
+            public void onClick() {
+                dialog.dismiss();
+            }
+        }).show();
     }
 }

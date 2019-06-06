@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import np.com.naxa.safercities.R;
 import np.com.naxa.safercities.quiz.QuizConstants;
+import np.com.naxa.safercities.quiz.entity.QuizCategory;
 import np.com.naxa.safercities.utils.DialogFactory;
 
 public class McqQuizTestActivity extends AppCompatActivity {
@@ -42,8 +43,8 @@ public class McqQuizTestActivity extends AppCompatActivity {
     @BindView(R.id.mcq_group_quiz_test)
     LinearLayout mcqGroupQuizTestLayout;
 
-    String toolbarTitle = "" ;
     int questionPos = 0;
+    QuizCategory quizCategory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +52,19 @@ public class McqQuizTestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_mcq_quiz_test);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        toolbarTitle = intent.getStringExtra("OBJ");
-
-        setupToolBar();
+        setupToolBar(getIntent());
         tvQuestionLbl.setText(QuizConstants.LifeCoachingTestQuestion[questionPos]);
 
     }
 
-    private void setupToolBar() {
+    private void setupToolBar(Intent intent) {
         setSupportActionBar(toolbarGeneral);
-        getSupportActionBar().setTitle(toolbarTitle);
+        if(intent == null) {
+            getSupportActionBar().setTitle(getResources().getString(R.string.play_quiz));
+        }else {
+            quizCategory = intent.getParcelableExtra("OBJ");
+            getSupportActionBar().setTitle(quizCategory.getName());
+        }
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }

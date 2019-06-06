@@ -17,11 +17,12 @@
         android:id="@+id/txtLBL"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_horizontal_margin"
         android:gravity="center"
+        android:textStyle="bold"
+        android:textSize="@dimen/material_text_body1"
         android:text="@string/choose_category_and_start_playing_quiz"/>
 
     <android.support.v7.widget.RecyclerView
