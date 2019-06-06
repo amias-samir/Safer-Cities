@@ -36,6 +36,7 @@ import np.com.naxa.safercities.event.PublicationListItemEvent;
 import np.com.naxa.safercities.publications.entity.PublicationsListDetails;
 import np.com.naxa.safercities.publications.youtubeplayer.YoutubePlayerActivity;
 import np.com.naxa.safercities.publications.youtubeplayer.helper.YoutubeConstants;
+import np.com.naxa.safercities.utils.Constants;
 import np.com.naxa.safercities.utils.CreateAppMainFolderUtils;
 import np.com.naxa.safercities.utils.NetworkUtils;
 import np.com.naxa.safercities.utils.ToastUtils;
@@ -83,11 +84,18 @@ public class PublicationDetailsActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        publicationsListDetails = intent.getParcelableExtra(YoutubeConstants.VIDEO_KEY);
+        publicationsListDetails = intent.getParcelableExtra(Constants.KEY_OBJECT);
         if (publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_IMAGE)) {
             btnViewFilesVideo.setVisibility(View.GONE);
         } else if (publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_FILES)) {
-            btnViewFilesVideo.setText("View PDF Files");
+            if(publicationsListDetails.getSubfilecategory().equals(PublicationListItemEvent.KEY_SUB_CAT)){
+                btnViewFilesVideo.setVisibility(View.GONE);
+            }else {
+                btnViewFilesVideo.setText("View Files");
+            }
+        }else if(publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_AUDIO)){
+            btnViewFilesVideo.setText("Play Audio");
+
         }
         setupToolBar(publicationsListDetails.getTitle());
 
@@ -102,7 +110,17 @@ public class PublicationDetailsActivity extends AppCompatActivity {
             tvPublicationDesc.setText(fromHtml(publicationsListDetails.getSummary()));
         }
 
-        LoadImageUtils.loadImageToViewFromSrc(imageViewPublicationDetails, publicationsListDetails.getPhoto());
+        if(publicationsListDetails.getType() .equals(PublicationListItemEvent.KEY_VIDEO)){
+            String videoUrl = publicationsListDetails.getVideolink();
+            int stringLength = videoUrl.length();
+            String videoId = videoUrl.substring(stringLength-11,stringLength);
+
+            String videoImageUrl = "https://img.youtube.com/vi/"+videoId+"/hqdefault.jpg";
+            LoadImageUtils.loadImageToViewFromSrc(imageViewPublicationDetails, videoImageUrl);
+
+        }else {
+            LoadImageUtils.loadImageToViewFromSrc(imageViewPublicationDetails, publicationsListDetails.getPhoto());
+        }
 
     }
 
@@ -148,6 +166,12 @@ public class PublicationDetailsActivity extends AppCompatActivity {
             case PublicationListItemEvent.KEY_FILES:
                 Log.d(TAG, "viewFilesVideo: " + publicationsListDetails.getFile());
                 viewPDFData(publicationsListDetails);
+                break;
+
+            case PublicationListItemEvent.KEY_AUDIO:
+                Log.d(TAG, "viewFilesVideo: " + publicationsListDetails.getFile());
+                Toast.makeText(this, "Playing Audio File", Toast.LENGTH_SHORT).show();
+//                viewPDFData(publicationsListDetails);
                 break;
         }
     }
