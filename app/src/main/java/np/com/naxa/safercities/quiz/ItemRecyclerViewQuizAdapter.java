@@ -15,8 +15,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.quiz.entity.QuizCategory;
 import np.com.naxa.safercities.quiz.quiznew.McqQuizTestActivity;
 import np.com.naxa.safercities.utils.colorutils.ColorList;
 
@@ -43,9 +45,9 @@ public class ItemRecyclerViewQuizAdapter extends RecyclerView.Adapter<ItemRecycl
     }
 
     private Context context;
-    private ArrayList<String> arrayList;
+    private List<QuizCategory> arrayList;
 
-    public ItemRecyclerViewQuizAdapter(Context context, ArrayList<String> arrayList) {
+    public ItemRecyclerViewQuizAdapter(Context context, List<QuizCategory> arrayList) {
         this.context = context;
         this.arrayList = arrayList;
     }
@@ -62,7 +64,7 @@ public class ItemRecyclerViewQuizAdapter extends RecyclerView.Adapter<ItemRecycl
 //        Random rnd = new Random();
 //        int color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256));
 
-        holder.itemLabel.setText(arrayList.get(position));
+        holder.itemLabel.setText(arrayList.get(position).getName());
         holder.itemLabel.setTextColor(ColorList.COLORFUL_COLORS[position]);
 
         DrawableCompat.setTint(holder.item_bg.getBackground().mutate(), ColorList.COLORFUL_COLORS[position]);

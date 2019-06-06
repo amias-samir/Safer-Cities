@@ -9,6 +9,9 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,15 +89,14 @@ public class QuizHomeActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManagerWithSmoothScroller(this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        populateRecyclerView();
     }
     //populate recycler view
 
-    private void populateRecyclerView() {
+    private void populateRecyclerView( List<QuizCategory> quizCategoryList) {
         ArrayList<SectionQuizModel> sectionModelArrayList = new ArrayList<SectionQuizModel>();
 
-        sectionModelArrayList.addAll(SectionQuizModel.getQuizList());
-        SectionRecyclerViewQuizAdapter adapter = new SectionRecyclerViewQuizAdapter(this, recyclerViewType, sectionModelArrayList);
+//        sectionModelArrayList.addAll(quizCategoryList);
+        SectionRecyclerViewQuizAdapter adapter = new SectionRecyclerViewQuizAdapter(this, recyclerViewType, quizCategoryList);
         recyclerView.setAdapter(adapter);
     }
 
@@ -115,7 +117,7 @@ public class QuizHomeActivity extends AppCompatActivity {
         final String[] quizSlug = {""};
         apiInterface.getQuizcategoryResponse(UrlClass.API_ACCESS_TOKEN)
                 .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(new Function<QuizCategoryResponse, ObservableSource<List<QuizCategory>>>() {
                     @Override
                     public ObservableSource<List<QuizCategory>> apply(QuizCategoryResponse quizCategoryResponse) throws Exception {
@@ -154,11 +156,12 @@ public class QuizHomeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete() {
                         Log.d(TAG, "onComplete: ");
+                        fetchQuizCategoryFromLocal();
                     }
                 });
     }
 
-    private void fetchQuizQuestionAnswerDetails(QuizCategory quizCategory, String quizID, String quizSlug) {
+    private void fetchQuizQuestionAnswerDetails(@NotNull QuizCategory quizCategory, String quizID, String quizSlug) {
         apiInterface.getQuestionAnswerDetailsResponse(UrlClass.API_ACCESS_TOKEN, quizCategory.getId())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -187,5 +190,12 @@ public class QuizHomeActivity extends AppCompatActivity {
 
 
     private void fetchQuizCategoryFromLocal() {
+        List<QuizCategory> quizCategoryList = gson.fromJson(sharedPreferenceUtils.getStringValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, null),
+                new TypeToken<List<QuizCategory>>(){}.getType());
+        if(quizCategoryList != null) {
+            populateRecyclerView(quizCategoryList);
+            Log.d(TAG, "fetchQuizCategoryFromLocal: "+ quizCategoryList.size());
+        }
+
     }
 }

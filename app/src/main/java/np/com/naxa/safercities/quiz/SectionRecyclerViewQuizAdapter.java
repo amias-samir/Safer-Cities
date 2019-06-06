@@ -11,8 +11,10 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.quiz.entity.QuizCategory;
 import np.com.naxa.safercities.utils.recycleviewutils.LinearLayoutManagerWithSmoothScroller;
 import np.com.naxa.safercities.utils.recycleviewutils.RecyclerViewType;
 
@@ -39,12 +41,12 @@ public class SectionRecyclerViewQuizAdapter extends RecyclerView.Adapter<Section
 
     private Context context;
     private RecyclerViewType recyclerViewType;
-    private ArrayList<SectionQuizModel> sectionEmergencyNoModelArrayList;
+    private List<QuizCategory> quizCategoryArrayList;
 
-    public SectionRecyclerViewQuizAdapter(Context context, RecyclerViewType recyclerViewType, ArrayList<SectionQuizModel> sectionEmergencyNoModelArrayList) {
+    public SectionRecyclerViewQuizAdapter(Context context, RecyclerViewType recyclerViewType, List<QuizCategory> quizCategoryArrayList) {
         this.context = context;
         this.recyclerViewType = recyclerViewType;
-        this.sectionEmergencyNoModelArrayList = sectionEmergencyNoModelArrayList;
+        this.quizCategoryArrayList = quizCategoryArrayList;
     }
 
     @Override
@@ -55,10 +57,10 @@ public class SectionRecyclerViewQuizAdapter extends RecyclerView.Adapter<Section
 
     @Override
     public void onBindViewHolder(SectionViewHolder holder, int position) {
-        final SectionQuizModel sectionEmergencyNoModel =
-                sectionEmergencyNoModelArrayList.get(position);
+        final QuizCategory quizCategory =
+                quizCategoryArrayList.get(position);
 
-        holder.sectionLabel.setText(sectionEmergencyNoModel.getSectionLabel());
+        holder.sectionLabel.setText(quizCategory.getName());
 
         //recycler view for items
         holder.itemRecyclerView.setHasFixedSize(true);
@@ -81,7 +83,7 @@ public class SectionRecyclerViewQuizAdapter extends RecyclerView.Adapter<Section
                 holder.itemRecyclerView.setLayoutManager(gridLayoutManager);
                 break;
         }
-        ItemRecyclerViewQuizAdapter adapter = new ItemRecyclerViewQuizAdapter(context, sectionEmergencyNoModel.getItemArrayList());
+        ItemRecyclerViewQuizAdapter adapter = new ItemRecyclerViewQuizAdapter(context, quizCategoryArrayList);
         holder.itemRecyclerView.setAdapter(adapter);
 
 
@@ -110,7 +112,7 @@ public class SectionRecyclerViewQuizAdapter extends RecyclerView.Adapter<Section
 
     @Override
     public int getItemCount() {
-        return sectionEmergencyNoModelArrayList.size();
+        return quizCategoryArrayList.size();
     }
 
 
