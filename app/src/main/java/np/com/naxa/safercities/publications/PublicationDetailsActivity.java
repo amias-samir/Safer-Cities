@@ -15,6 +15,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -66,8 +67,11 @@ public class PublicationDetailsActivity extends AppCompatActivity {
     CreateAppMainFolderUtils createAppMainFolderUtils;
 
     private long pdf_DownloadId;
+    private long audio_DownloadId;
     private boolean isPDFView = false;
     private String PDFFileName;
+    private String audioType;
+    private String audioFileName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -171,7 +175,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
             case PublicationListItemEvent.KEY_AUDIO:
                 Log.d(TAG, "viewFilesVideo: " + publicationsListDetails.getFile());
                 Toast.makeText(this, "Playing Audio File", Toast.LENGTH_SHORT).show();
-//                viewPDFData(publicationsListDetails);
+                downloadAudioFile(publicationsListDetails);
                 break;
         }
     }
@@ -207,6 +211,29 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 pdf_DownloadId = DownloadData(publicationsListDetails);
             }else{
                 ToastUtils.showShortToast("No internet connection");
+            }
+        }
+    }
+
+    private void downloadAudioFile(@NonNull PublicationsListDetails publicationsListDetails){
+
+        if(TextUtils.isEmpty(publicationsListDetails.getAudio())){
+            Toast.makeText(this, "No Audio FIle Found", Toast.LENGTH_SHORT).show();
+        }else {
+            String audioUrl = publicationsListDetails.getAudio();
+            int stringLength = audioUrl.length();
+            audioType = audioUrl.substring(stringLength - 4, stringLength);
+            audioFileName = publicationsListDetails.getId() + audioType;
+
+            File targetFile = new File(createAppMainFolderUtils.getAppMediaFolderName() + File.separator + audioFileName);
+            if (targetFile.exists()) {
+                playAudioFile(createAppMainFolderUtils.getAppMediaFolderName(), audioFileName);
+            } else {
+                if (NetworkUtils.isNetworkAvailable()) {
+                    audio_DownloadId = DownloadData(publicationsListDetails);
+                } else {
+                    ToastUtils.showShortToast("No internet connection");
+                }
             }
         }
     }
@@ -254,6 +281,15 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 viewPDFFile(createAppMainFolderUtils.getAppMediaFolderName(), PDFFileName);
             }
 
+            if (referenceId == audio_DownloadId) {
+                Toast toast = Toast.makeText(PublicationDetailsActivity.this,
+                        "Audio file Download Complete", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.TOP, 25, 400);
+                toast.show();
+
+                playAudioFile(createAppMainFolderUtils.getAppMediaFolderName(), audioFileName);
+            }
+
         }
     };
 
@@ -273,6 +309,13 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         intent.setDataAndType(targetUri, "application/pdf");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         startActivity(Intent.createChooser(intent, "Choose Viewer"));
+    }
+
+
+    private void playAudioFile(String appMediaFolderName, String audioFileName) {
+
+        Log.e(TAG, "playAudioFile: "+audioFileName );
+        Toast.makeText(this, "playAudioFile: "+audioFileName , Toast.LENGTH_SHORT).show();
     }
 
 

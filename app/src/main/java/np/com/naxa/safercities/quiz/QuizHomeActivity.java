@@ -211,6 +211,7 @@ public class QuizHomeActivity extends AppCompatActivity {
 
 
     private void fetchQuizCategoryFromLocal() {
+        dialog.dismiss();
         List<QuizCategory> quizCategoryList = gson.fromJson(sharedPreferenceUtils.getStringValue(SharedPreferenceUtils.KEY_QUIZ_CATEGORY_LIST, null),
                 new TypeToken<List<QuizCategory>>(){}.getType());
         if(quizCategoryList != null) {

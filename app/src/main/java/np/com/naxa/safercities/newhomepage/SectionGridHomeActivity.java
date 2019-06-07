@@ -220,15 +220,11 @@ public class SectionGridHomeActivity extends AppCompatActivity {
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_picture_as_pdf_24dp));
         gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_library_brochure_24dp));
 
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_home_new));
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_school));
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_health));
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_community));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_home_update));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_school_update));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_health_update));
+        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_community_update));
 
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_home_new));
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_school));
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_health));
-        gridIcon.add(getResources().getDrawable(R.drawable.ic_grid_home_be_ready_community));
 
 
 

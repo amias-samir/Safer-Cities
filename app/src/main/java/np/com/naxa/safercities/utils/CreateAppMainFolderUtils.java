@@ -7,7 +7,7 @@ import android.widget.Toast;
 import java.io.File;
 
 public class CreateAppMainFolderUtils {
-    public static final String appmainFolderName = "Kathmandu Metropolitan City";
+    public static final String appmainFolderName = "Safer Cities";
     Context context;
     String mainFolderName ;
     public static final String databaseFolderName  = "data" ;

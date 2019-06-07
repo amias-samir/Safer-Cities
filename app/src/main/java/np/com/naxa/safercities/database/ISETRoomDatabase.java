@@ -47,7 +47,7 @@ import np.com.naxa.safercities.utils.CreateAppMainFolderUtils;
 @Database(entities = {Contact.class, OpenSpace.class, CommonPlacesAttrb.class, HospitalFacilities.class, EducationalInstitutes.class,
         GeoJsonCategoryEntity.class, GeoJsonListEntity.class, MessageHelper.class, ContactModel.class, ReportDetailsEntity.class,
         DisasterInfoDetailsEntity.class, PublicationsListDetails.class, ContactCategoryListDetails.class, InventoryListDetails.class
-}, version = 28, exportSchema = false)
+}, version = 1, exportSchema = false)
 
 public abstract class ISETRoomDatabase extends RoomDatabase {
 
@@ -74,7 +74,7 @@ public abstract class ISETRoomDatabase extends RoomDatabase {
             synchronized (ISETRoomDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            ISETRoomDatabase.class, createAppMainFolderUtils.getAppDataFolderName()+File.separator+"iset_database")
+                            ISETRoomDatabase.class, createAppMainFolderUtils.getAppDataFolderName()+File.separator+"safer_cities_database")
                             // Wipes and rebuilds instead of migrating if no Migration object.
                             // Migration is not part of this codelab.
                             .fallbackToDestructiveMigration()
