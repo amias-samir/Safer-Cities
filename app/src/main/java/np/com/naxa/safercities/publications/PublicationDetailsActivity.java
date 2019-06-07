@@ -73,6 +73,9 @@ public class PublicationDetailsActivity extends AppCompatActivity {
     private String audioType;
     private String audioFileName;
 
+    private static final int KEY_AUDIO_ID = 1;
+    private static final int KEY_PDF_ID = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,7 +211,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
             viewPDFFile(createAppMainFolderUtils.getAppMediaFolderName(), PDFFileName);
         } else {
             if(NetworkUtils.isNetworkAvailable()) {
-                pdf_DownloadId = DownloadData(publicationsListDetails);
+                pdf_DownloadId = DownloadData(publicationsListDetails, KEY_PDF_ID);
             }else{
                 ToastUtils.showShortToast("No internet connection");
             }
@@ -223,14 +226,14 @@ public class PublicationDetailsActivity extends AppCompatActivity {
             String audioUrl = publicationsListDetails.getAudio();
             int stringLength = audioUrl.length();
             audioType = audioUrl.substring(stringLength - 4, stringLength);
-            audioFileName = publicationsListDetails.getId() + audioType;
+            audioFileName = publicationsListDetails.getTitle() + audioType;
 
             File targetFile = new File(createAppMainFolderUtils.getAppMediaFolderName() + File.separator + audioFileName);
             if (targetFile.exists()) {
                 playAudioFile(createAppMainFolderUtils.getAppMediaFolderName(), audioFileName);
             } else {
                 if (NetworkUtils.isNetworkAvailable()) {
-                    audio_DownloadId = DownloadData(publicationsListDetails);
+                    audio_DownloadId = DownloadData(publicationsListDetails, KEY_AUDIO_ID);
                 } else {
                     ToastUtils.showShortToast("No internet connection");
                 }
@@ -238,28 +241,45 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         }
     }
 
-    private long DownloadData(@NonNull PublicationsListDetails publicationsListDetails) {
+    private long DownloadData(@NonNull PublicationsListDetails publicationsListDetails, int typeID) {
 
         DownloadManager.Query query = null;
         Cursor c = null;
 
 
         long downloadReference;
+        DownloadManager.Request request = null;
 
-        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(publicationsListDetails.getFile()));
+            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        if(typeID == KEY_PDF_ID) {
 
-        //Setting title of request
-        request.setTitle(PDFFileName);
+            request = new DownloadManager.Request(Uri.parse(publicationsListDetails.getFile()));
 
-        //Setting description of request
-        request.setDescription("Kathmandu Metropolitan City DRR Management System");
+            //Setting title of request
+            request.setTitle(PDFFileName);
 
-        //Set the local destination for the downloaded file to a path within the application's external files directory
-        request.setDestinationInExternalPublicDir(CreateAppMainFolderUtils.appmainFolderName + "/" + CreateAppMainFolderUtils.mediaFolderName, publicationsListDetails.getTitle() + ".pdf");
+            //Setting description of request
+            request.setDescription("सुरक्षित शहर विपद व्यबस्थापन समिति");
 
-        //Enqueue download and save the referenceId
+            //Set the local destination for the downloaded file to a path within the application's external files directory
+            request.setDestinationInExternalPublicDir(CreateAppMainFolderUtils.appmainFolderName + "/" + CreateAppMainFolderUtils.mediaFolderName, publicationsListDetails.getTitle() + ".pdf");
+        }else {
+
+            request = new DownloadManager.Request(Uri.parse(publicationsListDetails.getAudio()));
+
+            //Setting title of request
+            request.setTitle(audioFileName);
+
+            //Setting description of request
+            request.setDescription("सुरक्षित शहर विपद व्यबस्थापन समिति");
+
+            //Set the local destination for the downloaded file to a path within the application's external files directory
+            request.setDestinationInExternalPublicDir(CreateAppMainFolderUtils.appmainFolderName + "/" + CreateAppMainFolderUtils.mediaFolderName, publicationsListDetails.getTitle() + audioType);
+
+        }
+//Enqueue download and save the referenceId
         downloadReference = downloadManager.enqueue(request);
+
 
         return downloadReference;
     }
