@@ -1,5 +1,6 @@
 package np.com.naxa.safercities.publications;
 
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,6 +8,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,12 +35,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
 import np.com.naxa.safercities.event.PublicationListItemEvent;
 import np.com.naxa.safercities.publications.entity.PublicationsListDetails;
 import np.com.naxa.safercities.publications.youtubeplayer.YoutubePlayerActivity;
 import np.com.naxa.safercities.publications.youtubeplayer.helper.YoutubeConstants;
 import np.com.naxa.safercities.utils.Constants;
 import np.com.naxa.safercities.utils.CreateAppMainFolderUtils;
+import np.com.naxa.safercities.utils.DialogFactory;
 import np.com.naxa.safercities.utils.NetworkUtils;
 import np.com.naxa.safercities.utils.ToastUtils;
 import np.com.naxa.safercities.utils.imageutils.LoadImageUtils;
@@ -60,6 +64,8 @@ public class PublicationDetailsActivity extends AppCompatActivity {
     Button btnViewFilesVideo;
 
     PublicationsListDetails publicationsListDetails;
+    @BindView(R.id.btn_pause_audio)
+    Button btnPauseAudio;
 //    @BindView(R.id.pdfView)
 //    PDFView pdfView;
 
@@ -95,12 +101,12 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         if (publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_IMAGE)) {
             btnViewFilesVideo.setVisibility(View.GONE);
         } else if (publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_FILES)) {
-            if(publicationsListDetails.getSubfilecategory().equals(PublicationListItemEvent.KEY_SUB_CAT)){
+            if (publicationsListDetails.getSubfilecategory().equals(PublicationListItemEvent.KEY_SUB_CAT)) {
                 btnViewFilesVideo.setVisibility(View.GONE);
-            }else {
+            } else {
                 btnViewFilesVideo.setText("View Files");
             }
-        }else if(publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_AUDIO)){
+        } else if (publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_AUDIO)) {
             btnViewFilesVideo.setText("Play Audio");
 
         }
@@ -117,15 +123,15 @@ public class PublicationDetailsActivity extends AppCompatActivity {
             tvPublicationDesc.setText(fromHtml(publicationsListDetails.getSummary()));
         }
 
-        if(publicationsListDetails.getType() .equals(PublicationListItemEvent.KEY_VIDEO)){
+        if (publicationsListDetails.getType().equals(PublicationListItemEvent.KEY_VIDEO)) {
             String videoUrl = publicationsListDetails.getVideolink();
             int stringLength = videoUrl.length();
-            String videoId = videoUrl.substring(stringLength-11,stringLength);
+            String videoId = videoUrl.substring(stringLength - 11, stringLength);
 
-            String videoImageUrl = "https://img.youtube.com/vi/"+videoId+"/hqdefault.jpg";
+            String videoImageUrl = "https://img.youtube.com/vi/" + videoId + "/hqdefault.jpg";
             LoadImageUtils.loadImageToViewFromSrc(imageViewPublicationDetails, videoImageUrl);
 
-        }else {
+        } else {
             LoadImageUtils.loadImageToViewFromSrc(imageViewPublicationDetails, publicationsListDetails.getPhoto());
         }
 
@@ -150,6 +156,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         viewFilesVideo(publicationsListDetails);
     }
 
+    Dialog dialog;
 
     private void viewFilesVideo(@NonNull PublicationsListDetails publicationsListDetails) {
         String type = publicationsListDetails.getType();
@@ -161,16 +168,17 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 break;
 
             case PublicationListItemEvent.KEY_VIDEO:
-                if(NetworkUtils.isNetworkAvailable()) {
+                if (NetworkUtils.isNetworkAvailable()) {
                     Intent intent = new Intent(PublicationDetailsActivity.this, YoutubePlayerActivity.class);
                     intent.putExtra(YoutubeConstants.VIDEO_KEY, publicationsListDetails);
                     startActivity(intent);
-                }else {
+                } else {
                     ToastUtils.showShortToast("No internet connection");
                 }
                 break;
 
             case PublicationListItemEvent.KEY_FILES:
+
                 Log.d(TAG, "viewFilesVideo: " + publicationsListDetails.getFile());
                 viewPDFData(publicationsListDetails);
                 break;
@@ -185,6 +193,18 @@ public class PublicationDetailsActivity extends AppCompatActivity {
 
 
     List<String> imageList = new ArrayList<String>();
+
+    @OnClick(R.id.btn_pause_audio)
+    public void onPauseViewClicked() {
+        btnViewFilesVideo.setEnabled(true);
+        if (mp.isPlaying()) {
+            try {
+                mp.stop();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     private class ImageGetter implements Html.ImageGetter {
 
@@ -210,19 +230,19 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         if (targetFile.exists()) {
             viewPDFFile(createAppMainFolderUtils.getAppMediaFolderName(), PDFFileName);
         } else {
-            if(NetworkUtils.isNetworkAvailable()) {
+            if (NetworkUtils.isNetworkAvailable()) {
                 pdf_DownloadId = DownloadData(publicationsListDetails, KEY_PDF_ID);
-            }else{
+            } else {
                 ToastUtils.showShortToast("No internet connection");
             }
         }
     }
 
-    private void downloadAudioFile(@NonNull PublicationsListDetails publicationsListDetails){
+    private void downloadAudioFile(@NonNull PublicationsListDetails publicationsListDetails) {
 
-        if(TextUtils.isEmpty(publicationsListDetails.getAudio())){
+        if (TextUtils.isEmpty(publicationsListDetails.getAudio())) {
             Toast.makeText(this, "No Audio FIle Found", Toast.LENGTH_SHORT).show();
-        }else {
+        } else {
             String audioUrl = publicationsListDetails.getAudio();
             int stringLength = audioUrl.length();
             audioType = audioUrl.substring(stringLength - 4, stringLength);
@@ -250,9 +270,10 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         long downloadReference;
         DownloadManager.Request request = null;
 
-            downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-        if(typeID == KEY_PDF_ID) {
-
+        downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+        if (typeID == KEY_PDF_ID) {
+            dialog = DialogFactory.createProgressDialog(PublicationDetailsActivity.this, "Downloading PDF file...");
+            dialog.show();
             request = new DownloadManager.Request(Uri.parse(publicationsListDetails.getFile()));
 
             //Setting title of request
@@ -263,8 +284,9 @@ public class PublicationDetailsActivity extends AppCompatActivity {
 
             //Set the local destination for the downloaded file to a path within the application's external files directory
             request.setDestinationInExternalPublicDir(CreateAppMainFolderUtils.appmainFolderName + "/" + CreateAppMainFolderUtils.mediaFolderName, publicationsListDetails.getTitle() + ".pdf");
-        }else {
-
+        } else {
+            dialog = DialogFactory.createProgressDialog(PublicationDetailsActivity.this, "Downloading Audio file...");
+            dialog.show();
             request = new DownloadManager.Request(Uri.parse(publicationsListDetails.getAudio()));
 
             //Setting title of request
@@ -289,6 +311,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, @NonNull Intent intent) {
 
+
             //check if the broadcast message is for our Enqueued download
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 
@@ -298,6 +321,9 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.TOP, 25, 400);
                 toast.show();
 
+                if(dialog!= null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
                 viewPDFFile(createAppMainFolderUtils.getAppMediaFolderName(), PDFFileName);
             }
 
@@ -307,6 +333,9 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.TOP, 25, 400);
                 toast.show();
 
+                if(dialog!= null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
                 playAudioFile(createAppMainFolderUtils.getAppMediaFolderName(), audioFileName);
             }
 
@@ -332,10 +361,26 @@ public class PublicationDetailsActivity extends AppCompatActivity {
     }
 
 
-    private void playAudioFile(String appMediaFolderName, String audioFileName) {
+    MediaPlayer mp;
 
-        Log.e(TAG, "playAudioFile: "+audioFileName );
-        Toast.makeText(this, "playAudioFile: "+audioFileName , Toast.LENGTH_SHORT).show();
+    private void playAudioFile(String appMediaFolderName, String audioFileName) {
+        mp = new MediaPlayer();
+        btnViewFilesVideo.setEnabled(false);
+        btnPauseAudio.setVisibility(View.VISIBLE);
+        Log.d(TAG, "playAudioPath: " + appMediaFolderName);
+        Log.d(TAG, "playAudioFile: " + audioFileName);
+
+        //set up MediaPlayer
+        try {
+            mp.setDataSource(appMediaFolderName + File.separator + audioFileName);
+            mp.prepare();
+            mp.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        Toast.makeText(this, "playAudioFile: " + audioFileName, Toast.LENGTH_SHORT).show();
     }
 
 
