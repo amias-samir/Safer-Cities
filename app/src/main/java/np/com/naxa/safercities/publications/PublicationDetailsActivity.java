@@ -1,5 +1,6 @@
 package np.com.naxa.safercities.publications;
 
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,12 +35,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import np.com.naxa.safercities.R;
+import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
 import np.com.naxa.safercities.event.PublicationListItemEvent;
 import np.com.naxa.safercities.publications.entity.PublicationsListDetails;
 import np.com.naxa.safercities.publications.youtubeplayer.YoutubePlayerActivity;
 import np.com.naxa.safercities.publications.youtubeplayer.helper.YoutubeConstants;
 import np.com.naxa.safercities.utils.Constants;
 import np.com.naxa.safercities.utils.CreateAppMainFolderUtils;
+import np.com.naxa.safercities.utils.DialogFactory;
 import np.com.naxa.safercities.utils.NetworkUtils;
 import np.com.naxa.safercities.utils.ToastUtils;
 import np.com.naxa.safercities.utils.imageutils.LoadImageUtils;
@@ -153,6 +156,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         viewFilesVideo(publicationsListDetails);
     }
 
+    Dialog dialog;
 
     private void viewFilesVideo(@NonNull PublicationsListDetails publicationsListDetails) {
         String type = publicationsListDetails.getType();
@@ -174,6 +178,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 break;
 
             case PublicationListItemEvent.KEY_FILES:
+
                 Log.d(TAG, "viewFilesVideo: " + publicationsListDetails.getFile());
                 viewPDFData(publicationsListDetails);
                 break;
@@ -267,7 +272,8 @@ public class PublicationDetailsActivity extends AppCompatActivity {
 
         downloadManager = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
         if (typeID == KEY_PDF_ID) {
-
+            dialog = DialogFactory.createProgressDialog(PublicationDetailsActivity.this, "Downloading PDF file...");
+            dialog.show();
             request = new DownloadManager.Request(Uri.parse(publicationsListDetails.getFile()));
 
             //Setting title of request
@@ -279,7 +285,8 @@ public class PublicationDetailsActivity extends AppCompatActivity {
             //Set the local destination for the downloaded file to a path within the application's external files directory
             request.setDestinationInExternalPublicDir(CreateAppMainFolderUtils.appmainFolderName + "/" + CreateAppMainFolderUtils.mediaFolderName, publicationsListDetails.getTitle() + ".pdf");
         } else {
-
+            dialog = DialogFactory.createProgressDialog(PublicationDetailsActivity.this, "Downloading Audio file...");
+            dialog.show();
             request = new DownloadManager.Request(Uri.parse(publicationsListDetails.getAudio()));
 
             //Setting title of request
@@ -304,6 +311,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
         @Override
         public void onReceive(Context context, @NonNull Intent intent) {
 
+
             //check if the broadcast message is for our Enqueued download
             long referenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
 
@@ -313,6 +321,9 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.TOP, 25, 400);
                 toast.show();
 
+                if(dialog!= null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
                 viewPDFFile(createAppMainFolderUtils.getAppMediaFolderName(), PDFFileName);
             }
 
@@ -322,6 +333,9 @@ public class PublicationDetailsActivity extends AppCompatActivity {
                 toast.setGravity(Gravity.TOP, 25, 400);
                 toast.show();
 
+                if(dialog!= null && dialog.isShowing()) {
+                    dialog.dismiss();
+                }
                 playAudioFile(createAppMainFolderUtils.getAppMediaFolderName(), audioFileName);
             }
 
@@ -347,7 +361,7 @@ public class PublicationDetailsActivity extends AppCompatActivity {
     }
 
 
-    MediaPlayer mp ;
+    MediaPlayer mp;
 
     private void playAudioFile(String appMediaFolderName, String audioFileName) {
         mp = new MediaPlayer();
