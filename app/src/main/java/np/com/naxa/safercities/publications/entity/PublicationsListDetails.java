@@ -44,6 +44,11 @@ public class PublicationsListDetails implements Parcelable {
     @Expose
     private String photo;
 
+    @ColumnInfo(name = "audio")
+    @SerializedName("audio")
+    @Expose
+    private String audio;
+
     @ColumnInfo(name = "file")
     @SerializedName("file")
     @Expose
@@ -83,12 +88,13 @@ public class PublicationsListDetails implements Parcelable {
     @Expose
     private String subfilecategory;
 
-    public PublicationsListDetails(String type, String id, String title, String summary, String photo, String file, String videolink, String hazard_name, String filecat, String subcat, String filecateroryname, String subfilecategory) {
+    public PublicationsListDetails(String type, String id, String title, String summary, String photo, String audio, String file, String videolink, String hazard_name, String filecat, String subcat, String filecateroryname, String subfilecategory) {
         this.type = type;
         this.id = id;
         this.title = title;
         this.summary = summary;
         this.photo = photo;
+        this.audio = audio;
         this.file = file;
         this.videolink = videolink;
         this.hazard_name = hazard_name;
@@ -186,6 +192,7 @@ public class PublicationsListDetails implements Parcelable {
         dest.writeString(this.title);
         dest.writeString(this.summary);
         dest.writeString(this.photo);
+        dest.writeString(this.audio);
         dest.writeString(this.file);
         dest.writeString(this.videolink);
         dest.writeString(this.hazard_name);
@@ -202,6 +209,7 @@ public class PublicationsListDetails implements Parcelable {
         this.title = in.readString();
         this.summary = in.readString();
         this.photo = in.readString();
+        this.audio = in.readString();
         this.file = in.readString();
         this.videolink = in.readString();
         this.hazard_name = in.readString();
@@ -261,5 +269,13 @@ public class PublicationsListDetails implements Parcelable {
 
     public void setSubfilecategory(String subfilecategory) {
         this.subfilecategory = subfilecategory;
+    }
+
+    public String getAudio() {
+        return audio;
+    }
+
+    public void setAudio(String audio) {
+        this.audio = audio;
     }
 }
