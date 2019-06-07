@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -333,8 +334,21 @@ public class PublicationDetailsActivity extends AppCompatActivity {
 
 
     private void playAudioFile(String appMediaFolderName, String audioFileName) {
+        Log.d(TAG, "playAudioPath: "+appMediaFolderName );
+        Log.d(TAG, "playAudioFile: "+audioFileName );
 
-        Log.e(TAG, "playAudioFile: "+audioFileName );
+        //set up MediaPlayer
+            MediaPlayer mp = new MediaPlayer();
+
+            try {
+                mp.setDataSource(appMediaFolderName + File.separator + audioFileName);
+                mp.prepare();
+                mp.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
         Toast.makeText(this, "playAudioFile: "+audioFileName , Toast.LENGTH_SHORT).show();
     }
 
