@@ -625,7 +625,7 @@ public class DrawGeoJsonOnMap implements MapboxMap.OnMapClickListener, MapboxMap
     private void setUpImage(String imageName) {
 
         Bitmap icon = BitmapFactory.decodeResource(
-                context.getResources(), LoadImageUtils.getImageFromDrawable(context, imageName));
+                context.getResources(), LoadImageUtils.getImageResIDFromDrawable(context, imageName));
         if(imageName != null && !imageName.equals("")) {
             try {
 

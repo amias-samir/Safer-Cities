@@ -36,7 +36,7 @@ import np.com.naxa.safercities.utils.CreateAppMainFolderUtils;
 public class LoadImageUtils {
     private static final String TAG = "LoadImageUtils";
 
-    public static int getImageFromDrawable(@NonNull Context context, String imageName){
+    public static int getImageResIDFromDrawable(@NonNull Context context, String imageName){
         int drawableResourceId = context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
 
         return drawableResourceId;
@@ -45,7 +45,7 @@ public class LoadImageUtils {
     public static Icon getImageIconFromDrawable(@NonNull Context context, String imageName){
 
         Bitmap bitmap = BitmapFactory.decodeResource(
-                context.getResources(), getImageFromDrawable(context, imageName));
+                context.getResources(), getImageResIDFromDrawable(context, imageName));
         Icon icon = null ;
 
         if(bitmap!= null) {
@@ -58,7 +58,7 @@ public class LoadImageUtils {
     public static Bitmap getImageBitmapFromDrawable(@NonNull Context context, String imageName){
 
         Bitmap bitmap = BitmapFactory.decodeResource(
-                context.getResources(), getImageFromDrawable(context, imageName));
+                context.getResources(), getImageResIDFromDrawable(context, imageName));
 
         return  bitmap;
     }

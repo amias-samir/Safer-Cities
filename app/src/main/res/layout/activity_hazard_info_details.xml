@@ -113,7 +113,7 @@
             android:layout_weight="1"
             android:background="@color/isetPurple"
             android:drawableBottom="@drawable/circle_with_arrow_right"
-            android:text="Before earthquake"
+            android:text="@string/before_earthquake"
             android:textColor="@color/white"
             android:gravity="center"
             android:padding="@dimen/spacing_small"/>
@@ -127,7 +127,7 @@
             android:layout_weight="1"
             android:background="@color/isetPurple"
             android:drawableBottom="@drawable/circle_with_arrow_right"
-            android:text="WHEN it happens"
+            android:text="@string/when_it_happens"
             android:gravity="center"
             android:textColor="@color/white"
             android:padding="@dimen/spacing_xsmall"/>
@@ -140,7 +140,7 @@
             android:layout_weight="1"
             android:background="@color/isetPurple"
             android:drawableBottom="@drawable/circle_with_arrow_right"
-            android:text="after it passes"
+            android:text="@string/after_it_passes"
             android:gravity="center"
             android:textColor="@color/white"
             android:padding="@dimen/spacing_xxsmall"/>
@@ -153,7 +153,7 @@
             android:layout_weight="1"
             android:background="@color/isetPurple"
             android:drawableBottom="@drawable/circle_with_arrow_right"
-            android:text="Points to Consider"
+            android:text="@string/points_to_consider"
             android:gravity="center"
             android:textColor="@color/white"
             android:padding="@dimen/spacing_xxsmall"/>

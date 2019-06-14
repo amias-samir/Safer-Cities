@@ -52,8 +52,8 @@ public class DisasterInfoDetailsEntity {
         this.shortDesc = shortDesc;
         this.desc = desc;
         this.photo = photo;
-        this.categoryname = categoryname;
-        this.subcatname = subcatname;
+        this.categoryname = categoryname.trim();
+        this.subcatname = subcatname.trim();
     }
 
 
@@ -83,19 +83,19 @@ public class DisasterInfoDetailsEntity {
     }
 
     public String getCategoryname() {
-        return categoryname;
+        return categoryname.trim();
     }
 
     public void setCategoryname(String categoryname) {
-        this.categoryname = categoryname;
+        this.categoryname = categoryname.trim();
     }
 
     public String getSubcatname() {
-        return subcatname;
+        return subcatname.trim();
     }
 
     public void setSubcatname(String subcatname) {
-        this.subcatname = subcatname;
+        this.subcatname = subcatname.trim();
     }
 
     public String getId_from_server() {

@@ -346,7 +346,6 @@
     </string-array>
 
 
-    <!-- intro slider start-->
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
@@ -384,15 +383,13 @@
     <string name="view_saved_forms">View saved forms</string>
     <string name="view_unverified_forms">View Unverified Forms</string>
     <string name="weather_preparedness_calendar">Weather Preparedness Calendar</string>
-    <string name="no_data_found">No Data Found</string>
-    <string name="points_to_consider">Points To Consider</string>
-    <string name="after_it_passes">after it passes</string>
-    <string name="when_it_happens">WHEN it happens</string>
-    <string name="before_earthquake">Before earthquake</string>
+    <string name="no_data_found">कुनै जानकारी भेटिएन</string>
+    <string name="points_to_consider" translatable="false">ध्यान दिनुपर्ने कुराहरु</string>
+    <string name="when_it_happens" translatable="false">विपद् को समयमा</string>
+    <string name="before_earthquake" translatable="false">पुर्व तयारी</string>
+    <string name="after_it_passes" translatable="false">विपद् पश्चात</string>
     <string name="go_to_glossary_list">विपद शब्दावली सुची</string>
 
-
-    <!--intro slider end-->
 
 
 </resources>

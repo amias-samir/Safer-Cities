@@ -71,6 +71,7 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         disasterInfoDetailsViewModel = ViewModelProviders.of(this).get(DisasterInfoDetailsViewModel.class);
 
+        btnPlayQuiz.setVisibility(View.GONE);
         Intent intent = getIntent();
         if (intent != null) {
             category = intent.getStringExtra("OBJ");
@@ -99,16 +100,16 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
                             for (DisasterInfoDetailsEntity disasterInfoDetailsEntity : disasterInfoDetailsEntities) {
                                 switch (disasterInfoDetailsEntity.getSubcatname()){
 
-                                    case "before":
+                                    case "पुर्व तयारी":
                                         btnBeforeHappens.setVisibility(View.VISIBLE);
                                     break;
-                                    case "during":
+                                    case "विपद् को समयमा":
                                         btnWhenHappens.setVisibility(View.VISIBLE);
                                         break;
-                                    case "after":
+                                    case "विपद् पश्चात":
                                         btnAfterHappens.setVisibility(View.VISIBLE);
                                         break;
-                                    case "points to consider":
+                                    case "ध्यान दिनुपर्ने कुराहरु":
                                         btnPointsToConsider.setVisibility(View.VISIBLE);
                                         break;
                                 }
@@ -135,7 +136,6 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Hazard Details");
         } else {
             getSupportActionBar().setTitle(category);
-            btnBeforeHappens.setText("Before " + category);
 
             tvTitle.setText(category);
         }
@@ -151,7 +151,8 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
     private void initUI(String category) {
         tvBody.setText("No Data Found");
         imageView.setVisibility(View.GONE);
-        disasterInfoDetailsViewModel.getSpecificDisasterInfo(category, "introduction")
+//        disasterInfoDetailsViewModel.getSpecificDisasterInfo(category, "introduction")
+        disasterInfoDetailsViewModel.getSpecificDisasterInfo(category, "परिचय")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSubscriber<DisasterInfoDetailsEntity>() {
@@ -227,16 +228,16 @@ public class HazardInfoDetailsActivity extends AppCompatActivity {
                 startActivity(new Intent(HazardInfoDetailsActivity.this, McqQuizTestActivity.class));
                 break;
             case R.id.btnBeforeHappens:
-                startNewActivity("before");
+                startNewActivity("पुर्व तयारी");
                 break;
             case R.id.btnWhenHappens:
-                startNewActivity("during");
+                startNewActivity("विपद् को समयमा");
                 break;
             case R.id.btnAfterHappens:
-                startNewActivity("after");
+                startNewActivity("विपद् पश्चात");
                 break;
             case R.id.btnPointsToConsider:
-                startNewActivity("points to consider");
+                startNewActivity("ध्यान दिनुपर्ने कुराहरु");
                 break;
         }
     }

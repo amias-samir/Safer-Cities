@@ -114,7 +114,6 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
             getSupportActionBar().setTitle("Things To Do");
         } else {
             getSupportActionBar().setTitle(category);
-            btnBeforeHappens.setText("Before " + category);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -137,17 +136,16 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
                         if(disasterInfoDetailsEntities != null) {
                             for (DisasterInfoDetailsEntity disasterInfoDetailsEntity : disasterInfoDetailsEntities) {
                                 switch (disasterInfoDetailsEntity.getSubcatname()){
-
-                                    case "before":
+                                    case "पुर्व तयारी":
                                         btnBeforeHappens.setVisibility(View.VISIBLE);
                                         break;
-                                    case "during":
+                                    case "विपद् को समयमा":
                                         btnWhenHappens.setVisibility(View.VISIBLE);
                                         break;
-                                    case "after":
+                                    case "विपद् पश्चात":
                                         btnAfterHappens.setVisibility(View.VISIBLE);
                                         break;
-                                    case "points to consider":
+                                    case "ध्यान दिनुपर्ने कुराहरु":
                                         btnPointsToConsider.setVisibility(View.VISIBLE);
                                         break;
                                 }
@@ -207,18 +205,16 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btnBeforeHappens:
-                setThingsToDo("before");
-
+                setThingsToDo("पुर्व तयारी");
                 break;
             case R.id.btnWhenHappens:
-                setThingsToDo("during");
+                setThingsToDo("विपद् को समयमा");
                 break;
             case R.id.btnAfterHappens:
-                setThingsToDo("after");
+                setThingsToDo("विपद् पश्चात");
                 break;
-
             case R.id.btnPointsToConsider:
-                setThingsToDo("points to consider");
+                setThingsToDo("ध्यान दिनुपर्ने कुराहरु");
                 break;
         }
     }
@@ -231,22 +227,23 @@ public class HazardThingsToDoActivity extends AppCompatActivity {
         tvThingsToDoDetails.setText("No Data Found.");
 
 
+
         if (when != null) {
             switch (when) {
-                case "before":
-                    getSupportActionBar().setTitle("Before " + category);
+                case "पुर्व तयारी":
+                    getSupportActionBar().setTitle("पुर्व तयारी");
                     break;
 
-                case "during":
-                    getSupportActionBar().setTitle("When " + category + " happens");
+                case "विपद् को समयमा":
+                    getSupportActionBar().setTitle( "विपद् को समयमा");
                     break;
 
-                case "after":
-                    getSupportActionBar().setTitle("After " + category + " passes");
+                case "विपद् पश्चात":
+                    getSupportActionBar().setTitle("विपद् पश्चात");
                     break;
 
-                case "points to consider":
-                    getSupportActionBar().setTitle(category + " Points to consider");
+                case "ध्यान दिनुपर्ने कुराहरु":
+                    getSupportActionBar().setTitle("ध्यान दिनुपर्ने कुराहरु" );
                     break;
             }
         }

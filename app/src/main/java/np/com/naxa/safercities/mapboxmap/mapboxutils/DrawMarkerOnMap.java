@@ -1,6 +1,7 @@
 package np.com.naxa.safercities.mapboxmap.mapboxutils;
 
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -39,7 +40,7 @@ public class DrawMarkerOnMap implements MapboxMap.OnInfoWindowClickListener,
         MapboxMap.OnMarkerClickListener {
     private static final String TAG = "DrawMarkerOnMap";
 
-    OpenSpaceMapActivity context;
+    AppCompatActivity context;
     MapboxMap mapboxMap;
     MapView mapView;
 

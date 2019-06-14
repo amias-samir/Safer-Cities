@@ -1,4 +1,4 @@
-package np.com.naxa.safercities.mapboxmap.openspace;
+package np.com.naxa.safercities.mapboxmap.mapcategory;
 
 import android.support.annotation.Nullable;
 
