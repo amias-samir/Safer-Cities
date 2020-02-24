@@ -1,8 +1,9 @@
 package np.com.naxa.safercities.database.combinedentity;
 
-import android.arch.persistence.room.Embedded;
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.room.Embedded;
 
 import np.com.naxa.safercities.database.entity.CommonPlacesAttrb;
 import np.com.naxa.safercities.database.entity.HospitalFacilities;

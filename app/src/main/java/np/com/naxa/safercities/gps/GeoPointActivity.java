@@ -26,9 +26,10 @@ import com.google.android.gms.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import android.text.format.DateUtils;
 import android.view.Window;
 
@@ -225,6 +226,7 @@ public class GeoPointActivity extends AppCompatActivity implements LocationListe
                 };
         locationDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.save_point),
                 geoPointButtonListener);
+
         locationDialog.setButton(DialogInterface.BUTTON_NEGATIVE,
                 getString(R.string.cancel_location),
                 geoPointButtonListener);

@@ -1,15 +1,11 @@
 package np.com.naxa.safercities.disasterinfo;
 
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -22,6 +18,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -37,8 +39,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import np.com.naxa.safercities.R;
-import np.com.naxa.safercities.beready.BeReadyDetails;
-import np.com.naxa.safercities.beready.BeReadyInfoDetailsActivity;
 import np.com.naxa.safercities.database.viewmodel.DisasterInfoDetailsViewModel;
 import np.com.naxa.safercities.disasterinfo.imagesliderviewpager.ImageSliderViewPagerAdapter;
 import np.com.naxa.safercities.disasterinfo.model.DisasterInfoDetailsEntity;

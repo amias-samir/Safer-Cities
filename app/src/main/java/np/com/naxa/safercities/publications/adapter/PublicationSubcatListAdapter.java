@@ -1,10 +1,11 @@
 package np.com.naxa.safercities.publications.adapter;
 
 import android.content.Intent;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

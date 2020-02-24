@@ -1,9 +1,10 @@
 package np.com.naxa.safercities.utils;
 
-import android.support.annotation.NonNull;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import np.com.naxa.safercities.home.ISET;
 

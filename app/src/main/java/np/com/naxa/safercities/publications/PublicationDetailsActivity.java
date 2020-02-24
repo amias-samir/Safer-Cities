@@ -12,10 +12,12 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.FileProvider;
+
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -35,7 +37,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import np.com.naxa.safercities.R;
-import np.com.naxa.safercities.disasterinfo.HazardInfoActivity;
 import np.com.naxa.safercities.event.PublicationListItemEvent;
 import np.com.naxa.safercities.publications.entity.PublicationsListDetails;
 import np.com.naxa.safercities.publications.youtubeplayer.YoutubePlayerActivity;

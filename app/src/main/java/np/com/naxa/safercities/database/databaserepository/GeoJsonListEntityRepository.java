@@ -1,8 +1,9 @@
 package np.com.naxa.safercities.database.databaserepository;
 
 import android.app.Application;
-import android.arch.lifecycle.LiveData;
 import android.util.Log;
+
+import androidx.lifecycle.LiveData;
 
 import java.util.List;
 

@@ -1,9 +1,10 @@
 package np.com.naxa.safercities.mycircle.contactlistdialog.contactlistadapter;
 
-import android.support.annotation.Nullable;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ToggleButton;
+
+import androidx.annotation.Nullable;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

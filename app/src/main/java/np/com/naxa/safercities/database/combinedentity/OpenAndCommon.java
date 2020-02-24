@@ -1,6 +1,7 @@
 package np.com.naxa.safercities.database.combinedentity;
 
-import android.arch.persistence.room.Embedded;
+
+import androidx.room.Embedded;
 
 import np.com.naxa.safercities.database.entity.CommonPlacesAttrb;
 import np.com.naxa.safercities.database.entity.OpenSpace;

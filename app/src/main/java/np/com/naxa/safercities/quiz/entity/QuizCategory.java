@@ -1,7 +1,6 @@
 
 package np.com.naxa.safercities.quiz.entity;
 
-import android.arch.persistence.room.Entity;
 import android.os.Parcel;
 import android.os.Parcelable;
 

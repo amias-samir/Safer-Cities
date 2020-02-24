@@ -2,12 +2,8 @@ package np.com.naxa.safercities.quiz.quiznew;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +11,10 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -27,7 +27,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import np.com.naxa.safercities.R;
-import np.com.naxa.safercities.quiz.QuizConstants;
 import np.com.naxa.safercities.quiz.entity.QuizCategory;
 import np.com.naxa.safercities.quiz.model.QuizAnswerOptions;
 import np.com.naxa.safercities.quiz.model.QuizQuestionAnswerDetail;
