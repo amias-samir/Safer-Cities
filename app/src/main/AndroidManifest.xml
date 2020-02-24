@@ -35,8 +35,10 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
         android:usesCleartextTraffic="true"
-        tools:replace="android:allowBackup">
+        tools:replace="android:appComponentFactory"
+        >
         <activity android:name=".beready.BeReadyInfoDetailsActivity"
             android:exported="true">
             <meta-data

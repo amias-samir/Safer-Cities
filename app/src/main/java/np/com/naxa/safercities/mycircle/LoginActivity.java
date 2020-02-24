@@ -1,7 +1,8 @@
 package np.com.naxa.safercities.mycircle;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import np.com.naxa.safercities.R;
 

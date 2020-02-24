@@ -1,8 +1,7 @@
 package np.com.naxa.safercities.settings;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +9,9 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

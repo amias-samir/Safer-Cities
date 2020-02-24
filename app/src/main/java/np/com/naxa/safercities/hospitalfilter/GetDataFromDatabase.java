@@ -1,9 +1,11 @@
 package np.com.naxa.safercities.hospitalfilter;
 
-import android.arch.lifecycle.LifecycleOwner;
-import android.arch.lifecycle.Observer;
-import android.support.annotation.NonNull;
+
 import android.util.Log;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 
 import java.util.ArrayList;
 import java.util.List;

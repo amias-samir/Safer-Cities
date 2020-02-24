@@ -1,11 +1,12 @@
 package np.com.naxa.safercities.utils;
 
 import android.app.Activity;
-import android.support.annotation.NonNull;
 import android.view.Gravity;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 
 import com.andrognito.flashbar.Flashbar;
 

@@ -5,11 +5,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+
+import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;

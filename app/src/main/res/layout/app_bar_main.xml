@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <!--<include layout="@layout/toolbar_purple"-->
     <!--android:id="@+id/toolbar">-->
     <!--</include>-->
 
-    <android.support.design.widget.AppBarLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_general"
         android:layout_width="match_parent"
         android:layout_height="270dp"
@@ -22,7 +19,7 @@
 
         <!--  app:contentScrim : The Toolbar color when the
               collapsing toolbar is collapsed. -->
-        <android.support.design.widget.CollapsingToolbarLayout
+        <com.google.android.material.appbar.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar_layout"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:layout_width="match_parent"
@@ -32,11 +29,8 @@
 
             <!-- app:layout_collapseMode : parallax means an animation effect,
                  pin means fixed. -->
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/buttonLayoutTop"
-                xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
@@ -202,25 +196,25 @@
 
                 </LinearLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.v7.widget.Toolbar
+            <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar_general"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_collapseMode="pin"/>
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
 
-    </android.support.design.widget.AppBarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
 
 
 
 
-    <android.support.v7.widget.RecyclerView
+    <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sectioned_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -320,4 +314,4 @@
     </LinearLayout>
 
 
-</android.support.design.widget.CoordinatorLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

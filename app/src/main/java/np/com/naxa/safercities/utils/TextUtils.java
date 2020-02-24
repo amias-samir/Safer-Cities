@@ -1,7 +1,8 @@
 package np.com.naxa.safercities.utils;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 public class TextUtils {
     private static final String TAG = "TextUtils";

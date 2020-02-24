@@ -2,8 +2,6 @@ package np.com.naxa.safercities.activity;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.MutableLiveData;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.Intent;
 import android.hardware.Camera;
@@ -13,16 +11,21 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Switch;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+
+import com.google.android.material.appbar.AppBarLayout;
 
 import java.util.List;
 

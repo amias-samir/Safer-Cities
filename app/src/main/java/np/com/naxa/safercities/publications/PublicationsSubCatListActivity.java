@@ -1,17 +1,16 @@
 package np.com.naxa.safercities.publications;
 
 import android.app.Dialog;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
-import android.widget.Switch;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -28,7 +27,6 @@ import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
 import np.com.naxa.safercities.R;
 import np.com.naxa.safercities.database.viewmodel.PublicationsListDetailsViewModel;
-import np.com.naxa.safercities.disasterinfo.HazardListAdapter;
 import np.com.naxa.safercities.network.UrlClass;
 import np.com.naxa.safercities.network.retrofit.NetworkApiClient;
 import np.com.naxa.safercities.network.retrofit.NetworkApiInterface;

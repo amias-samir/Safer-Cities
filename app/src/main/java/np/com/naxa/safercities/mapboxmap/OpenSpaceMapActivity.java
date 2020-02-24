@@ -11,13 +11,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -67,8 +69,6 @@ import np.com.naxa.safercities.mapboxmap.mapboxutils.DrawGeoJsonOnMap;
 import np.com.naxa.safercities.mapboxmap.mapboxutils.DrawRouteOnMap;
 import np.com.naxa.safercities.mapboxmap.mapboxutils.MapDataLayerDialogCloseListen;
 import np.com.naxa.safercities.mapboxmap.mapboxutils.MapboxBaseStyleUtils;
-import np.com.naxa.safercities.mapboxmap.mapcategory.MapCategoryListAdapter;
-import np.com.naxa.safercities.mapboxmap.mapcategory.MapCategoryModel;
 import np.com.naxa.safercities.utils.DialogFactory;
 import np.com.naxa.safercities.utils.QueryBuildWithSplitter;
 import np.com.naxa.safercities.utils.SharedPreferenceUtils;
@@ -206,28 +206,6 @@ public class OpenSpaceMapActivity extends AppCompatActivity implements OnMapRead
 
     }
 
-    private void setupListRecycler() {
-        MapCategoryListAdapter mapCategoryListAdapter = new MapCategoryListAdapter(R.layout.openspace_map_category_list_item_row_layout, null);
-        recyclerViewMapCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewMapCategory.setAdapter(mapCategoryListAdapter);
-
-        loadDataToList();
-    }
-
-    private void loadDataToList() {
-
-        ArrayList<MapCategoryModel> mapCategoryModelArrayList = new ArrayList<MapCategoryModel>();
-
-        mapCategoryModelArrayList.add(new MapCategoryModel("Hospital", getResources().getDrawable(R.drawable.ic_hospital)));
-        mapCategoryModelArrayList.add(new MapCategoryModel("College", getResources().getDrawable(R.drawable.ic_college)));
-        mapCategoryModelArrayList.add(new MapCategoryModel("Gas Station", getResources().getDrawable(R.drawable.ic_gas_station)));
-        mapCategoryModelArrayList.add(new MapCategoryModel("Bus Station", getResources().getDrawable(R.drawable.ic_bus_station)));
-        mapCategoryModelArrayList.add(new MapCategoryModel("Restaurant", getResources().getDrawable(R.drawable.ic_restaurant)));
-        mapCategoryModelArrayList.add(new MapCategoryModel("Airport", getResources().getDrawable(R.drawable.ic_airport)));
-        ((MapCategoryListAdapter) recyclerViewMapCategory.getAdapter()).replaceData(mapCategoryModelArrayList);
-
-
-    }
 
 
     private Dialog setupMapOptionsDialog() {

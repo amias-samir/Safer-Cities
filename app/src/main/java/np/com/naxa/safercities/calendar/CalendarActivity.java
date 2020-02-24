@@ -2,13 +2,15 @@ package np.com.naxa.safercities.calendar;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,7 +49,7 @@ public class CalendarActivity extends AppCompatActivity {
     private void setupWebView() {
         web.setWebViewClient(new myWebClient());
         web.getSettings().setJavaScriptEnabled(true);
-        web.loadUrl("http://kmc.naxa.com.np/calendar");
+        web.loadUrl("http://beprepared.cbdrmplatform.org/calendar");
     }
 
     public class myWebClient extends WebViewClient

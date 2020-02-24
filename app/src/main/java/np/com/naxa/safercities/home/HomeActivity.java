@@ -2,8 +2,7 @@ package np.com.naxa.safercities.home;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.arch.lifecycle.LiveDataReactiveStreams;
-import android.arch.lifecycle.ViewModelProviders;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -22,14 +21,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.StrictMode;
 import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.MenuItem;
@@ -44,6 +36,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveDataReactiveStreams;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arlib.floatingsearchview.FloatingSearchView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.franmontiel.localechanger.LocaleChanger;
@@ -52,6 +54,7 @@ import com.github.zagum.expandicon.ExpandIconView;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.mapbox.mapboxsdk.plugins.cluster.clustering.ClusterManagerPlugin;

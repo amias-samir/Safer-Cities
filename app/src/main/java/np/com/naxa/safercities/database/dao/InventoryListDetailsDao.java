@@ -1,13 +1,16 @@
 package np.com.naxa.safercities.database.dao;
 
-import android.arch.persistence.room.Dao;
-import android.arch.persistence.room.Insert;
-import android.arch.persistence.room.OnConflictStrategy;
-import android.arch.persistence.room.Query;
+import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
+import androidx.room.Query;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import np.com.naxa.safercities.database.entity.CommonPlacesAttrb;
+import np.com.naxa.safercities.database.entity.Contact;
 import np.com.naxa.safercities.inventory.model.InventoryListDetails;
 
 @Dao

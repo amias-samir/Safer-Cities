@@ -1,9 +1,11 @@
 package np.com.naxa.safercities.mapboxmap.mapboxutils;
 
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.mapbox.geojson.Feature;
 import com.mapbox.geojson.FeatureCollection;
